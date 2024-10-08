@@ -74,10 +74,10 @@ const Navbar = () => {
 
         {/* Sección derecha: Botones de registro e ingreso */}
         <div className="flex items-center space-x-4">
-          <Link to="">
+          <Link to={'auth/register'}>
             <RoundedOutlineButton text="Registrarse" />
           </Link>
-          <Link to={'/login'}>
+          <Link to={'auth/login'}>
             <RoundedFilledButton text="Iniciar sesion" />
           </Link>
         </div>

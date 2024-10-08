@@ -7,7 +7,8 @@ import ChatCard from '../../components/Chat/ChatCard';
 import MapOne from '../../components/Maps/MapOne';
 import TableOne from '../../components/Tables/TableOne';
 import DefaultLayout from '../../layout/DefaultLayout';
-import PageTitle from '../../components/PageTitle';
+import { PageTitle } from '../../components';
+
 
 const ECommerce: React.FC = () => {
   return (

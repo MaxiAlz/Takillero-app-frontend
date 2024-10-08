@@ -1,6 +1,7 @@
 '../pages/Profile';
 
-import HomePage from '../fectures/home/views/HomePage';
+import { LoginPage, RegisterPage } from '../modules/Auth/Pages';
+import HomePage from '../modules/home/views/HomePage';
 import SignIn from '../pages/Authentication/SignIn';
 import SignUp from '../pages/Authentication/SignUp';
 import Calendar from '../pages/Calendar';
@@ -24,7 +25,8 @@ export const authProtectedRoutes: Array<RouteObject> = [];
 
 export const publicRoutes = [
   { path: '/', component: HomePage },
-  { path: '/login', component:  },
+  { path: 'auth/login', component: LoginPage },
+  { path: 'auth/register', component: RegisterPage },
 ];
 
 export const templateRoutes = [

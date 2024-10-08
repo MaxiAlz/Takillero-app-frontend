@@ -23,4 +23,4 @@ const Breadcrumb = ({ pageName }: BreadcrumbProps) => {
   );
 };
 
-export default Breadcrumb;
+export { Breadcrumb };

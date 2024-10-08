@@ -1,4 +1,4 @@
-import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
+
 import CheckboxFive from '../../components/Checkboxes/CheckboxFive';
 import CheckboxFour from '../../components/Checkboxes/CheckboxFour';
 import CheckboxOne from '../../components/Checkboxes/CheckboxOne';
@@ -13,7 +13,7 @@ import DatePickerOne from '../../components/Forms/DatePicker/DatePickerOne';
 import DatePickerTwo from '../../components/Forms/DatePicker/DatePickerTwo';
 import SelectGroupTwo from '../../components/Forms/SelectGroup/SelectGroupTwo';
 import MultiSelect from '../../components/Forms/MultiSelect';
-import PageTitle from '../../components/PageTitle';
+import { Breadcrumb, PageTitle } from '../../components';
 
 const FormElements = () => {
   return (

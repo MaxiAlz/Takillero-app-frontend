@@ -8,13 +8,13 @@ import {
   RoundedFilledButton,
   RoundedOutlineDarckButton,
 } from '../../../components/Buttons';
-import PageTitle from '../../../components/PageTitle';
 import FooterCustom from '../../../components/Navbar/Footer';
+import { PageTitle } from '../../../components';
 
 const HomePage = () => {
   return (
     <>
-      <PageTitle title="Inicio | BobbuHub " />
+      <PageTitle title="Inicio | Bobby Hub " />
       <Navbar />
       <div className="h-56 sm:h-64 xl:h-80 2xl:h-96 m-5 mx-5">
         <Carousel pauseOnHover>

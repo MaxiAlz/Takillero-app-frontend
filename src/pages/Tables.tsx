@@ -1,5 +1,4 @@
-import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
-import PageTitle from '../components/PageTitle';
+import { Breadcrumb, PageTitle } from '../components';
 import TableOne from '../components/Tables/TableOne';
 import TableThree from '../components/Tables/TableThree';
 import TableTwo from '../components/Tables/TableTwo';

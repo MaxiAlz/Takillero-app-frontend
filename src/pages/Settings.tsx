@@ -1,5 +1,4 @@
-import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
-import PageTitle from '../components/PageTitle';
+import { Breadcrumb, PageTitle } from '../components';
 import userThree from '../images/user/user-03.png';
 import DefaultLayout from '../layout/DefaultLayout';
 
