@@ -1,7 +1,10 @@
-import { Breadcrumb, PageTitle } from '../components';
-import TableOne from '../components/Tables/TableOne';
-import TableThree from '../components/Tables/TableThree';
-import TableTwo from '../components/Tables/TableTwo';
+import {
+  Breadcrumb,
+  PageTitle,
+  TableOne,
+  TableThree,
+  TableTwo,
+} from '../components';
 import DefaultLayout from '../layout/DefaultLayout';
 
 const Tables = () => {

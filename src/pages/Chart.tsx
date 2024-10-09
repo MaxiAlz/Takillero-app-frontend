@@ -1,9 +1,12 @@
 import React from 'react';
-import ChartOne from '../components/Charts/ChartOne';
-import ChartThree from '../components/Charts/ChartThree';
-import ChartTwo from '../components/Charts/ChartTwo';
 import DefaultLayout from '../layout/DefaultLayout';
-import { Breadcrumb, PageTitle } from '../components';
+import {
+  Breadcrumb,
+  ChartOne,
+  ChartThree,
+  ChartTwo,
+  PageTitle,
+} from '../components';
 
 const Chart: React.FC = () => {
   return (

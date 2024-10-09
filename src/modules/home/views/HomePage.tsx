@@ -11,6 +11,7 @@ import {
 import FooterCustom from '../../../components/Navbar/Footer';
 import { PageTitle } from '../../../components';
 
+
 const HomePage = () => {
   return (
     <>

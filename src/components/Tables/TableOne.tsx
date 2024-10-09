@@ -124,4 +124,4 @@ const TableOne = () => {
   );
 };
 
-export default TableOne;
+export { TableOne };

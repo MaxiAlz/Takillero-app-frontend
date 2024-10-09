@@ -196,4 +196,4 @@ const ChartOne: React.FC = () => {
   );
 };
 
-export default ChartOne;
+export { ChartOne };

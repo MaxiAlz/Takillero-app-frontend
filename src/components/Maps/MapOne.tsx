@@ -51,4 +51,4 @@ const MapOne = () => {
   );
 };
 
-export default MapOne;
+export { MapOne };

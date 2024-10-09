@@ -74,4 +74,4 @@ const CardDataStats: React.FC<CardDataStatsProps> = ({
   );
 };
 
-export default CardDataStats;
+export { CardDataStats };
