@@ -8,7 +8,6 @@ import Loader from './common/Loader';
 import { AuthStatus } from './modules/Auth/types/authTypes';
 
 function App() {
-  // const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
   const dispatch: AppDispatch = useDispatch();
   const { status } = useSelector((state: RootState) => state.auth);

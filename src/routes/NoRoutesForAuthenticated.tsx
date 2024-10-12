@@ -1,19 +1,19 @@
 import { ReactNode } from 'react';
 import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 import { RootState } from '../redux/store';
 import { AuthStatus } from '../modules/Auth/types/authTypes';
-import { Navigate } from 'react-router-dom';
 
-interface ProtectecRouterProps {
+interface LoginRouterProps {
   children: ReactNode;
 }
 
-const ProtectedRoutes = ({ children }: ProtectecRouterProps) => {
+const NoRoutesForAuthenticated = ({ children }: LoginRouterProps) => {
   const { status, user } = useSelector((state: RootState) => state.auth);
 
-  if (!(user?.id && status === AuthStatus.AUTHENTICATED)) {
-    return <Navigate to={'/login'} />;
+  if (user!.id && status === AuthStatus.AUTHENTICATED) {
+    return <Navigate to={'/'} />;
   } else return children;
 };
 
-export default ProtectedRoutes;
+export default NoRoutesForAuthenticated;

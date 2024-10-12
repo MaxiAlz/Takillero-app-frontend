@@ -31,9 +31,9 @@ const checkUserSession =
     try {
       const response = await apiService.get('/Auth/profile');
       if (response.status === 200) {
-        dispatch(setUserAuthenticated(response.data)); // Almacena los datos del usuario en Redux
+        dispatch(setUserAuthenticated(response.data)); 
       } else {
-        dispatch(logoutUser()); // Si la cookie es inválida, cierra la sesión
+        dispatch(logoutUser()); 
       }
     } catch (error) {
       dispatch(logoutUser());

@@ -1,29 +1,41 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { authProtectedRoutes, publicRoutes, templateRoutes } from './allRoutes';
+import {
+  authProtectedRoutes,
+  noAuthRoutes,
+  publicRoutes,
+  templateRoutes,
+} from './allRoutes';
 import ProtectedRoutes from './ProtectedRoutes';
+import NoRoutesForAuthenticated from './NoRoutesForAuthenticated';
 
 const RouteIndex = () => {
-  // const { authStatus } = useSelector((state: RootState) => state.auth);
-  // const dispatch = useDispatch<any>();
-
-  // useEffect(() => {
-  //   dispatch(checkAuthToken());
-  // }, []);
-
-  // if (authStatus === 'checking') {
-  //   return <Loader />;
-  // }
-
   return (
     <React.Fragment>
       <Routes>
+        {/* rutas publicas */}
         {publicRoutes.map((route: any, idx: number) => (
           <Route path={route.path} key={idx} element={<route.component />} />
         ))}
+        {/* Rutas prohibidas para ususario authenticado */}
+        {noAuthRoutes.map((route: any, idx: number) => (
+          <Route
+            path={route.path}
+            key={idx}
+            element={
+              <NoRoutesForAuthenticated>
+                <route.component />
+              </NoRoutesForAuthenticated>
+            }
+          />
+        ))}
+        
+        {/* Rutas del template */}
         {templateRoutes.map((route: any, idx: number) => (
           <Route path={route.path} key={idx} element={<route.component />} />
         ))}
+
+        {/* Rutas privadas */}
         {authProtectedRoutes.map((route: any, idx: number) => (
           <Route
             key={idx}
