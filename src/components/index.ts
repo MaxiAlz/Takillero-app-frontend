@@ -37,3 +37,4 @@ export * from './Tables/TableOne';
 export * from './Tables/TableSettings';
 export * from './Tables/TableThree';
 export * from './Tables/TableTwo';
+export * from './widgets/AuthWidget';

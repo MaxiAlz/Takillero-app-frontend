@@ -22,7 +22,7 @@ const FooterCustom = () => {
               Quiero vender entradas
             </h6>
             <h6 className={'hover:text-white hover:cursor-pointer'}>
-              Quiero tener una cuenta de empresa
+              Quiero tener una cuenta de organizador
             </h6>
             <h6 className={'hover:text-white hover:cursor-pointer'}>
               Trabaja con nosotros
