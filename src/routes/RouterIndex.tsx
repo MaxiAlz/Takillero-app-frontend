@@ -35,6 +35,17 @@ const RouteIndex = () => {
             }
           />
         ))}
+        {
+          <Route
+            path="*"
+            key={'error-page'}
+            element={
+              <div className="text-4xl font-bold m-10">
+                Oops! Ah ocurrido un error. Pagina no encontrada
+              </div>
+            }
+          />
+        }
       </Routes>
     </React.Fragment>
   );

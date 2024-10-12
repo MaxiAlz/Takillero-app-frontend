@@ -31,6 +31,7 @@ module.exports = {
         stroke: '#E2E8F0',
         gray: '#EFF4FB',
         graydark: '#333A48',
+        disabled: '#9C9C9C',
         'gray-2': '#F7F9FC',
         'gray-3': '#FAFAFA',
         whiten: '#F1F5F9',
