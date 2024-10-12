@@ -1,10 +1,16 @@
 import { useRef } from 'react';
-import SearchIcon from '@mui/icons-material/Search';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Link } from 'react-router-dom';
 import { RoundedFilledButton, RoundedOutlineButton } from '../Buttons';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { AuthStatus } from '../../modules/Auth/types/authTypes';
 
 const Navbar = () => {
+  const { user, status } = useSelector((state: RootState) => state.auth);
+
+  console.log('userData', user);
+  console.log('status', status);
+
   const navbar = useRef<any>(null);
   return (
     <nav ref={navbar} className="bg-black shadow-md">
@@ -16,37 +22,6 @@ const Navbar = () => {
             <Link to={'/'} className="text-primary font-semibold uppercase ">
               ShowBenefy
             </Link>
-          </div>
-
-          {/* Buscador */}
-          <div className="relative flex items-center space-x-2">
-            {/* Input de ubicación */}
-            <div className="relative">
-              <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
-                <span className="material-icons">
-                  <LocationOnIcon />
-                </span>
-              </span>
-              <input
-                type="text"
-                placeholder="Ubicación"
-                className="pl-10 border border-gray-300 rounded-full py-2 px-4 w-48 focus:outline-none focus:ring-2 focus:ring-primary focus:shadow-primary"
-              />
-            </div>
-
-            {/* Input de búsqueda */}
-            <div className="relative">
-              <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
-                <span className="material-symbols-outlined">
-                  <SearchIcon />
-                </span>
-              </span>
-              <input
-                type="text"
-                placeholder="Buscar entradas"
-                className="pl-10 border border-gray-300 rounded-full py-2 px-4 w-64 focus:outline-none focus:ring-2 focus:ring-primary focus:shadow-primary"
-              />
-            </div>
           </div>
 
           {/* Items de navegación */}
@@ -73,14 +48,21 @@ const Navbar = () => {
         </div>
 
         {/* Sección derecha: Botones de registro e ingreso */}
-        <div className="flex items-center space-x-4">
-          <Link to={'auth/register'}>
-            <RoundedOutlineButton text="Registrarse" />
-          </Link>
-          <Link to={'auth/login'}>
-            <RoundedFilledButton text="Iniciar sesion" />
-          </Link>
-        </div>
+
+        {status == AuthStatus.AUTHENTICATED ? (
+          <span className="text-white uppercase font-bold">
+            usuario: {user?.name}
+          </span>
+        ) : (
+          <div className="flex items-center space-x-4">
+            <Link to={'auth/register'}>
+              <RoundedOutlineButton text="Registrarse" />
+            </Link>
+            <Link to={'auth/login'}>
+              <RoundedFilledButton text="Iniciar sesion" />
+            </Link>
+          </div>
+        )}
       </div>
     </nav>
   );
