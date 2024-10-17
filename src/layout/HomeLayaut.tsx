@@ -1,22 +1,26 @@
-import React, { useState, ReactNode } from 'react';
-import Header from '../components/Header/index';
-import DashboardSidebar from '../components/Sidebar/DashboardSidebar';
+import { ReactNode, useState } from 'react';
+import Navbar from '../components/Navbar/Navbar';
+import { SidebarApp } from '../components/Sidebar/SidebarApp';
 
-const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+const HomeLayaut: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
 
   return (
     <div className="dark:bg-boxdark-2 dark:text-bodydark">
       {/* <!-- ===== Page Wrapper Start ===== --> */}
       <div className="flex h-screen overflow-hidden">
         {/* <!-- ===== Sidebar Start ===== --> */}
-        <DashboardSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <SidebarApp sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         {/* <!-- ===== Sidebar End ===== --> */}
 
         {/* <!-- ===== Content Area Start ===== --> */}
-        <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+        <div
+          className={`relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden duration-100 ease-linear ${
+            sidebarOpen ? 'blur-sm' : ''
+          }`}
+        >
           {/* <!-- ===== Header Start ===== --> */}
-          <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+          <Navbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           {/* <!-- ===== Header End ===== --> */}
 
           {/* <!-- ===== Main Content Start ===== --> */}
@@ -34,4 +38,4 @@ const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   );
 };
 
-export default DefaultLayout;
+export default HomeLayaut;
