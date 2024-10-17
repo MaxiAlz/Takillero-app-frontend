@@ -27,7 +27,7 @@ export * from './Maps/MapOne';
 export * from './Modal/ModalSettings';
 export * from './Navbar/Footer';
 export * from './Navbar/Navbar';
-export * from './Sidebar/index';
+export * from './Sidebar/DashboardSidebar';
 export * from './Sidebar/SidebarLinkGroup';
 export * from './Switchers/SwitcherFour';
 export * from './Switchers/SwitcherOne';

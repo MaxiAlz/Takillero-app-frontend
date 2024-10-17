@@ -11,7 +11,7 @@ interface LoginRouterProps {
 const NoRoutesForAuthenticated = ({ children }: LoginRouterProps) => {
   const { status, user } = useSelector((state: RootState) => state.auth);
 
-  if (user!.id && status === AuthStatus.AUTHENTICATED) {
+  if (user?.id && status === AuthStatus.AUTHENTICATED) {
     return <Navigate to={'/'} />;
   } else return children;
 };

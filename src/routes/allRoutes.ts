@@ -31,6 +31,7 @@ export const noAuthRoutes = [
   { path: '/auth/login', component: LoginPage },
   { path: '/auth/register', component: RegisterPage },
 ];
+
 export const templateRoutes = [
   { path: '/ecommerce', component: ECommerce },
   { path: '/calendar', component: Calendar },
