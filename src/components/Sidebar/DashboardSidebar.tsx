@@ -101,19 +101,31 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               MENU
             </h3>
             <ul className="mb-6 flex flex-col gap-1.5">
-              {admin_dashboard_items.map((item) => (
-                <li>
-                  <NavLink
-                    to={item.link}
-                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                      pathname === item.link && 'bg-primary dark:bg-primary'
-                    }`}
-                  >
-                    <item.icon size={24} />
-                    {item.itemName}
-                  </NavLink>
-                </li>
-              ))}
+              {admin_dashboard_items.map((item) => {
+                let isActive = false;
+
+                if (pathname === item.link) {
+                  isActive = true;
+                } else if (
+                  item.link !== '/panel' &&
+                  pathname.startsWith(item.link)
+                ) {
+                  isActive = true;
+                }
+                return (
+                  <li>
+                    <NavLink
+                      to={item.link}
+                      className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                        isActive && 'bg-primary dark:bg-primary'
+                      }`}
+                    >
+                      <item.icon size={24} />
+                      {item.itemName}
+                    </NavLink>
+                  </li>
+                );
+              })}
             </ul>
           </div>
           {/* <!-- Menu Group --> */}

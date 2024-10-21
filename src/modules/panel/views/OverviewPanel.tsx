@@ -1,5 +1,4 @@
-import { APP_TEXT } from '../../../common/text';
-import { CardDataStats, PageTitle } from '../../../components';
+import { Breadcrumb, CardDataStats, PageTitle } from '../../../components';
 import DefaultLayout from '../../../layout/DefaultLayout';
 import {
   MdCurrencyExchange,
@@ -11,8 +10,9 @@ import {
 const OverviewPanel = () => {
   return (
     <>
-      <PageTitle title={`Overview | ${APP_TEXT.app_name}`} />
+      <PageTitle title="Overview" />
       <DefaultLayout>
+      <Breadcrumb pageName="Overview" />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
           <CardDataStats
             title="Eventos creados"
