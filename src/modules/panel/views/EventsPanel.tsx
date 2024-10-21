@@ -1,10 +1,15 @@
+import { Breadcrumb, PageTitle, PanelTable } from '../../../components';
 import DefaultLayout from '../../../layout/DefaultLayout';
 
 const EventsPanel = () => {
   return (
-    <DefaultLayout>
-      <div>admin users</div>
-    </DefaultLayout>
+    <>
+      <PageTitle title="Eventos" />
+      <DefaultLayout>
+        <Breadcrumb pageName="Eventos" />
+        <PanelTable />
+      </DefaultLayout>
+    </>
   );
 };
 
