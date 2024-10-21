@@ -2,6 +2,12 @@
 
 import { LoginPage, RegisterPage } from '../modules/Auth/Pages';
 import HomePage from '../modules/home/views/HomePage';
+import {
+  EventsPanel,
+  OverviewPanel,
+  SettingsPanel,
+  UsersPanel,
+} from '../modules/panel/views';
 import SignIn from '../pages/Authentication/SignIn';
 import SignUp from '../pages/Authentication/SignUp';
 import Calendar from '../pages/Calendar';
@@ -22,7 +28,10 @@ interface RouteObject {
 }
 
 export const authProtectedRoutes: Array<RouteObject> = [
-  { path: '/dashboard', component: Chart },
+  { path: '/panel', component: OverviewPanel },
+  { path: '/panel/users', component: UsersPanel },
+  { path: '/panel/events', component: EventsPanel },
+  { path: '/panel/settings', component: SettingsPanel },
 ];
 
 export const publicRoutes = [{ path: '/', component: HomePage }];

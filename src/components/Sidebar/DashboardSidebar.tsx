@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import SidebarLinkGroup from './SidebarLinkGroup';
 import Logo from '../../images/logo/logo.svg';
+import { admin_dashboard_items } from '../../constants/panel/dashboardItems';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -17,7 +18,7 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
   const storedSidebarExpanded = localStorage.getItem('sidebar-expanded');
   const [sidebarExpanded, setSidebarExpanded] = useState(
-    storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true'
+    storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true',
   );
 
   // close on click outside
@@ -91,14 +92,34 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         </button>
       </div>
       {/* <!-- SIDEBAR HEADER --> */}
-
       <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
         {/* <!-- Sidebar Menu --> */}
         <nav className="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
-          {/* <!-- Menu Group --> */}
+          {/* ADMIN MENU GRUP */}
           <div>
             <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
               MENU
+            </h3>
+            <ul className="mb-6 flex flex-col gap-1.5">
+              {admin_dashboard_items.map((item) => (
+                <li>
+                  <NavLink
+                    to={item.link}
+                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                      pathname === item.link && 'bg-primary dark:bg-primary'
+                    }`}
+                  >
+                    <item.icon size={24} />
+                    {item.itemName}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* <!-- Menu Group --> */}
+          <div>
+            <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
+              TEMPLATE ROUTES
             </h3>
 
             <ul className="mb-6 flex flex-col gap-1.5">

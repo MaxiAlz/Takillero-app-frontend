@@ -28,6 +28,7 @@ export * from './Modal/ModalSettings';
 export * from './Navbar/Footer';
 export * from './Navbar/Navbar';
 export * from './Sidebar/DashboardSidebar';
+export * from './Sidebar/SidebarApp';
 export * from './Sidebar/SidebarLinkGroup';
 export * from './Switchers/SwitcherFour';
 export * from './Switchers/SwitcherOne';
