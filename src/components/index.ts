@@ -34,6 +34,7 @@ export * from './Switchers/SwitcherFour';
 export * from './Switchers/SwitcherOne';
 export * from './Switchers/SwitcherThree';
 export * from './Switchers/SwitcherTwo';
+export * from './Tables/PanelTable';
 export * from './Tables/TableOne';
 export * from './Tables/TableSettings';
 export * from './Tables/TableThree';
