@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import DropdownUser from '../Header/DropdownUser';
 import DarkModeSwitcher from '../Header/DarkModeSwitcher';
+import { APP_TEXT } from '../../common/text';
+
 interface NavbarPorps {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
@@ -55,7 +57,7 @@ const Navbar = (props: NavbarPorps) => {
             {/* <!-- Hamburger Toggle BTN --> */}
 
             <Link to={'/'} className="text-primary font-semibold uppercase ">
-              ShowBenefy
+              {APP_TEXT.app_name}
             </Link>
           </div>
 
