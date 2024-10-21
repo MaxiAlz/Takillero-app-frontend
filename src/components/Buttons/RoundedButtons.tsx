@@ -29,7 +29,7 @@ export const RoundedFilledButton = ({
     <button
       type={type}
       disabled={disabled}
-      className={`w-full cursor-pointer rounded-lg border ${
+      className={`w-full cursor-pointer rounded-lg border  ${
         disabled ? 'border-disabled bg-disabled' : 'border-primary bg-primary'
       } p-4 text-white transition hover:bg-opacity-90 ${className}`}
       {...props}
@@ -49,6 +49,7 @@ export const RoundedFilledButton = ({
   );
 };
 
+
 export const RoundedOutlineButton: React.FC<RoundedButtonProps> = ({
   text,
   className,
@@ -60,8 +61,8 @@ export const RoundedOutlineButton: React.FC<RoundedButtonProps> = ({
       className={`inline-flex items-center justify-center rounded-full border border-white py-2 px-4 text-center font-medium text-white hover:bg-opacity-10 hover:bg-white ${className}`}
       {...props}
     >
-      {text}
       {icon && <span className="mr-2">{icon}</span>}
+      {text}
     </button>
   );
 };
