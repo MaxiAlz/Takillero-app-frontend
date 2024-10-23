@@ -1,7 +1,8 @@
 '../pages/Profile';
 
 import { LoginPage, RegisterPage } from '../modules/Auth/Pages';
-import { CreateEventForm, EventDetail } from '../modules/events/views';
+import { EventDetail } from '../modules/events/views';
+import { CreateNewEvent } from '../modules/events/views/CreateNewEvent';
 import HomePage from '../modules/home/views/HomePage';
 import {
   EventsPanel,
@@ -37,10 +38,10 @@ export const authProtectedRoutes: Array<RouteObject> = [
   { path: '/panel/settings', component: SettingsPanel },
   { path: '/panel/ver-evento/:id', component: EventDetail },
   { path: '/panel/events', component: EventsPanel },
-  { path: '/panel/events/create', component: CreateEventForm },
+  { path: '/panel/events/create', component: CreateNewEvent },
 
   // user routes
-  { path: '/user/profile', component:  UserProfile},
+  { path: '/user/profile', component: UserProfile },
 ];
 
 export const publicRoutes = [{ path: '/', component: HomePage }];
