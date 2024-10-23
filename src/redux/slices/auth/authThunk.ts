@@ -33,6 +33,7 @@ const checkUserSession =
       if (response.status === 200) {
         dispatch(setUserAuthenticated(response.data)); 
       } else {
+        
         dispatch(logoutUser()); 
       }
     } catch (error) {

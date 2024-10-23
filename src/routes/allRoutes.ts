@@ -9,6 +9,8 @@ import {
   SettingsPanel,
   UsersPanel,
 } from '../modules/panel/views';
+import { UserProfile } from '../modules/user';
+
 import SignIn from '../pages/Authentication/SignIn';
 import SignUp from '../pages/Authentication/SignUp';
 import Calendar from '../pages/Calendar';
@@ -29,12 +31,16 @@ interface RouteObject {
 }
 
 export const authProtectedRoutes: Array<RouteObject> = [
+  // Panel Routes
   { path: '/panel', component: OverviewPanel },
   { path: '/panel/users', component: UsersPanel },
   { path: '/panel/settings', component: SettingsPanel },
   { path: '/panel/ver-evento/:id', component: EventDetail },
   { path: '/panel/events', component: EventsPanel },
   { path: '/panel/events/create', component: CreateEventForm },
+
+  // user routes
+  { path: '/user/profile', component:  UserProfile},
 ];
 
 export const publicRoutes = [{ path: '/', component: HomePage }];
