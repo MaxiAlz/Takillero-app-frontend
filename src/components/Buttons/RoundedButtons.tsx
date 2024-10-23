@@ -29,7 +29,7 @@ export const RoundedFilledButton = ({
     <button
       type={type}
       disabled={disabled}
-      className={`w-full cursor-pointer rounded-lg border  ${
+      className={`font-medium cursor-pointer rounded-lg border flex items-center justify-center  ${
         disabled ? 'border-disabled bg-disabled' : 'border-primary bg-primary'
       } p-4 text-white transition hover:bg-opacity-90 ${className}`}
       {...props}

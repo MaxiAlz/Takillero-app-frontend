@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom';
 import DropdownUser from '../Header/DropdownUser';
 import DarkModeSwitcher from '../Header/DarkModeSwitcher';
 import { APP_TEXT } from '../../common/text';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { AuthStatus } from '../../modules/Auth/types/authTypes';
 
 interface NavbarPorps {
   sidebarOpen: string | boolean | undefined;
@@ -9,6 +12,8 @@ interface NavbarPorps {
 }
 
 const Navbar = (props: NavbarPorps) => {
+  const { user, status } = useSelector((state: RootState) => state.auth);
+
   return (
     <>
       <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
@@ -108,63 +113,12 @@ const Navbar = (props: NavbarPorps) => {
             </ul>
 
             {/* <!-- User Area --> */}
-            <DropdownUser />
+            {!!user && status === AuthStatus.AUTHENTICATED && <DropdownUser />}
             {/* <!-- User Area --> */}
           </div>
         </div>
       </header>
     </>
-
-    // <nav ref={navbar} className="bg-black shadow-md">
-    //   <div className="container mx-auto px-4 py-5 flex justify-between items-center">
-    //     {/* Sección izquierda: Logo, buscador, y items */}
-    //     <div className="flex items-center space-x-4">
-    //       {/* Logo */}
-    // <div className="text-lg font-bold">
-    //   <Link to={'/'} className="text-primary font-semibold uppercase ">
-    //     ShowBenefy
-    //   </Link>
-    // </div>
-
-    //       {/* Items de navegación */}
-    //   <ul className="flex space-x-6">
-    //     <li>
-    //       <a href="/eventos" className="text-gray-800 hover:text-primary">
-    //         Eventos
-    //       </a>
-    //     </li>
-    //     <li>
-    //       <a href="/contacto" className="text-gray-800 hover:text-primary">
-    //         Contacto
-    //       </a>
-    //     </li>
-    //     <li>
-    //       <a
-    //         href="/sobre-nosotros"
-    //         className="text-gray-800 hover:text-primary"
-    //       >
-    //         Sobre Nosotros
-    //       </a>
-    //     </li>
-    //   </ul>
-    // </div>
-
-    //     {/* Sección derecha: Botones de registro e ingreso */}
-
-    //     {status == AuthStatus.AUTHENTICATED ? (
-    //       <DropdownUser />
-    //     ) : (
-    //       <div className="flex items-center space-x-4">
-    //         <Link to={'auth/register'}>
-    //           <RoundedOutlineButton text="Registrarse" />
-    //         </Link>
-    //         <Link to={'auth/login'}>
-    //           <RoundedFilledButton text="Iniciar sesion" />
-    //         </Link>
-    //       </div>
-    //     )}
-    //   </div>
-    // </nav>
   );
 };
 
