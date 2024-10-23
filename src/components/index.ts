@@ -39,4 +39,5 @@ export * from './Tables/TableOne';
 export * from './Tables/TableSettings';
 export * from './Tables/TableThree';
 export * from './Tables/TableTwo';
+export * from './Timelines/StepsDashboard';
 export * from './widgets/AuthWidget';

@@ -5,7 +5,7 @@ import { MdSave } from 'react-icons/md';
 const CreateEventForm = () => {
   return (
     <article>
-      <div className="h-56 sm:h-64 xl:h-80 2xl:h-96 mx-30">
+      <div className="h-56 sm:h-64 xl:h-80 2xl:h-96 mx-10">
         <Carousel slide={false}>
           <img
             src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
@@ -29,7 +29,7 @@ const CreateEventForm = () => {
           />
         </Carousel>
       </div>
-      <div className="mx-30">
+      <div className="mx-10">
         <div className="my-5">
           <label className="mb-3 block text-black dark:text-white text-3xl">
             Nombre del evento

@@ -1,2 +1,2 @@
-export * from '../Forms/CreateEventForm';
+export * from './CreateNewEvent';
 export * from './EventDetail';
