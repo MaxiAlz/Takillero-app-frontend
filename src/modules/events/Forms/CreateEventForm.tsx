@@ -2,10 +2,14 @@ import { Carousel } from 'flowbite-react';
 import { RoundedFilledButton } from '../../../components';
 import { MdSave } from 'react-icons/md';
 
-const CreateEventForm = () => {
+interface CreateEventProps {
+  onNextStep: () => void;
+}
+
+const CreateEventForm = ({ onNextStep }: CreateEventProps) => {
   return (
     <article>
-      <div className="h-56 sm:h-64 xl:h-80 2xl:h-96 mx-10">
+      <div className="h-56 sm:h-64 xl:h-80 2xl:h-96 mx-10 flex">
         <Carousel slide={false}>
           <img
             src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
@@ -109,7 +113,11 @@ const CreateEventForm = () => {
         </div>
 
         <div className="flex w-full justify-end">
-          <RoundedFilledButton text="Guardar y Continuar" icon={<MdSave />} />
+          <RoundedFilledButton
+            text="Guardar y Continuar"
+            icon={<MdSave />}
+            onClick={onNextStep}
+          />
         </div>
       </div>
     </article>

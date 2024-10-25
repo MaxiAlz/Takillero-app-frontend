@@ -3,34 +3,35 @@ import DefaultLayout from '../../../layout/DefaultLayout';
 import {
   MdCurrencyExchange,
   MdEventAvailable,
-  MdOutlinePeople,
   MdAttachMoney,
 } from 'react-icons/md';
+
+import { GiTicket } from 'react-icons/gi';
 
 const OverviewPanel = () => {
   return (
     <>
       <PageTitle title="Overview" />
       <DefaultLayout>
-      <Breadcrumb pageName="Overview" />
+        <Breadcrumb pageName="Overview" />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
           <CardDataStats
             title="Eventos creados"
             key={'Total eventos'}
             rate="5,25"
             levelUp
-            total="5.36 M"
+            total="1,3 K"
           >
             <MdEventAvailable size={30} />
           </CardDataStats>
           <CardDataStats
-            title="Usuarios totales"
+            title="Tickets vendidos"
             key={'Total Usuarios'}
             rate="25,25%"
             levelUp
-            total="1.2 K"
+            total="5.36 M"
           >
-            <MdOutlinePeople size={30} />
+            <GiTicket size={30} />
           </CardDataStats>
           <CardDataStats
             title="Ventas"

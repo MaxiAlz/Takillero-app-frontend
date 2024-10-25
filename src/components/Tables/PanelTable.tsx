@@ -136,7 +136,7 @@ const PanelTable = () => {
                         : 'bg-warning text-warning'
                     }`}
                   >
-                    {packageItem.state == 0 ? 'En proceso' : 'Finalizado'}
+                    {packageItem.state == 0 ? 'Publicado' : 'Finalizado'}
                   </p>
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
