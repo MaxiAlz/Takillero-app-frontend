@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import { FormikHelpers, useFormik } from 'formik';
 import { UserLoginData } from '../types/authTypes';
-import { VALIDATION_MESSAGES } from '../../../common/messages';
+import { VALIDATION_MESSAGES } from '../../../constants/forms/messages';
 import { loginUser } from '../../../redux/slices/auth/authThunk';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';

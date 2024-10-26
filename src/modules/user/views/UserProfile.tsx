@@ -126,7 +126,7 @@ const UserProfile = () => {
 
               <div className="mx-auto max-w-180">
                 <h4 className="font-semibold text-black dark:text-white">
-                  About Me
+                  Acerca del organizador
                 </h4>
                 <p className="mt-4.5">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -139,7 +139,7 @@ const UserProfile = () => {
 
               <div className="mt-6.5">
                 <h4 className="mb-3.5 font-medium text-black dark:text-white">
-                  Follow me on
+                  Seguime en:
                 </h4>
                 <div className="flex items-center justify-center gap-3.5">
                   <Link
