@@ -8,10 +8,7 @@ import { dropdown_user_links } from '../../constants/panel/dropdownUser_items-';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { user, status } = useSelector((state: RootState) => state.auth);
-
-  console.log('user', user);
-  console.log('status', status);
+  const { user /* status */ } = useSelector((state: RootState) => state.auth);
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);

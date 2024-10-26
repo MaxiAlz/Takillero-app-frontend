@@ -9,6 +9,7 @@ import {
   HiUser,
 } from 'react-icons/hi';
 import { Link, useLocation } from 'react-router-dom';
+import { APP_TEXT } from '../../common/text';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -50,7 +51,7 @@ const SidebarApp = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       <Sidebar aria-label="Sidebar with multi-level dropdown example">
         <div className="flex justify-between mb-10 mt-2">
           <Link to={'/'} className="text-primary font-semibold uppercase">
-            ShowBenefy
+            {APP_TEXT.app_name}
           </Link>
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}

@@ -73,7 +73,7 @@ const Navbar = (props: NavbarPorps) => {
                   to={'/'}
                   className="text-primary font-semibold uppercase mx-2"
                 >
-                  ShowBenefy
+                  {APP_TEXT.app_name}
                 </Link>
                 <ul className="flex space-x-6">
                   <li>

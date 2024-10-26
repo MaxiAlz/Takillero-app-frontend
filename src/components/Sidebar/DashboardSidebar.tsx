@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import SidebarLinkGroup from './SidebarLinkGroup';
-import Logo from '../../images/logo/logo.svg';
+// import Logo from '../../images/logo/logo.svg';
+import { BsFillRocketTakeoffFill } from 'react-icons/bs';
+import { IoLogoGithub } from 'react-icons/io';
+import { GiSittingDog } from 'react-icons/gi';
 import { admin_dashboard_items } from '../../constants/panel/dashboardItems';
 
 interface SidebarProps {
@@ -66,7 +69,25 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
         <NavLink to="/">
-          <img src={Logo} alt="Logo" />
+          <div className="flex font-bold uppercase text-primary text-2xl text-center">
+            <BsFillRocketTakeoffFill size={30} />
+            <h1 className="">ENOROBITA</h1>
+          </div>
+
+          <div className="flex font-bold uppercase text-primary text-2xl text-center">
+            <GiSittingDog size={30} />
+            <h1 className="">BOBBY app</h1>
+          </div>
+          <div className="flex font-bold uppercase text-primary text-2xl text-center">
+            <IoLogoGithub size={30} />
+            <h1 className="">EVENT HUB</h1>
+          </div>
+
+          <div className="flex font-bold uppercase text-primary text-2xl text-center">
+            <IoLogoGithub size={30} />
+            <h1 className="">Movidaap</h1>
+          </div>
+          {/* <img src={Logo} alt="Logo" /> */}
         </NavLink>
 
         <button
