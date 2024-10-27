@@ -207,7 +207,7 @@ const CreateEventForm = ({ onNextStep }: CreateEventProps) => {
           <RoundedFilledButton
             text="Guardar y Continuar"
             icon={<MdSave />}
-            type="submit"
+            // type="submit"
             onClick={onNextStep}
           />
         </div>

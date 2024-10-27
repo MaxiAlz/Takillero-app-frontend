@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Breadcrumb, PageTitle, StepsDashboard } from '../../../components';
 import DefaultLayout from '../../../layout/DefaultLayout';
 import { CreateEventForm } from '../Forms/CreateEventForm';
-import CreateTickets from '../Forms/CreateTickets';
+import CreateTickets from './components/CreateTickets';
 
 let steps = [
   { title: 'Crear evento', detail: 'Carga la informacion de tu eventos' },
