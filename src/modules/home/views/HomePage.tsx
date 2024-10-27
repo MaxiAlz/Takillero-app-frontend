@@ -12,8 +12,12 @@ import { PageTitle } from '../../../components';
 import SearchIcon from '@mui/icons-material/Search';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import HomeLayaut from '../../../layout/HomeLayaut';
+// import { useEvents } from '../../events';
 
 const HomePage = () => {
+  // const { isLoading, avents, error, isFetching } = useEvents();
+
+  // console.log('events', avents.items);
   return (
     <>
       <PageTitle title="Inicio | Bobby Hub " />
@@ -43,6 +47,14 @@ const HomePage = () => {
               />
             </Carousel>
           </div>
+
+          {/* <div>
+            {isLoading && <span>Cargando eventos de verdad...</span>}
+            <div>
+              Eventos disponibles:
+              {avents.length}
+            </div>
+          </div> */}
           <div className="flex items-center justify-evenly">
             {/* Input de ubicación */}
             <div className="relative">

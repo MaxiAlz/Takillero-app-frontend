@@ -1,7 +1,7 @@
 '../pages/Profile';
 
 import { LoginPage, RegisterPage } from '../modules/Auth/Pages';
-import { EventDetail } from '../modules/events/views';
+import { EventDetail } from '../modules/events';
 import { CreateNewEvent } from '../modules/events/views/CreateNewEvent';
 import HomePage from '../modules/home/views/HomePage';
 import {
