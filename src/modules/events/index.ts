@@ -1,9 +1,11 @@
-export * from './formiks/userCreateEventFormik';
+export { CreateTicketsPage } from './views/CreateTicketsPage';
+export * from './formiks/EventFormik';
 export * from './Forms/CreateEventForm';
 export * from './views/components/CreateTickets';
 export * from './Forms/CreateTicketTypeForm';
 export * from './hooks/useEvents';
 export * from './interfaces/event';
-export * from './services/actions';
-export * from './views/CreateNewEvent';
+export * as eventActions from './services/actions';
+export * from './views/CreateNewEventPage';
 export * from './views/EventDetail';
+export { useEventMutation } from './hooks/useEventMutation';

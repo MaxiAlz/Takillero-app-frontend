@@ -1,5 +1,5 @@
 import { apiService } from '../../../api/apiService';
-import { type Event } from '../interfaces/event';
+import { EventLookLike, type Event } from '../interfaces/event';
 
 export const getEvents = async () => {
   try {
@@ -8,4 +8,9 @@ export const getEvents = async () => {
   } catch (error) {
     return `Error al obtener eventos: ${error}`;
   }
+};
+
+export const createEvent = async (formData: EventLookLike) => {
+  const { data } = await apiService.post<Event>('/Events', formData);
+  return data;
 };

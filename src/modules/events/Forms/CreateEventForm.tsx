@@ -1,17 +1,55 @@
 import { Carousel } from 'flowbite-react';
 import { RoundedFilledButton } from '../../../components';
 import { MdSave } from 'react-icons/md';
-import { useCreateEventFormik } from '../formiks/userCreateEventFormik';
+import { useFormik } from 'formik';
+import { CreateEventData } from '../interfaces/event';
+import { useEventMutation } from '../hooks/useEventMutation';
+import {
+  eventFormikInitialValues,
+  eventFormikValidationEshema,
+  formatDateToSendValues,
+} from '../formiks/EventFormik';
+import { useNavigate } from 'react-router-dom';
 
 interface CreateEventProps {
   onNextStep: () => void;
 }
 
 const CreateEventForm = ({ onNextStep }: CreateEventProps) => {
-  const createEventFormik = useCreateEventFormik();
-  const { errors, touched } = createEventFormik;
+  const eventMutation = useEventMutation();
+  const navigate = useNavigate();
 
-  console.log('createEventFormik', createEventFormik);
+  const createEventFormik = useFormik<CreateEventData>({
+    initialValues: eventFormikInitialValues,
+    validationSchema: eventFormikValidationEshema,
+
+    onSubmit: async (
+      values: CreateEventData,
+      // formikHelpers: FormikHelpers<CreateEventData>,
+    ) => {
+      const formatValues = {
+        ...values,
+        date: formatDateToSendValues(values.date, values.time),
+      };
+
+      eventMutation.mutate(formatValues, {
+        onSuccess(data, variables, context) {
+          console.log('variables', variables);
+          console.log('context', context);
+          navigate(`/panel/events/${data.id}/tickets`);
+          onNextStep;
+        },
+        onError(error, variables, context) {
+          console.log('variables', variables);
+          console.log('context', context);
+          alert(error);
+        },
+        // onSettled(data, error, variables, context) {},
+      });
+    },
+  });
+
+  const { errors, touched } = createEventFormik;
 
   function autoResize(e: any) {
     e.target.style.height = 'auto';
@@ -37,8 +75,9 @@ const CreateEventForm = ({ onNextStep }: CreateEventProps) => {
         <div className="flex justify-between mt-5">
           <div className="w-full">
             <label className="mb-3 block text-black dark:text-white text-3xl">
-              Foto vertical
+              Foto Horizontal
             </label>
+            <p>Foto cuadrada formato 9:16</p>
             <input
               name="verticalPhoto"
               type="text"
@@ -120,6 +159,7 @@ const CreateEventForm = ({ onNextStep }: CreateEventProps) => {
             <label className="mb-3 block text-black dark:text-white text-3xl">
               Fecha y Hora
             </label>
+            <p>Cuando se dara inicio a este evento:</p>
             <div className="flex ">
               <div>
                 <input
@@ -151,25 +191,46 @@ const CreateEventForm = ({ onNextStep }: CreateEventProps) => {
               </div>
             </div>
           </div>
+
           <div className="w-full m-1">
             <label className="mb-3 block text-black dark:text-white text-3xl">
-              Ubicacion
+              Venue / Locacion
             </label>
-
+            <p>Ingrese el nombre del establecimiento</p>
             <input
               type="text"
-              name="ubication"
-              placeholder="Ubicacion"
+              name="venue"
+              placeholder="Teatro Girardi"
               className="w-full rounded-lg border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               onChange={createEventFormik.handleChange}
               onBlur={createEventFormik.handleBlur}
-              value={createEventFormik.values.ubication}
+              value={createEventFormik.values.venue}
             />
-            {errors.ubication && touched.ubication ? (
-              <div className="text-error">{errors.ubication}</div>
+            {errors.venue && touched.venue ? (
+              <div className="text-error">{errors.venue}</div>
             ) : null}
           </div>
         </div>
+
+        <div className="w-full m-1">
+          <label className="mb-3 block text-black dark:text-white text-3xl">
+            Ubicacion
+          </label>
+          <p>Describe la direccion completa del establecimiento</p>
+          <input
+            type="text"
+            name="location"
+            placeholder="Av.Belgrano 123 - SFV Catamarca."
+            className="w-full rounded-lg border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+            onChange={createEventFormik.handleChange}
+            onBlur={createEventFormik.handleBlur}
+            value={createEventFormik.values.location}
+          />
+          {errors.location && touched.location ? (
+            <div className="text-error">{errors.location}</div>
+          ) : null}
+        </div>
+
         <div className="my-5">
           <label className="mb-3 block text-black dark:text-white text-3xl">
             Descripción del evento
@@ -207,8 +268,9 @@ const CreateEventForm = ({ onNextStep }: CreateEventProps) => {
           <RoundedFilledButton
             text="Guardar y Continuar"
             icon={<MdSave />}
-            // type="submit"
-            onClick={onNextStep}
+            type="submit"
+            isLoading={eventMutation.isPending}
+            // onClick={() => createEventFormik.}
           />
         </div>
       </form>
