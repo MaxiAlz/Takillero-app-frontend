@@ -2,7 +2,7 @@
 
 import { LoginPage, RegisterPage } from '../modules/Auth/Pages';
 import { CreateTicketsPage, EventDetail } from '../modules/events';
-import { CreateNewEvent } from '../modules/events/views/CreateNewEventPage';
+import { CreateNewEvent } from '../modules/events/views/PanelNewEventPage';
 import HomePage from '../modules/home/views/HomePage';
 import {
   EventsPanel,
@@ -39,6 +39,7 @@ export const authProtectedRoutes: Array<RouteObject> = [
   { path: '/panel/events', component: EventsPanel },
   { path: '/panel/events/create', component: CreateNewEvent },
   { path: '/panel/events/:eventId/tickets', component: CreateTicketsPage },
+  
   { path: '/panel/event-detail/:id', component: EventDetail },
 
   // user routes

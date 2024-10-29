@@ -21,6 +21,7 @@ export interface CreateEventData {
   location: string;
   description: string;
 }
+
 export interface EventLookLike {
   id?: number;
   name: string;
@@ -32,4 +33,16 @@ export interface EventLookLike {
   time: string;
   location: string;
   description: string;
+}
+
+export interface TicketType {
+  id?: number;
+  name: string;
+  description: string;
+  price: number;
+  endOfSale: Date;
+  startOfSale: Date;
+  totalAmount: number;
+  maxAmountPerUser: number;
+  eventId: number;
 }

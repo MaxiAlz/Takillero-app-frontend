@@ -11,11 +11,7 @@ import {
 } from '../formiks/EventFormik';
 import { useNavigate } from 'react-router-dom';
 
-interface CreateEventProps {
-  onNextStep: () => void;
-}
-
-const CreateEventForm = ({ onNextStep }: CreateEventProps) => {
+const CreateEventForm = () => {
   const eventMutation = useEventMutation();
   const navigate = useNavigate();
 
@@ -37,7 +33,6 @@ const CreateEventForm = ({ onNextStep }: CreateEventProps) => {
           console.log('variables', variables);
           console.log('context', context);
           navigate(`/panel/events/${data.id}/tickets`);
-          onNextStep;
         },
         onError(error, variables, context) {
           console.log('variables', variables);

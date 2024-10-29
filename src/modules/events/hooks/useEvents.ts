@@ -1,17 +1,34 @@
 import { useQuery } from '@tanstack/react-query';
-import { getEvents } from '../services/actions';
+import { getTicketsByEvent } from '../services/actions';
 
-export const useEvents = () => {
+// export const useEvents = () => {
+//   const {
+//     isLoading,
+//     error,
+//     data: avents = [],
+//     isFetching,
+//   } = useQuery({
+//     queryKey: ['events'],
+//     queryFn: () => getEvents(),
+//     staleTime: 1000 * 60 * 60,
+//   });
+
+//   return { isLoading, error, avents, isFetching };
+// };
+
+export const useGetTicketsByEvent = (eventId: number) => {
   const {
     isLoading,
     error,
-    data: avents = [],
+    isError,
+    data: ticketsEvent = [],
     isFetching,
   } = useQuery({
-    queryKey: ['events'],
-    queryFn: () => getEvents(),
-    staleTime: 1000 * 60 * 60,
+    queryKey: ['event', eventId, 'tickets'],
+    queryFn: () => getTicketsByEvent(eventId),
+    staleTime: 1000 * 60,
   });
-
-  return { isLoading, error, avents, isFetching };
+  return { isLoading, error, ticketsEvent, isFetching, isError };
 };
+
+export const useGetEvents = () => {};
