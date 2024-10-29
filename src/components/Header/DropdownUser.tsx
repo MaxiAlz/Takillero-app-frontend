@@ -89,7 +89,7 @@ const DropdownUser = () => {
       >
         <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
           {dropdown_user_links.map((item) => (
-            <li>
+            <li key={item.itemName}>
               <Link
                 to={item.link}
                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
