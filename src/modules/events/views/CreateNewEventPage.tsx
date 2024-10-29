@@ -21,17 +21,17 @@ const CreateNewEvent = () => {
     setCurrentStep((prevStep) => prevStep + 1);
   };
 
-  const setBreadcumTitle = () => {
-    if (currentStep === 0) return 'Crear evento';
-    if (currentStep === 1) return 'Cargar entradas';
-    else return 'Revisar y publica';
-  };
-  
+  // const setBreadcumTitle = () => {
+  //   if (currentStep === 0) return 'Crear evento';
+  //   if (currentStep === 1) return 'Cargar entradas';
+  //   else return 'Revisar y publica';
+  // };
+
   return (
     <>
       <PageTitle title="Crear" />
       <DefaultLayout>
-        <Breadcrumb pageName={setBreadcumTitle()} />
+        <Breadcrumb pageName={'crear evento'} />
         <div className="flex">
           {currentStep === 0 && <CreateEventForm onNextStep={handleNextStep} />}
           {currentStep === 1 && <CreateTickets onNextStep={handleNextStep} />}
