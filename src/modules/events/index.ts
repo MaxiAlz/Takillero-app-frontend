@@ -8,3 +8,4 @@ export * as eventActions from './services/actions';
 export * from './views/PanelNewEventPage';
 export * from './views/EventDetail';
 export { useEventMutation } from './hooks/useEventMutation';
+

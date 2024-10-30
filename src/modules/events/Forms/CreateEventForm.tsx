@@ -19,10 +19,7 @@ const CreateEventForm = () => {
     initialValues: eventFormikInitialValues,
     validationSchema: eventFormikValidationEshema,
 
-    onSubmit: async (
-      values: CreateEventData,
-      // formikHelpers: FormikHelpers<CreateEventData>,
-    ) => {
+    onSubmit: async (values: CreateEventData) => {
       const formatValues = {
         ...values,
         date: formatDateToSendValues(values.date, values.time),
@@ -39,7 +36,6 @@ const CreateEventForm = () => {
           console.log('context', context);
           alert(error);
         },
-        // onSettled(data, error, variables, context) {},
       });
     },
   });
@@ -265,7 +261,6 @@ const CreateEventForm = () => {
             icon={<MdSave />}
             type="submit"
             isLoading={eventMutation.isPending}
-            // onClick={() => createEventFormik.}
           />
         </div>
       </form>

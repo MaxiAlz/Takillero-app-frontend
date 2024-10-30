@@ -8,28 +8,22 @@ import { useParams } from 'react-router-dom';
 
 export const TabCreateTicket = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [isFormVisible, setIsFormVisible] = useState(false);
 
   const { eventId } = useParams();
 
-  const { isLoading, ticketsEvent, error, isError } = eventId
+  const { isLoading, ticketsEvent, isError, refetch } = eventId
     ? useGetTicketsByEvent(+eventId)
     : { isLoading: false, ticketsEvent: [] };
-
-  console.log('error', error);
-  console.log('isError', isError);
   if (!eventId) {
     return <p>Error: ID del evento no encontrado.</p>;
   }
 
-  const handleSaveTicket = (/* ticketData: Ticket */) => {
-    // setTicketTypes((prevTicketTypes) => [...prevTicketTypes, ticketData]);
-    setIsFormVisible(false);
+  
+  const closeModal = () => {
+    console.log('cierro modal');
+    setOpenModal(false);
   };
 
-  const handleSaveAllTickets = () => {
-    console.log('Tickets creados:');
-  };
 
   return (
     <>
@@ -42,7 +36,11 @@ export const TabCreateTicket = () => {
           Crear Tipo de Entrada
         </Modal.Header>
         <Modal.Body className="dark:bg-boxdark">
-          <CreateTicketTypeForm onSave={handleSaveTicket} />
+          <CreateTicketTypeForm
+            eventId={+eventId}
+            refetchTickets={refetch}
+            closeModal={closeModal}
+          />
         </Modal.Body>
       </Modal>
 
@@ -51,8 +49,6 @@ export const TabCreateTicket = () => {
       </h3>
 
       {isLoading ? <p>Cargando entradas....</p> : null}
-
-      {isFormVisible && <CreateTicketTypeForm onSave={handleSaveTicket} />}
 
       {ticketsEvent.length === 0 && !isError && !isLoading && (
         <div className="w-full text-center my-5">
@@ -100,7 +96,7 @@ export const TabCreateTicket = () => {
             <RoundedFilledButton
               text="Guardar todos los tickets y continuar"
               icon={<MdSave />}
-              onClick={handleSaveAllTickets}
+              // onClick={handleSaveAllTickets}
             />
           </div>
         </>

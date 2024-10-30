@@ -4,11 +4,10 @@ export const ticketsInitialValues = {
   name: '',
   description: '',
   price: 0,
-  endOfSale: new Date(),
-  startOfSale: new Date(),
+  endOfSale: '',
+  startOfSale: '',
   totalAmount: 0,
   maxAmountPerUser: 0,
-  eventId: 0,
 };
 
 export const createTicketSchemaValidation = Yup.object({
@@ -38,7 +37,4 @@ export const createTicketSchemaValidation = Yup.object({
     .required('La cantidad máxima por usuario es obligatoria')
     .min(1, 'Debe haber al menos un ticket por usuario')
     .max(Yup.ref('totalAmount'), 'No puede ser mayor que la cantidad total'),
-  eventId: Yup.number()
-    .required('El ID del evento es obligatorio')
-    .positive('Debe ser un número positivo'),
 });

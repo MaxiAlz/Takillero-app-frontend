@@ -1,36 +1,63 @@
 import { RoundedFilledButton } from '../../../components';
-import { MdSave } from 'react-icons/md';
+import { MdOutlinePriceChange, MdSave } from 'react-icons/md';
 import { TicketType } from '../interfaces/event';
 import { useFormik } from 'formik';
 import {
   createTicketSchemaValidation,
   ticketsInitialValues,
 } from '../formiks/ticketsFormik';
+import { GiTicket } from 'react-icons/gi';
+import { useTicketMutation } from '../hooks/useTicketMutation';
 
 interface CreateTicketTypeFormProps {
-  onSave: (ticketData: TicketType) => void;
+  eventId: number;
+  closeModal: () => void;
+  refetchTickets?: () => void;
 }
 
-// TODO: Continuar con el formualrio de creacion de tickets y crear Mutation
-export const CreateTicketTypeForm = ({ onSave }: CreateTicketTypeFormProps) => {
+export const CreateTicketTypeForm = ({
+  refetchTickets,
+  eventId,
+  closeModal,
+}: CreateTicketTypeFormProps) => {
+  const ticketMutation = useTicketMutation();
+
   const createTiketFormik = useFormik<TicketType>({
     initialValues: ticketsInitialValues,
     validationSchema: createTicketSchemaValidation,
+    onSubmit: async (values) => {
+      const payload = {
+        ...values,
+        eventId: eventId,
+        startOfSale: new Date(values.startOfSale).toISOString(),
+        endOfSale: new Date(values.endOfSale).toISOString(),
+      };
 
-    onSubmit: async (values, { setSubmitting, resetForm }) => {
-      try {
-        console.log('Datos del formulario enviados:', values);
-      } catch (error) {
-        console.error('Error al enviar el formulario:', error);
-      } finally {
-        setSubmitting(false);
-      }
+      ticketMutation.mutate(payload, {
+        onSuccess: () => {
+          alert('Ticket creado');
+          closeModal();
+          refetchTickets?.();
+        },
+        onError: (error) => {
+          alert(error);
+        },
+      });
     },
   });
 
+  console.log('createTiketFormik', createTiketFormik);
+
   return (
-    <form onSubmit={() => {}} className=" ">
-      <label className="mb-1 block text-black dark:text-white text-xl">
+    <form onSubmit={createTiketFormik.handleSubmit}>
+      <div className="flex justify-around">
+        <RoundedFilledButton text="Gratuita" disabled />
+        <RoundedFilledButton text="De Pago" disabled />
+        <RoundedFilledButton text="Donacion" disabled />
+      </div>
+      <div className="my-4 border-t border-gray-300"></div>
+
+      <label className="mt-1 block text-black dark:text-white text-xl">
         Titulo de la entrada
       </label>
       <p>
@@ -48,7 +75,7 @@ export const CreateTicketTypeForm = ({ onSave }: CreateTicketTypeFormProps) => {
       {createTiketFormik.errors.name && createTiketFormik.touched.name ? (
         <div className="text-error">{createTiketFormik.errors.name}</div>
       ) : null}
-      <label className="mb-1 block text-black dark:text-white text-xl">
+      <label className="mt-1 block text-black dark:text-white text-xl">
         Descripcion corta
       </label>
       <p>
@@ -70,74 +97,109 @@ export const CreateTicketTypeForm = ({ onSave }: CreateTicketTypeFormProps) => {
 
       <div className="my-4 border-t border-gray-300"></div>
 
-      <section className="flex items-center justify-between align-bottom">
+      {/* flex items-center justify-between align-bottom */}
+      <section className="grid grid-cols-2 gap-4">
         <div className="w-full mr-1">
           <label className="mb-1 block text-black dark:text-white text-xl">
             Cantidad de tickets
           </label>
-          <p>Cantidad disponible</p>
-          <input
-            type="number"
-            name="amount"
-            placeholder="100"
-            className="w-full rounded-lg border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-          />
+          <p>Cantidad total disponibles.</p>
+          <div className="relative flex items-center">
+            <GiTicket
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400"
+              size={24}
+            />
+            <input
+              type="number"
+              name="totalAmount"
+              placeholder="100"
+              className="w-full pl-10 rounded-lg border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+              onChange={createTiketFormik.handleChange}
+              onBlur={createTiketFormik.handleBlur}
+              value={createTiketFormik.values.totalAmount}
+            />
+          </div>
+          {createTiketFormik.errors.totalAmount &&
+          createTiketFormik.touched.totalAmount ? (
+            <div className="text-error">
+              {createTiketFormik.errors.totalAmount}
+            </div>
+          ) : null}
         </div>
         {/* <div className="mx-4 h-16 border-l border-gray-300"></div> */}
+        <div className="w-full ml-2">
+          <label className="mb-1 block text-black dark:text-white text-xl">
+            Cantidad maxima por pedido
+          </label>
+          <p>Límite de entradas por pedido.</p>
+          <input
+            type="number"
+            name="maxAmountPerUser"
+            placeholder="10"
+            className="w-full rounded-lg border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+            onChange={createTiketFormik.handleChange}
+            onBlur={createTiketFormik.handleBlur}
+            value={createTiketFormik.values.maxAmountPerUser}
+          />
+          {createTiketFormik.errors.maxAmountPerUser &&
+          createTiketFormik.touched.maxAmountPerUser ? (
+            <div className="text-error">
+              {createTiketFormik.errors.maxAmountPerUser}
+            </div>
+          ) : null}
+        </div>
+      </section>
+
+      <div className="my-4 border-t border-gray-300"></div>
+
+      <section className="grid grid-cols-2">
         <div className="w-full ml-1">
           <label className="mb-1 block text-black dark:text-white text-xl">
             Pecio
           </label>
           <p>Valor de cada ticket</p>
-          <input
-            type="number"
-            name="amount"
-            placeholder="$ 100.000"
-            className="w-full rounded-lg border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-          />
-        </div>
-      </section>
-      <input type="checkbox" />
-      <span>Asumir el costo de venta</span>
 
-      <div className="my-4 border-t border-gray-300"></div>
+          <div className="relative flex items-center">
+            <MdOutlinePriceChange
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400"
+              size={24}
+            />
+            <input
+              type="number"
+              name="price"
+              placeholder="10.000"
+              className="w-full pl-10 rounded-lg border-[1.5px] my-2 bg-transparent py-3 px-5 text-black dark:text-white outline-none transition focus:border-primary dark:focus:border-primary dark:bg-gray-800 border-gray-300 dark:border-gray-700"
+              onChange={createTiketFormik.handleChange}
+              onBlur={createTiketFormik.handleBlur}
+              value={createTiketFormik.values.price}
+            />
+          </div>
+          {createTiketFormik.errors.price && createTiketFormik.touched.price ? (
+            <div className="text-error">{createTiketFormik.errors.price}</div>
+          ) : null}
+        </div>
+        {!!createTiketFormik.values.price && (
+          <div className="flex flex-col ml-5">
+            <span className="text-xl">Detalles:</span>
+            <span>Cargo por servicio: 5%</span>
+            <span>
+              Tus espaectadores pagaran: $
+              {createTiketFormik.values.price * 1.05}
+            </span>
+          </div>
+        )}
 
-      <section className="flex">
-        <div className="w-full mr-1">
-          <label className="mb-1 block text-black dark:text-white text-xl">
-            Cantidad minima por pedido
-          </label>
-          <p>
-            Ingresa cuanto es el minimo de entradas que se puede comprar por
-            pedido
-          </p>
-          <input
-            type="number"
-            name="amount"
-            placeholder="1"
-            className="w-full rounded-lg border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-          />
-        </div>
-        <div className="w-full ml-2">
-          <label className="mb-1 block text-black dark:text-white text-xl">
-            Cantidad maxima por pedido
-          </label>
-          <p>
-            Ingresa cuanto es el maximo de entradas que se puede comprar por
-            pedido
-          </p>
-          <input
-            type="number"
-            name="amount"
-            placeholder="10"
-            className="w-full rounded-lg border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-          />
-        </div>
+        {createTiketFormik.values.price == 0 && (
+          <div className="flex flex-col ml-5">
+            <span className="text-xl">Detalles:</span>
+            <span>Tus entradas seran gratuitas</span>
+          </div>
+        )}
       </section>
 
       <div className="my-4 border-t border-gray-300"></div>
 
-      <section className="flex">
+      <section className="grid grid-cols-2 gap-4">
         <div className="w-full mr-1">
           <label className="mb-3 block text-black dark:text-white text-xl">
             Fecha y Hora de inicio
@@ -149,10 +211,19 @@ export const CreateTicketTypeForm = ({ onSave }: CreateTicketTypeFormProps) => {
             <div>
               <input
                 type="datetime-local"
-                name="date"
+                name="startOfSale"
                 placeholder="Fecha del evento"
                 className="w-full rounded-lg m-1 border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                onChange={createTiketFormik.handleChange}
+                onBlur={createTiketFormik.handleBlur}
+                value={createTiketFormik.values.startOfSale}
               />
+              {createTiketFormik.errors.startOfSale &&
+              createTiketFormik.touched.startOfSale ? (
+                <div className="text-error">
+                  {createTiketFormik.errors.startOfSale}
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
@@ -167,10 +238,23 @@ export const CreateTicketTypeForm = ({ onSave }: CreateTicketTypeFormProps) => {
             <div>
               <input
                 type="datetime-local"
-                name="date"
+                name="endOfSale"
                 placeholder="Fecha del evento"
                 className="w-full rounded-lg m-1 border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                onChange={createTiketFormik.handleChange}
+                onBlur={createTiketFormik.handleBlur}
+                value={
+                  typeof createTiketFormik.values.endOfSale === 'string'
+                    ? createTiketFormik.values.endOfSale
+                    : '' // Asegura que sea una cadena vacía si no está definida
+                }
               />
+              {createTiketFormik.errors.endOfSale &&
+              createTiketFormik.touched.endOfSale ? (
+                <div className="text-error">
+                  {createTiketFormik.errors.endOfSale}
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
@@ -182,7 +266,7 @@ export const CreateTicketTypeForm = ({ onSave }: CreateTicketTypeFormProps) => {
           text="Crea Ticket"
           icon={<MdSave />}
           type="submit"
-          onClick={() => {}}
+          isLoading={ticketMutation.isPending}
         />
       </div>
     </form>
