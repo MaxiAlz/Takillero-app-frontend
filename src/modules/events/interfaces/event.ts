@@ -40,9 +40,20 @@ export interface TicketType {
   name: string;
   description: string;
   price: number;
-  endOfSale: Date;
-  startOfSale: Date;
+  endOfSale: string;
+  startOfSale: string;
   totalAmount: number;
   maxAmountPerUser: number;
-  eventId: number;
+  eventId?: number;
+}
+export interface TicketLookLike {
+  id?: number;
+  name: string;
+  description: string;
+  price: number;
+  endOfSale: string;
+  startOfSale: string;
+  totalAmount: number;
+  maxAmountPerUser: number;
+  eventId?: number;
 }

@@ -1,5 +1,10 @@
 import { apiService } from '../../../api/apiService';
-import { EventLookLike, TicketType, type Event } from '../interfaces/event';
+import {
+  EventLookLike,
+  TicketLookLike,
+  TicketType,
+  type Event,
+} from '../interfaces/event';
 
 export const getEvents = async () => {
   try {
@@ -12,6 +17,11 @@ export const getEvents = async () => {
 
 export const createEvent = async (formData: EventLookLike) => {
   const { data } = await apiService.post<Event>('/Events', formData);
+  return data;
+};
+
+export const createTicket = async (ticket: TicketLookLike) => {
+  const { data } = await apiService.post<TicketType>('/TicketTypes', ticket);
   return data;
 };
 
