@@ -19,4 +19,5 @@ export const useGetTicketsByEvent = (eventId: number) => {
   return { isLoading, error, ticketsEvent, isFetching, isError, refetch };
 };
 
-export const useGetEvents = () => {};
+
+// export const useGetEvents = () => {};

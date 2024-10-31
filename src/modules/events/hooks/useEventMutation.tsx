@@ -4,7 +4,6 @@ import { eventActions } from '..';
 export const useEventMutation = () => {
   const eventMutation = useMutation({
     mutationFn: eventActions.createEvent,
-
   });
 
   return eventMutation;

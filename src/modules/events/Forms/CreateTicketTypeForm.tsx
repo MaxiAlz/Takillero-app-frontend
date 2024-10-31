@@ -1,5 +1,10 @@
 import { RoundedFilledButton } from '../../../components';
-import { MdOutlinePriceChange, MdSave } from 'react-icons/md';
+import {
+  MdDelete,
+  MdOutlinePriceChange,
+  MdOutlineRefresh,
+  MdSave,
+} from 'react-icons/md';
 import { TicketType } from '../interfaces/event';
 import { useFormik } from 'formik';
 import {
@@ -8,9 +13,12 @@ import {
 } from '../formiks/ticketsFormik';
 import { GiTicket } from 'react-icons/gi';
 import { useTicketMutation } from '../hooks/useTicketMutation';
+import { useTicket } from '../hooks/useTicket';
+import Loader from '../../../common/Loader';
 
 interface CreateTicketTypeFormProps {
   eventId: number;
+  ticketId?: number;
   closeModal: () => void;
   refetchTickets?: () => void;
 }
@@ -19,11 +27,16 @@ export const CreateTicketTypeForm = ({
   refetchTickets,
   eventId,
   closeModal,
+  ticketId,
 }: CreateTicketTypeFormProps) => {
-  const ticketMutation = useTicketMutation();
+  const ticketMutation = useTicketMutation(ticketId);
+
+  const { ticket, isLoading, /* error */ } = useTicket(ticketId);
+
 
   const createTiketFormik = useFormik<TicketType>({
-    initialValues: ticketsInitialValues,
+    enableReinitialize: true,
+    initialValues: ticket || ticketsInitialValues,
     validationSchema: createTicketSchemaValidation,
     onSubmit: async (values) => {
       const payload = {
@@ -35,7 +48,7 @@ export const CreateTicketTypeForm = ({
 
       ticketMutation.mutate(payload, {
         onSuccess: () => {
-          alert('Ticket creado');
+          alert(ticketId ? 'Ticket actualizado' : 'Ticket creado');
           closeModal();
           refetchTickets?.();
         },
@@ -46,7 +59,7 @@ export const CreateTicketTypeForm = ({
     },
   });
 
-  console.log('createTiketFormik', createTiketFormik);
+  if (isLoading) return <Loader />;
 
   return (
     <form onSubmit={createTiketFormik.handleSubmit}>
@@ -192,7 +205,10 @@ export const CreateTicketTypeForm = ({
         {createTiketFormik.values.price == 0 && (
           <div className="flex flex-col ml-5">
             <span className="text-xl">Detalles:</span>
-            <span>Tus entradas seran gratuitas</span>
+            <p>
+              Tus entradas seran{' '}
+              <span className="font-bold text-xl">¡Gratuitas!</span>
+            </p>
           </div>
         )}
       </section>
@@ -261,10 +277,25 @@ export const CreateTicketTypeForm = ({
       </section>
       <div className="my-4 border-t border-gray-300"></div>
 
-      <div className="flex w-full justify-end">
+      <div
+        className={`flex w-full ${
+          ticketId ? 'justify-between' : 'justify-end'
+        }`}
+      >
+        {ticketId && (
+          <RoundedFilledButton
+            className="bg-error"
+            text="Eliminar Ticket"
+            icon={<MdDelete size={25} />}
+            type="submit"
+            isLoading={ticketMutation.isPending}
+          />
+        )}
         <RoundedFilledButton
-          text="Crea Ticket"
-          icon={<MdSave />}
+          text={ticketId ? 'Actualizar Ticket' : 'Crear Ticket'}
+          icon={
+            ticketId ? <MdOutlineRefresh size={25} /> : <MdSave size={25} />
+          }
           type="submit"
           isLoading={ticketMutation.isPending}
         />
