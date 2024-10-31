@@ -1,7 +1,7 @@
 import React, { ButtonHTMLAttributes, ReactNode } from 'react';
 
 interface RoundedButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  text: string;
+  text?: string;
   className?: string;
   icon?: ReactNode;
   type?: 'button' | 'submit' | 'reset';
@@ -49,7 +49,6 @@ export const RoundedFilledButton = ({
   );
 };
 
-
 export const RoundedOutlineButton: React.FC<RoundedButtonProps> = ({
   text,
   className,
@@ -58,10 +57,10 @@ export const RoundedOutlineButton: React.FC<RoundedButtonProps> = ({
 }) => {
   return (
     <button
-      className={`inline-flex items-center justify-center rounded-full border border-white py-2 px-4 text-center font-medium text-white hover:bg-opacity-10 hover:bg-white ${className}`}
+      className={`inline-flex items-center justify-center rounded-md border border-white py-2 px-4 text-center font-medium text-white hover:bg-opacity-10 hover:bg-white ${className}`}
       {...props}
     >
-      {icon && <span className="mr-2">{icon}</span>}
+      {icon && <span>{icon}</span>}
       {text}
     </button>
   );
