@@ -1,4 +1,4 @@
-import { Carousel } from 'flowbite-react';
+import { FileInput, Label } from 'flowbite-react';
 import { RoundedFilledButton } from '../../../components';
 import { MdSave } from 'react-icons/md';
 import { useFormik } from 'formik';
@@ -10,6 +10,7 @@ import {
   formatDateToSendValues,
 } from '../formiks/EventFormik';
 import { useNavigate } from 'react-router-dom';
+import { IoMdCloudUpload } from 'react-icons/io';
 
 const CreateEventForm = () => {
   const eventMutation = useEventMutation();
@@ -49,17 +50,27 @@ const CreateEventForm = () => {
 
   return (
     <article>
-      <div className="h-56 sm:h-64 xl:h-80 2xl:h-96 mx-10 flex">
-        <Carousel slide={false}>
-          <img
-            src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
-            alt="..."
-          />
-          <img
-            src="https://flowbite.com/docs/images/carousel/carousel-2.svg"
-            alt="..."
-          />
-        </Carousel>
+      <div className="flex w-full justify-center ">
+        <div className="flex w-10/12 items-center justify-center ">
+          <Label
+            htmlFor="dropzone-file"
+            className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+          >
+            <div className="flex flex-col items-center justify-center pb-6 pt-5">
+              <IoMdCloudUpload size={50} />
+              <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                <span className="font-semibold">
+                  Carga una imagen de portada
+                </span>{' '}
+                o arrasta
+              </p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                PNG, JPG o GIF (MAX. 800x400px)
+              </p>
+            </div>
+            <FileInput id="dropzone-file" className="hidden" />
+          </Label>
+        </div>
       </div>
 
       <form onSubmit={createEventFormik.handleSubmit} className="mx-10 ">

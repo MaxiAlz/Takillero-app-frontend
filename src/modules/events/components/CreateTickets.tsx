@@ -2,14 +2,14 @@ import { Tabs } from 'flowbite-react';
 import { HiAdjustments } from 'react-icons/hi';
 import { GiTicket } from 'react-icons/gi';
 import { MdEditNote } from 'react-icons/md';
-import { TabCreateTicket } from './TabCreateTicket';
+import { ManageTickets } from './ManageTickets';
 
 const CreateTickets = () => {
   return (
     <article className="h-56 sm:h-64 xl:h-80 2xl:h-96 mx-10 w-full flex">
       <Tabs variant="underline">
         <Tabs.Item active title="Crear entradas" icon={GiTicket}>
-          <TabCreateTicket />
+          <ManageTickets />
         </Tabs.Item>
         <Tabs.Item className="uppercase" title="Reservar" icon={MdEditNote}>
           <h3 className="font-bold my-2 opacity-85 text-black dark:text-white text-3xl">
