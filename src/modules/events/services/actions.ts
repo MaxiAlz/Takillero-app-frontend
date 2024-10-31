@@ -25,9 +25,32 @@ export const createTicket = async (ticket: TicketLookLike) => {
   return data;
 };
 
-export const getTicketsByEvent = async (eventId: number) => {
+export const updateTicket = async (
+  payloadTicket: TicketLookLike,
+  ticketId: number,
+) => {
+  const { data } = await apiService.put<TicketType>(
+    `/TicketTypes/${ticketId}`,
+    payloadTicket,
+  );
+  return data;
+};
+
+export const deleteTicketById = async (ticketId: number) => {
+  const { data } = await apiService.delete(`/TicketTypes/${ticketId}`);
+  return data;
+};
+
+export const getTicketsByEvent = async (
+  eventId: number,
+): Promise<TicketType[]> => {
   const { data } = await apiService.get<TicketType[]>(
     `Events/${eventId}/tickettypes`,
   );
+  return data;
+};
+
+export const getTicketsById = async (eventId: number): Promise<TicketType> => {
+  const { data } = await apiService.get<TicketType>(`/TicketTypes/${eventId}`);
   return data;
 };

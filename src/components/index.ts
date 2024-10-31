@@ -24,6 +24,7 @@ export * from './Header/DropdownNotification';
 export * from './Header/DropdownUser';
 export * from './Header/index';
 export * from './Maps/MapOne';
+export * from './Modal/ModalCustom';
 export * from './Modal/ModalSettings';
 export * from './Navbar/Footer';
 export * from './Navbar/Navbar';
