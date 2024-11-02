@@ -1,3 +1,4 @@
+export * from './Banners/StickyBanner';
 export * from './Breadcrumbs/Breadcrumb';
 export * from './Breadcrumbs/PageTitle';
 export * from './Buttons/index';
