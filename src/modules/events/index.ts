@@ -10,3 +10,4 @@ export { useEventMutation } from './hooks/useEventMutation';
 export { useGetTicketsByEvent } from './hooks/useEvents';
 export { CreateTicketsPage } from './views/PanelTicketsPage';
 export { useTicket } from './hooks/useTicket';
+export { DeleteTicket } from './Forms/DeleteTicket';

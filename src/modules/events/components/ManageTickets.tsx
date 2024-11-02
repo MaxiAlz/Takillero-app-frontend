@@ -9,6 +9,7 @@ import {
 } from '../../../components';
 import { useGetTicketsByEvent } from '../hooks/useEvents';
 import { useParams } from 'react-router-dom';
+import { DeleteTicket } from '../Forms/DeleteTicket';
 
 export const ManageTickets = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -27,10 +28,6 @@ export const ManageTickets = () => {
     ? useGetTicketsByEvent(+eventId)
     : { isLoading: false, ticketsEvent: [] };
 
-  if (!eventId) {
-    return <p>Error: ID del evento no encontrado.</p>;
-  }
-
   const closeModal = () => {
     setOpenModal(false);
     setSelectetTicket(undefined);
@@ -46,9 +43,10 @@ export const ManageTickets = () => {
     setTicketToDelete({ ticketId: ticketId, ticketName: ticketName });
   };
 
-  const handleDeleteTicket = () => {
-    console.log('elimar ticket:=>', ticketToDelete.ticketName);
-  };
+  if (!eventId) {
+    return <p>Error: ID del evento no encontrado.</p>;
+  }
+
   return (
     <>
       <ModalCustom
@@ -69,29 +67,11 @@ export const ManageTickets = () => {
         openModal={openConfirmModal}
         setOpenModal={setOpenConfirmModal}
       >
-        <div>
-          Se elimara el siguiente ticket:{' '}
-          <span className="text-xl font-bold">{ticketToDelete.ticketName}</span>
-        </div>
-
-        <div className="my-4 border-t border-gray-300"></div>
-
-        <div className="flex w-full justify-between">
-          <RoundedFilledButton
-            className=""
-            text="Cancelar"
-            type="submit"
-            onClick={() => setOpenConfirmModal(false)}
-          />
-          <RoundedFilledButton
-            className="bg-error"
-            text="Eliminar Ticket"
-            icon={<MdDeleteForever size={25} />}
-            type="submit"
-            onClick={handleDeleteTicket}
-            // isLoading={ticketMutation.isPending}
-          />
-        </div>
+        <DeleteTicket
+          ticketToDelete={ticketToDelete}
+          setOpenConfirmModal={setOpenConfirmModal}
+          refetchTickets={refetch}
+        />
       </ModalCustom>
 
       <h3 className="font-bold my-2 mb-5 opacity-85 text-black dark:text-white text-3xl">
@@ -111,7 +91,10 @@ export const ManageTickets = () => {
       {ticketsEvent.length > 0 &&
         ticketsEvent.map((ticketType) => (
           <>
-            <div className="flex items-center justify-between">
+            <div
+              key={(ticketType.id, ticketType.name)}
+              className="flex items-center justify-between"
+            >
               <Tooltip content="Eliminar">
                 <RoundedOutlineButton
                   icon={<MdDeleteForever size={25} />}
@@ -122,13 +105,15 @@ export const ManageTickets = () => {
               </Tooltip>
               <Card
                 className="dark:bg-black my-2 w-full ml-4 mt-5 hover:cursor-pointer hover:shadow-primary"
-                key={ticketType.id}
                 onClick={() => {
                   setOpenModal(true);
                   setSelectetTicket(ticketType.id!);
                 }}
               >
-                <section className="flex items-center justify-between ">
+                <section
+                  className="flex items-center justify-between"
+                  key={(ticketType.name, ticketType.id)}
+                >
                   <div>
                     <h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                       {ticketType.name}

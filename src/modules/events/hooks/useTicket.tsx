@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { deleteTicketById, getTicketsById } from '../services/actions';
+import { getTicketsById } from '../services/actions';
 
 export const useTicket = (ticketId?: number) => {
   const {
