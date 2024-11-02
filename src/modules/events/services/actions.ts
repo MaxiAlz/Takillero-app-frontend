@@ -15,11 +15,24 @@ export const getEvents = async () => {
   }
 };
 
+export const getEventsById = async (
+  eventId: number,
+): Promise<EventLookLike> => {
+  const { data } = await apiService.get<EventLookLike>(`/Events/${eventId}`);
+  return data;
+};
+
 export const createEvent = async (formData: EventLookLike) => {
   const { data } = await apiService.post<Event>('/Events', formData);
   return data;
 };
 
+export const updateEvent = async (eventId: number, payEvent: EventLookLike) => {
+  const { data } = await apiService.put<Event>(`/Events/${eventId}`, payEvent);
+  return data;
+};
+
+// TICKETS ACTIONS
 export const createTicket = async (ticket: TicketLookLike) => {
   const { data } = await apiService.post<TicketType>('/TicketTypes', ticket);
   return data;

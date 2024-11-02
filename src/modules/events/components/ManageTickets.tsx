@@ -7,7 +7,7 @@ import {
   RoundedFilledButton,
   RoundedOutlineButton,
 } from '../../../components';
-import { useGetTicketsByEvent } from '../hooks/useEvents';
+import { useGetTicketsByEvent } from '../hooks/useGetTicketsByEvent';
 import { useParams } from 'react-router-dom';
 import { DeleteTicket } from '../Forms/DeleteTicket';
 
@@ -90,53 +90,46 @@ export const ManageTickets = () => {
 
       {ticketsEvent.length > 0 &&
         ticketsEvent.map((ticketType) => (
-          <>
-            <div
-              key={(ticketType.id, ticketType.name)}
-              className="flex items-center justify-between"
+          <div
+            key={ticketType.id}
+            className="flex items-center justify-between"
+          >
+            <Tooltip content="Eliminar">
+              <RoundedOutlineButton
+                icon={<MdDeleteForever size={25} />}
+                onClick={() =>
+                  handleOpenModalConfirm(ticketType.id!, ticketType.name)
+                }
+              />
+            </Tooltip>
+            <Card
+              className="dark:bg-black my-2 w-full ml-4 mt-5 hover:cursor-pointer hover:shadow-primary"
+              onClick={() => {
+                setOpenModal(true);
+                setSelectetTicket(ticketType.id!);
+              }}
             >
-              <Tooltip content="Eliminar">
-                <RoundedOutlineButton
-                  icon={<MdDeleteForever size={25} />}
-                  onClick={() =>
-                    handleOpenModalConfirm(ticketType.id!, ticketType.name)
-                  }
-                />
-              </Tooltip>
-              <Card
-                className="dark:bg-black my-2 w-full ml-4 mt-5 hover:cursor-pointer hover:shadow-primary"
-                onClick={() => {
-                  setOpenModal(true);
-                  setSelectetTicket(ticketType.id!);
-                }}
-              >
-                <section
-                  className="flex items-center justify-between"
-                  key={(ticketType.name, ticketType.id)}
-                >
-                  <div>
-                    <h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                      {ticketType.name}
-                    </h5>
-                  </div>
-                  <div className="flex justify-between">
-                    <p className="font-normal text-gray-700 dark:text-gray-400">
-                      Cantidad total:{' '}
-                      <span className="font-bold">
-                        {ticketType.totalAmount}
-                      </span>
-                    </p>
-                    <p className="font-normal text-gray-700 dark:text-gray-400 mx-5">
-                      Precio:{' '}
-                      <span className="font-bold">
-                        {ticketType.price == 0 ? 'Gratuito' : ticketType.price}
-                      </span>
-                    </p>
-                  </div>
-                </section>
-              </Card>
-            </div>
-          </>
+              <section className="flex items-center justify-between">
+                <div>
+                  <h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    {ticketType.name}
+                  </h5>
+                </div>
+                <div className="flex justify-between">
+                  <p className="font-normal text-gray-700 dark:text-gray-400">
+                    Cantidad total:{' '}
+                    <span className="font-bold">{ticketType.totalAmount}</span>
+                  </p>
+                  <p className="font-normal text-gray-700 dark:text-gray-400 mx-5">
+                    Precio:{' '}
+                    <span className="font-bold">
+                      {ticketType.price == 0 ? 'Gratuito' : ticketType.price}
+                    </span>
+                  </p>
+                </div>
+              </section>
+            </Card>
+          </div>
         ))}
       {!isError && !isLoading && (
         <>

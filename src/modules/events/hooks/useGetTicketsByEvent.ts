@@ -1,8 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getTicketsByEvent } from '../services/actions';
 
-
-
 export const useGetTicketsByEvent = (eventId: number) => {
   const {
     isLoading,
@@ -18,6 +16,3 @@ export const useGetTicketsByEvent = (eventId: number) => {
   });
   return { isLoading, error, ticketsEvent, isFetching, isError, refetch };
 };
-
-
-// export const useGetEvents = () => {};

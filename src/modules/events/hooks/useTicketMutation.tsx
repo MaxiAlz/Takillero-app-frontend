@@ -2,8 +2,6 @@ import { useMutation } from '@tanstack/react-query';
 import { eventActions, TicketLookLike } from '..';
 
 export const useTicketMutation = (ticketId?: number) => {
-  console.log('useTicketMutation');
-  console.log('useTicketMutticketIdation', ticketId);
   
   return useMutation({
     mutationFn: async (ticket: TicketLookLike) => {

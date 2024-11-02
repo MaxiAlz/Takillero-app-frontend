@@ -33,7 +33,6 @@ const DeleteTicket = ({
         alert(error);
       },
     });
-    console.log('delete tickets', ticketToDelete.ticketName);
   };
 
   return (
