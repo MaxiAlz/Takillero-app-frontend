@@ -78,6 +78,7 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           <div className="flex font-bold uppercase text-primary text-2xl text-center">
             <GiSittingDog size={30} />
             <h1 className="">{APP_TEXT.app_name}</h1>
+            <BsFillRocketTakeoffFill size={30} />
           </div>
           {/* <div className="flex font-bold uppercase text-primary text-2xl text-center">
             <IoLogoGithub size={30} />

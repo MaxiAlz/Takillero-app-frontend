@@ -1,84 +1,102 @@
-import { FloatingLabel, Select } from 'flowbite-react';
-import { Breadcrumb, PageTitle, StepsDashboard } from '../../../components';
+import { MdSave } from 'react-icons/md';
+import {
+  Breadcrumb,
+  PageTitle,
+  RoundedFilledButton,
+  StepsDashboard,
+  TagInput,
+} from '../../../components';
 import { steps } from '../../../constants';
 import DefaultLayout from '../../../layout/DefaultLayout';
+import { useState } from 'react';
+import { BsFillRocketTakeoffFill } from 'react-icons/bs';
+
+const eventCategories = [
+  { id: 'musica', name: 'Música en vivo' },
+  { id: 'teatro', name: 'Teatro' },
+  { id: 'corporativos', name: 'Corporativos' },
+  { id: 'deportes', name: 'Deportes' },
+  { id: 'educativos', name: 'Educativos y Talleres' },
+  { id: 'gastronomia', name: 'Gastronomía y Catas' },
+  { id: 'familiares', name: 'Familiares' },
+  { id: 'conferencias', name: 'Conferencias y Seminarios' },
+  { id: 'festivales', name: 'Festivales' },
+  { id: 'tecnologia', name: 'Tecnología e Innovación' },
+  { id: 'arte', name: 'Arte y Exposiciones' },
+  { id: 'bienestar', name: 'Salud y Bienestar' },
+];
 
 const EventDetail = () => {
+  const [tags, setTags] = useState<string[]>([]);
+  const [inputValue, setInputValue] = useState<string>('');
+
+  const handleClickContinue = () => {};
+
   return (
     <>
       <PageTitle title="Publicar" />
       <DefaultLayout>
         <Breadcrumb pageName={'Publicar'} />
         <div className="flex">
-          <div className="w-full">
+          <div className="w-full mr-5">
             <article>
-              <h2 className="font-bold my-2 mb-5 opacity-85 text-black dark:text-white text-3xl">
-                Ultimo paso, ¡Haz publico tu evento!
-              </h2>
-              <span className="text-2xl font-bold"></span>
+              <div className="text-primary flex">
+                <BsFillRocketTakeoffFill size={30} />
+                <h2 className="font-bold my-2 mb-5 opacity-85  text-3xl uppercase text-primary">
+                  ¡Haz publico tu evento!
+                </h2>
+              </div>
+              <span className="">
+                Estas unos pasos de publicar tu evento y comenzar a distribuir
+                tus entradas, pero antes ayudanos a entender de que se trata.
+              </span>
 
-              <h3 className="font-bold my-2 mb-5 opacity-85 text-black dark:text-white text-2xl">
-                Configuración de publicación
-              </h3>
-              <div className="">
-                <input type="checkbox" id="public-now" />
-                <label htmlFor="public-now"> Publicar ahora</label>
-              </div>
-              <div>
-                <input type="checkbox" id="public-despues" />
-                <label htmlFor="public-despues">Programar publicacion</label>
-              </div>
-              <div className="flex">
-                <div>
-                  <input
-                    type="date"
-                    name="date"
-                    placeholder="Fecha del evento"
-                    className="w-full rounded-lg m-1 border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                    // onChange={handleChange}
-                    // onBlur={handleBlur}
-                    // value={values.date}
-                  />
-                  {/* {errors.date && touched.date ? (
-                      <div className="text-error">{errors.date}</div>
-                    ) : null} */}
-                </div>
-                <div className="mx-5">
-                  <input
-                    type="time"
-                    name="time"
-                    placeholder="Hora"
-                    className="w-full rounded-lg m-1 border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                    // onChange={handleChange}
-                    // onBlur={handleBlur}
-                    // value={values.time}
-                  />
-                  {/* {errors.time && touched.time ? (
-                      <div className="text-error">{errors.time}</div>
-                    ) : null} */}
-                </div>
-              </div>
               <div className="my-4 border-t border-gray-300"></div>
-              <h2 className="font-bold my-2 mb-5 opacity-85 text-black dark:text-white text-2xl">
+              <h2 className="font-bold my-2 opacity-85 text-black dark:text-white text-2xl">
                 Segmentacion
               </h2>
               <span>
-                El tipo y la categoría del evento ayudan a que aparezca en más
-                búsquedas.
+                Selecciona una categoría y añade etiquetas relevantes para que
+                tu evento sea más visible en las búsquedas y llegue a tu público
+                objetivo.
               </span>
-              <div className="max-w-md">
-                <FloatingLabel
-                  variant="outlined"
-                  label="Categoria"
-                  className="dark:bg-transparent dark:bg-black"
-                />
 
-                <Select id="Categoria" required>
-                  <option>United States</option>
-                  <option>Canada</option>
-                  <option>France</option>
-                  <option>Germany</option>
-                </Select>
+              <div className="mt-5">
+                <label
+                  htmlFor="categories"
+                  className=" mb-2 text-lg font-bold tw-full"
+                >
+                  Categoria
+                </label>
+                <select
+                  id="categories"
+                  className="border rounded-lg block w-full py-2.5 dark:bg-black focus:border-primary my-2"
+                >
+                  <option selected disabled>
+                    Elige una categoría
+                  </option>
+                  {eventCategories.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
+
+                <TagInput
+                  tags={tags}
+                  setTags={setTags}
+                  inputValue={inputValue}
+                  setInputValue={setInputValue}
+                />
+              </div>
+              {/* <div className="my-4 border-t border-gray-300"></div> */}
+
+              <div className="flex w-full justify-end mt-4">
+                <RoundedFilledButton
+                  onClick={handleClickContinue}
+                  text="Guardar y Publicar"
+                  icon={<MdSave />}
+                />
               </div>
             </article>
           </div>

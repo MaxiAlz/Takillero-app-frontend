@@ -95,18 +95,18 @@ export const ManageTickets = () => {
         ticketsEvent.map((ticketType) => (
           <div
             key={ticketType.id}
-            className="flex items-center justify-between"
+            className="flex items-center justify-between my-3"
           >
-            <Tooltip content="Eliminar">
+            <Tooltip content="Eliminar" className="bg-primary">
               <RoundedOutlineButton
-                icon={<MdDeleteForever size={25} />}
+                icon={MdDeleteForever}
                 onClick={() =>
                   handleOpenModalConfirm(ticketType.id!, ticketType.name)
                 }
               />
             </Tooltip>
             <Card
-              className="dark:bg-black my-2 w-full ml-4 mt-5 hover:cursor-pointer hover:shadow-primary"
+              className="dark:bg-black w-full ml-2 hover:cursor-pointer hover:shadow-primary"
               onClick={() => {
                 setOpenModal(true);
                 setSelectetTicket(ticketType.id!);

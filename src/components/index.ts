@@ -19,6 +19,7 @@ export * from './Forms/DatePicker/DatePickerTwo';
 export * from './Forms/MultiSelect';
 export * from './Forms/SelectGroup/SelectGroupOne';
 export * from './Forms/SelectGroup/SelectGroupTwo';
+export * from './Forms/TagsPicker/TagInput';
 export * from './Header/DarkModeSwitcher';
 export * from './Header/DropdownMessage';
 export * from './Header/DropdownNotification';

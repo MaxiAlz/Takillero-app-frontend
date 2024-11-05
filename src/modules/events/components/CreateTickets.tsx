@@ -3,6 +3,8 @@ import { HiAdjustments } from 'react-icons/hi';
 import { GiTicket } from 'react-icons/gi';
 import { MdEditNote } from 'react-icons/md';
 import { ManageTickets } from './ManageTickets';
+import { ManageReservations } from './ManageReservations';
+
 
 const CreateTickets = () => {
   return (
@@ -12,9 +14,7 @@ const CreateTickets = () => {
           <ManageTickets />
         </Tabs.Item>
         <Tabs.Item className="uppercase" title="Reservar" icon={MdEditNote}>
-          <h3 className="font-bold my-2 opacity-85 text-black dark:text-white text-3xl">
-            Aqui podras hacer reservas de entradas para un publico especial
-          </h3>
+          <ManageReservations />
         </Tabs.Item>
         <Tabs.Item title="Configuraciones" icon={HiAdjustments}>
           This is{' '}

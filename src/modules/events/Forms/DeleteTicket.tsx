@@ -1,6 +1,6 @@
 import React from 'react';
 import { RoundedFilledButton, RoundedOutlineButton } from '../../../components';
-import { MdDeleteForever } from 'react-icons/md';
+import { MdCancel, MdDeleteForever } from 'react-icons/md';
 import { useDeleteTicketMutation } from '../hooks/useDeleteTicketMutation';
 
 interface TicketToDeleteState {
@@ -47,6 +47,7 @@ const DeleteTicket = ({
       <div className="flex w-full justify-between">
         <RoundedOutlineButton
           className=""
+          icon={MdCancel}
           text="Cancelar"
           type="submit"
           onClick={() => setOpenConfirmModal(false)}

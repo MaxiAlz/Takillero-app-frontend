@@ -11,3 +11,4 @@ export { useGetTicketsByEvent } from './hooks/useGetTicketsByEvent';
 export { CreateTicketsPage } from './views/PanelTicketsPage';
 export { useTicket } from './hooks/useTicket';
 export { DeleteTicket } from './Forms/DeleteTicket';
+

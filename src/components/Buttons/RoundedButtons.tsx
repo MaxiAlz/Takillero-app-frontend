@@ -1,9 +1,19 @@
 import React, { ButtonHTMLAttributes, ReactNode } from 'react';
+import { IconType } from 'react-icons/lib';
 
 interface RoundedButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   text?: string;
   className?: string;
   icon?: ReactNode;
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+  isLoading?: boolean | false;
+}
+interface RoundedOutlineButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
+  text?: string;
+  className?: string;
+  icon?: IconType;
   type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
   isLoading?: boolean | false;
@@ -49,22 +59,20 @@ export const RoundedFilledButton = ({
   );
 };
 
-export const RoundedOutlineButton: React.FC<RoundedButtonProps> = ({
+export const RoundedOutlineButton: React.FC<RoundedOutlineButtonProps> = ({
+  icon: Icon,
+  onClick,
   text,
-  className,
-  icon,
-  ...props
-}) => {
-  return (
-    <button
-      className={`inline-flex items-center justify-center rounded-md border border-white py-2 px-4 text-center font-medium text-white hover:bg-opacity-10 hover:bg-white ${className}`}
-      {...props}
-    >
-      {icon && <span>{icon}</span>}
-      {text}
-    </button>
-  );
-};
+  className = '',
+}) => (
+  <button
+    onClick={onClick}
+    className={`p-5 inline-flex items-center justify-center rounded-md text-center font-medium text-gray-900 hover:bg-opacity-90 border ${className}`}
+  >
+    {Icon && <Icon size={25} />}
+    {text}
+  </button>
+);
 
 export const RoundedOutlineDarckButton: React.FC<RoundedButtonProps> = ({
   text,
@@ -74,7 +82,7 @@ export const RoundedOutlineDarckButton: React.FC<RoundedButtonProps> = ({
 }) => {
   return (
     <button
-      className={` items-start justify-center rounded-full border  py-2 px-4 m-1 text-center font-medium text-black hover:text-white hover:bg-primary hover:transition-shadow dark:text-gray ${className}`}
+      className={`items-start justify-center rounded-full border border-black  py-2 px-4 m-1 text-center font-medium text-black hover:text-white hover:bg-primary hover:transition-shadow dark:text-gray ${className}`}
       {...props}
     >
       {text}
