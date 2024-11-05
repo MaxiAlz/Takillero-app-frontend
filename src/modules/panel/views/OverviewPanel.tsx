@@ -44,7 +44,7 @@ const OverviewPanel = () => {
           </CardDataStats>
           <CardDataStats
             title="Ganancias"
-            key={'Total ingresos'}
+            key={'Total Ganancias'}
             rate="2,1%"
             levelDown
             total="$ 48 K"

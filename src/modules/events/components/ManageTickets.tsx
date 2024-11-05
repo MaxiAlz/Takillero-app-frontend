@@ -8,10 +8,12 @@ import {
   RoundedOutlineButton,
 } from '../../../components';
 import { useGetTicketsByEvent } from '../hooks/useGetTicketsByEvent';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { DeleteTicket } from '../Forms/DeleteTicket';
 
 export const ManageTickets = () => {
+  const { eventId } = useParams();
+  const navigate = useNavigate();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openConfirmModal, setOpenConfirmModal] = useState<boolean>(false);
   const [ticketToDelete, setTicketToDelete] = useState({
@@ -21,8 +23,6 @@ export const ManageTickets = () => {
   const [selectedTicket, setSelectetTicket] = useState<number | undefined>(
     undefined,
   );
-
-  const { eventId } = useParams();
 
   const { isLoading, ticketsEvent, isError, refetch } = eventId
     ? useGetTicketsByEvent(+eventId)
@@ -46,6 +46,9 @@ export const ManageTickets = () => {
   if (!eventId) {
     return <p>Error: ID del evento no encontrado.</p>;
   }
+  const handleClickContinue = () => {
+    navigate(`/panel/events/create/${eventId}/tickets/publish`);
+  };
 
   return (
     <>
@@ -143,7 +146,8 @@ export const ManageTickets = () => {
           <div className="my-4 border-t border-gray-300"></div>
           <div className="flex w-full justify-end mt-4">
             <RoundedFilledButton
-              text="Guardar todos los tickets y continuar"
+              onClick={handleClickContinue}
+              text="Guardar tickets y continuar"
               icon={<MdSave />}
             />
           </div>

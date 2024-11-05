@@ -45,8 +45,10 @@ export const authProtectedRoutes: Array<RouteObject> = [
     path: '/panel/events/create/:eventId/tickets',
     component: CreateTicketsPage,
   },
-
-  { path: '/panel/event-detail/:id', component: EventDetail },
+  {
+    path: '/panel/events/create/:eventId/tickets/publish',
+    component: EventDetail,
+  },
 
   // user routes
   { path: '/user/profile', component: UserProfile },

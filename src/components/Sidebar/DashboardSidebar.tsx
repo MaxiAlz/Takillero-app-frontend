@@ -3,9 +3,10 @@ import { NavLink, useLocation } from 'react-router-dom';
 import SidebarLinkGroup from './SidebarLinkGroup';
 // import Logo from '../../images/logo/logo.svg';
 import { BsFillRocketTakeoffFill } from 'react-icons/bs';
-import { IoLogoGithub } from 'react-icons/io';
+// import { IoLogoGithub } from 'react-icons/io';
 import { GiSittingDog } from 'react-icons/gi';
 import { admin_dashboard_items } from '../../constants/panel/dashboardItems';
+import { APP_TEXT } from '../../common/text';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -69,16 +70,16 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
         <NavLink to="/">
-          <div className="flex font-bold uppercase text-primary text-2xl text-center">
+          {/* <div className="flex font-bold uppercase text-primary text-2xl text-center">
             <BsFillRocketTakeoffFill size={30} />
             <h1 className="">ENOROBITA</h1>
-          </div>
+          </div> */}
 
           <div className="flex font-bold uppercase text-primary text-2xl text-center">
             <GiSittingDog size={30} />
-            <h1 className="">BOBBY app</h1>
+            <h1 className="">{APP_TEXT.app_name}</h1>
           </div>
-          <div className="flex font-bold uppercase text-primary text-2xl text-center">
+          {/* <div className="flex font-bold uppercase text-primary text-2xl text-center">
             <IoLogoGithub size={30} />
             <h1 className="">EVENT HUB</h1>
           </div>
@@ -86,7 +87,7 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           <div className="flex font-bold uppercase text-primary text-2xl text-center">
             <IoLogoGithub size={30} />
             <h1 className="">Movidaap</h1>
-          </div>
+          </div> */}
           {/* <img src={Logo} alt="Logo" /> */}
         </NavLink>
 
@@ -115,7 +116,7 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
         {/* <!-- Sidebar Menu --> */}
-        <nav className="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
+        <nav className="px-4 lg:mt-1 lg:px-6">
           {/* ADMIN MENU GRUP */}
           <div>
             <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
