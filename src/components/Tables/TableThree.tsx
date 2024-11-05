@@ -153,4 +153,4 @@ const TableThree = () => {
   );
 };
 
-export default TableThree;
+export { TableThree };

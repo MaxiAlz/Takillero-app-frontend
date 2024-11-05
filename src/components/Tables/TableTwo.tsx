@@ -103,4 +103,4 @@ const TableTwo = () => {
   );
 };
 
-export default TableTwo;
+export { TableTwo };

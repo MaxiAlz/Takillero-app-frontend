@@ -1,6 +1,17 @@
 '../pages/Profile';
 
-import HomePage from '../fectures/home/views/HomePage';
+import { LoginPage, RegisterPage } from '../modules/Auth/Pages';
+import { CreateTicketsPage, EventDetail } from '../modules/events';
+import { CreateNewEvent } from '../modules/events/views/PanelNewEventPage';
+import HomePage from '../modules/home/views/HomePage';
+import {
+  EventsPanel,
+  OverviewPanel,
+  SettingsPanel,
+  UsersPanel,
+} from '../modules/panel/views';
+import { UserProfile } from '../modules/user';
+
 import SignIn from '../pages/Authentication/SignIn';
 import SignUp from '../pages/Authentication/SignUp';
 import Calendar from '../pages/Calendar';
@@ -20,11 +31,34 @@ interface RouteObject {
   exact?: boolean;
 }
 
-export const authProtectedRoutes: Array<RouteObject> = [];
+export const authProtectedRoutes: Array<RouteObject> = [
+  // Panel Routes
+  { path: '/panel', component: OverviewPanel },
+  { path: '/panel/users', component: UsersPanel },
+  { path: '/panel/settings', component: SettingsPanel },
 
-export const publicRoutes = [
-  { path: '/', component: HomePage },
-  { path: '/login', component:  },
+  // panel events
+  { path: '/panel/events', component: EventsPanel },
+  { path: '/panel/events/create', component: CreateNewEvent },
+  { path: '/panel/events/create/:eventId', component: CreateNewEvent },
+  {
+    path: '/panel/events/create/:eventId/tickets',
+    component: CreateTicketsPage,
+  },
+  {
+    path: '/panel/events/create/:eventId/tickets/publish',
+    component: EventDetail,
+  },
+
+  // user routes
+  { path: '/user/profile', component: UserProfile },
+];
+
+export const publicRoutes = [{ path: '/', component: HomePage }];
+
+export const noAuthRoutes = [
+  { path: '/auth/login', component: LoginPage },
+  { path: '/auth/register', component: RegisterPage },
 ];
 
 export const templateRoutes = [

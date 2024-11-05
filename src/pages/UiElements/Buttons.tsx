@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
-
-import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../../layout/DefaultLayout';
-import PageTitle from '../../components/PageTitle';
+import { Breadcrumb, PageTitle } from '../../components';
 
 const Buttons = () => {
   return (
@@ -288,10 +286,7 @@ const Buttons = () => {
                 Button With Icon
               </Link>
 
-              <Link
-                to="#"
-                className="inline-flex items-center justify-center gap-2.5 rounded-md bg-black py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
-              >
+              <button className="inline-flex items-center justify-center gap-2.5 rounded-md bg-black py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10">
                 <span>
                   <svg
                     className="fill-current"
@@ -316,7 +311,7 @@ const Buttons = () => {
                   </svg>
                 </span>
                 Button With Icon
-              </Link>
+              </button>
 
               <Link
                 to="#"

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
 import DefaultLayout from '../../layout/DefaultLayout';
-import PageTitle from '../../components/PageTitle';
+import { Breadcrumb, PageTitle } from '../../components';
+
 
 const SignIn: React.FC = () => {
   return (

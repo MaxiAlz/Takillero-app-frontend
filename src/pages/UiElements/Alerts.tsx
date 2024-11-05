@@ -1,5 +1,5 @@
-import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import PageTitle from '../../components/PageTitle';
+
+import { Breadcrumb, PageTitle } from '../../components';
 import DefaultLayout from '../../layout/DefaultLayout';
 
 const Alerts = () => {

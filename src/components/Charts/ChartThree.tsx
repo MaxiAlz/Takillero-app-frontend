@@ -160,4 +160,4 @@ const ChartThree: React.FC = () => {
   );
 };
 
-export default ChartThree;
+export { ChartThree };

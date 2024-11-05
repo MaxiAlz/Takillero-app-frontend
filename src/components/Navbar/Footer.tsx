@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { APP_TEXT } from '../../common/text';
 
 const FooterCustom = () => {
   return (
@@ -8,7 +9,7 @@ const FooterCustom = () => {
           {/* logo */}
           <div className="text-lg font-bold">
             <Link to={'/'} className="text-primary font-semibold uppercase ">
-              ShowBenefy
+              {APP_TEXT.app_name}
             </Link>
           </div>
           <div className="flex flex-col">
@@ -19,10 +20,10 @@ const FooterCustom = () => {
               Preguntas frecuentes
             </h6>
             <h6 className={'hover:text-white hover:cursor-pointer'}>
-              Quiero vender entradas
+              Quiero vender entradas fisicas
             </h6>
             <h6 className={'hover:text-white hover:cursor-pointer'}>
-              Quiero tener una cuenta de empresa
+              Quiero tener una cuenta de organizador
             </h6>
             <h6 className={'hover:text-white hover:cursor-pointer'}>
               Trabaja con nosotros
