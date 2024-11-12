@@ -1,30 +1,43 @@
-import { FileInput, Label } from 'flowbite-react';
-import { RoundedFilledButton, StickyBanner } from '../../../components';
-import { MdOutlineRefresh, MdSave } from 'react-icons/md';
+import { useEffect } from 'react';
 import { useFormik } from 'formik';
+import { useNavigate, useParams } from 'react-router-dom';
+import { FileInput, Label } from 'flowbite-react';
+import { INFO_MESSAGES } from '../../../constants';
+import { RoundedFilledButton, StickyBanner } from '../../../components';
+import Loader from '../../../common/Loader';
 import { EventLookLike } from '../interfaces/event';
-import { useEventMutation } from '../hooks/useEventMutation';
+import { MdOutlineRefresh, MdSave } from 'react-icons/md';
 import {
   eventFormikInitialValues,
   eventFormikValidationEshema,
   formatDateToSendValues,
 } from '../formiks/EventFormik';
-import { useNavigate, useParams } from 'react-router-dom';
 import { IoMdCloudUpload } from 'react-icons/io';
-import { INFO_MESSAGES } from '../../../constants';
-import { useGetEventById } from '../hooks/useGetEventById';
-import Loader from '../../../common/Loader';
-import { useEffect } from 'react';
+import {
+  useEventCategories,
+  useEventMutation,
+  useGetEventById,
+} from '../hooks';
 
 const CreateEventForm = () => {
   const { eventId } = useParams();
   const eventMutation = useEventMutation(+eventId!);
+  const eventCategories = useEventCategories();
   const navigate = useNavigate();
 
   // Solo ejecuta useGetEventById si existe un eventId
   const { eventData, isLoading, isError } = eventId
     ? useGetEventById(+eventId)
     : { eventData: null, isLoading: false, isError: false };
+
+  console.log('eventId :>> ', eventId);
+  
+  console.log(
+    'eventData, isLoading, isError :>> ',
+    eventData,
+    isLoading,
+    isError,
+  );
 
   const {
     errors,
@@ -89,7 +102,6 @@ const CreateEventForm = () => {
 
   return (
     <>
-      (
       <article>
         <div className="m-4 mx-15">
           <StickyBanner
@@ -279,18 +291,55 @@ const CreateEventForm = () => {
               <div className="text-error">{errors.location}</div>
             ) : null}
           </div>
+          <div className="mt-5">
+            <label
+              className="mb-3 block text-black dark:text-white text-3xl"
+              htmlFor="categories"
+            >
+              Categoria
+            </label>
+            <p className="my-2">
+              Selecciona la categorías que mejor describan tu evento para ayudar
+              a los asistentes a encontrarlo fácilmente.
+            </p>
+            <select
+              name="categoryId"
+              id="categories"
+              className="border rounded-lg block w-full py-2.5 dark:bg-black focus:border-primary my-2"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.categoryId}
+            >
+              <option disabled key={'empty'} value={'Elige una categoría'}>
+                Elige una categoría
+              </option>
 
+              {eventCategories.isLoading ? (
+                <option disabled>Cargando Categorias...</option>
+              ) : (
+                eventCategories.categories!.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))
+              )}
+            </select>
+
+            {/* <TagInput
+              tags={tags}
+              setTags={setTags}
+              inputValue={inputValue}
+              setInputValue={setInputValue}
+            /> */}
+          </div>
           <div className="my-5">
             <label className="mb-3 block text-black dark:text-white text-3xl">
               Descripción del evento
             </label>
             <p className=" my-2">
-              Brinda toda la informacion importante para tu publico que
-              consideres necesaria para que tu publico este bien informado,
-              puedes incluir datos importantes, descripcion sobre el lugar,
-              estacionamiento, opciones de accesibilidad o cualquier detalle que
-              ayude a los asistentes a saber que habra en tu evento. (maximo
-              2500 caracteres)
+              Proporciona la información que tu público necesita: detalles del
+              lugar, estacionamiento, accesibilidad y cualquier dato relevante
+              para los asistentes. (máximo 2500 caracteres)
             </p>
             <textarea
               placeholder="Descripción de tu evento"
@@ -326,7 +375,6 @@ const CreateEventForm = () => {
           </div>
         </form>
       </article>
-      )
     </>
   );
 };

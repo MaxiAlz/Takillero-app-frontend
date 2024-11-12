@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getEventsById } from '../services/actions';
 
 export const useGetEventById = (eventId?: number) => {
+  console.log('eventId :>> ', eventId);
   const {
     isLoading,
     error,

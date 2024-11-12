@@ -1,11 +1,13 @@
 import { apiService } from '../../../api/apiService';
 import {
+  CategoriesTypes,
   EventLookLike,
   TicketLookLike,
   TicketType,
   type Event,
 } from '../interfaces/event';
 
+// EVENT ACTIONS
 export const getEvents = async () => {
   try {
     const { data } = await apiService.get<Event[]>('/Events');
@@ -66,4 +68,12 @@ export const getTicketsByEvent = async (
 export const getTicketsById = async (eventId: number): Promise<TicketType> => {
   const { data } = await apiService.get<TicketType>(`/TicketTypes/${eventId}`);
   return data;
+};
+
+// CATEGORIES ACTIONS
+export const getEventCategories = async () => {
+  const { data } = await apiService.get<CategoriesTypes>(
+    '/Categories?pageIndex=1&pageSize=20',
+  );
+  return data.items;
 };

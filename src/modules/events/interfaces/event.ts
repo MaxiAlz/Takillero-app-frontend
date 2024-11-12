@@ -33,6 +33,7 @@ export interface EventLookLike {
   time: string;
   location: string;
   description: string;
+  categoryId: number;
 }
 
 export interface TicketType {
@@ -56,4 +57,16 @@ export interface TicketLookLike {
   totalAmount: number;
   maxAmountPerUser: number;
   eventId?: number;
+}
+export interface CategoriesTypes {
+  items: CategoryItems[];
+  pageIndex: number;
+  totalPages: number;
+  hasPreviousPage: boolean;
+  hasNextPage: boolean;
+}
+
+export interface CategoryItems {
+  id: number;
+  name: string;
 }

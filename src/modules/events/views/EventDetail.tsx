@@ -11,25 +11,11 @@ import DefaultLayout from '../../../layout/DefaultLayout';
 import { useState } from 'react';
 import { BsFillRocketTakeoffFill } from 'react-icons/bs';
 
-const eventCategories = [
-  { id: 'musica', name: 'Música en vivo' },
-  { id: 'teatro', name: 'Teatro' },
-  { id: 'corporativos', name: 'Corporativos' },
-  { id: 'deportes', name: 'Deportes' },
-  { id: 'educativos', name: 'Educativos y Talleres' },
-  { id: 'gastronomia', name: 'Gastronomía y Catas' },
-  { id: 'familiares', name: 'Familiares' },
-  { id: 'conferencias', name: 'Conferencias y Seminarios' },
-  { id: 'festivales', name: 'Festivales' },
-  { id: 'tecnologia', name: 'Tecnología e Innovación' },
-  { id: 'arte', name: 'Arte y Exposiciones' },
-  { id: 'bienestar', name: 'Salud y Bienestar' },
-];
-
 const EventDetail = () => {
   const [tags, setTags] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
 
+  console.log('tags :>> ', tags);
   const handleClickContinue = () => {};
 
   return (
@@ -56,32 +42,12 @@ const EventDetail = () => {
                 Segmentacion
               </h2>
               <span>
-                Selecciona una categoría y añade etiquetas relevantes para que
-                tu evento sea más visible en las búsquedas y llegue a tu público
+                Ademas de la categoria puedes añadir etiquetas para que tu
+                evento sea más visible en las búsquedas y llegue a tu público
                 objetivo.
               </span>
 
               <div className="mt-5">
-                <label
-                  htmlFor="categories"
-                  className=" mb-2 text-lg font-bold tw-full"
-                >
-                  Categoria
-                </label>
-                <select
-                  id="categories"
-                  className="border rounded-lg block w-full py-2.5 dark:bg-black focus:border-primary my-2"
-                >
-                  <option selected disabled>
-                    Elige una categoría
-                  </option>
-                  {eventCategories.map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {category.name}
-                    </option>
-                  ))}
-                </select>
-
                 <TagInput
                   tags={tags}
                   setTags={setTags}
