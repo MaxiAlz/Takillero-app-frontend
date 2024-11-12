@@ -15,6 +15,7 @@ import { GiTicket } from 'react-icons/gi';
 import { useTicketMutation } from '../hooks/useTicketMutation';
 import { useTicket } from '../hooks/useTicket';
 import Loader from '../../../common/Loader';
+import { useAlert } from '../../../context/AlertContext';
 
 interface CreateTicketTypeFormProps {
   eventId: number;
@@ -30,9 +31,8 @@ export const CreateTicketTypeForm = ({
   ticketId,
 }: CreateTicketTypeFormProps) => {
   const ticketMutation = useTicketMutation(ticketId);
-
-  const { ticket, isLoading, /* error */ } = useTicket(ticketId);
-
+  const { showSuccessToast, showErrorToast } = useAlert();
+  const { ticket, isLoading /* error */ } = useTicket(ticketId);
 
   const createTiketFormik = useFormik<TicketType>({
     enableReinitialize: true,
@@ -48,12 +48,17 @@ export const CreateTicketTypeForm = ({
 
       ticketMutation.mutate(payload, {
         onSuccess: () => {
-          alert(ticketId ? 'Ticket actualizado' : 'Ticket creado');
+          showSuccessToast(ticketId ? 'Ticket actualizado' : 'Ticket creado');
           closeModal();
           refetchTickets?.();
         },
-        onError: (error) => {
-          alert(error);
+        onError: () => {
+          showErrorToast(
+            ticketId ? 'Error al actualizar Ticket' : 'Error al crear Ticket',
+          );
+          closeModal();
+          refetchTickets?.();
+          // alert(error);
         },
       });
     },

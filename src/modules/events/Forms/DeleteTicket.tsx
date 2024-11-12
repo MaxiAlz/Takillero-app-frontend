@@ -2,6 +2,7 @@ import React from 'react';
 import { RoundedFilledButton, RoundedOutlineButton } from '../../../components';
 import { MdCancel, MdDeleteForever } from 'react-icons/md';
 import { useDeleteTicketMutation } from '../hooks/useDeleteTicketMutation';
+import { useAlert } from '../../../context/AlertContext';
 
 interface TicketToDeleteState {
   ticketId: number;
@@ -20,17 +21,19 @@ const DeleteTicket = ({
   refetchTickets,
 }: DeleteTicketProps) => {
   const useDeleteTicket = useDeleteTicketMutation();
+  const { showErrorToast, showDefaultToast } = useAlert();
 
   const handleDeleteTicket = () => {
     useDeleteTicket.mutate(ticketToDelete.ticketId, {
       onSuccess: (arg) => {
-        console.log('arg', arg);
-        alert('se elimino');
+        console.log('arg :>> ', arg);
+        showDefaultToast('Ticket Eliminado');
         setOpenConfirmModal(false);
         refetchTickets?.();
       },
       onError: (error) => {
-        alert(error);
+        showErrorToast('No se pudo eliminar el Ticket');
+        console.error('error :>> ', error);
       },
     });
   };

@@ -1,6 +1,6 @@
 import { Action, Dispatch, ThunkAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
-import { apiService } from '../../../api/apiService';
+import { apiService } from '../../../services/apiService';
 import { logoutUser, setError, setUserAuthenticated } from './authSlice';
 import {
   UserLoginData,
