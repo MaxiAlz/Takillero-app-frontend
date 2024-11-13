@@ -4,6 +4,7 @@ import { toastifyAlertService } from '../services/toastifyAlertService';
 export interface AlertService {
   showSuccessToast: (message: string) => void;
   showErrorToast: (message: string) => void;
+  showInfoToast: (message: string) => void;
   showDefaultToast: (message: string) => void;
 }
 

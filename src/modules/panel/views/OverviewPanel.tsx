@@ -1,4 +1,9 @@
-import { Breadcrumb, CardDataStats, PageTitle } from '../../../components';
+import {
+  Breadcrumb,
+  CardDataStats,
+  PageTitle,
+  RoundedFilledButton,
+} from '../../../components';
 import DefaultLayout from '../../../layout/DefaultLayout';
 import {
   MdCurrencyExchange,
@@ -7,8 +12,11 @@ import {
 } from 'react-icons/md';
 
 import { GiTicket } from 'react-icons/gi';
+import { useAlert } from '../../../context/AlertContext';
 
 const OverviewPanel = () => {
+  const { showSuccessToast, showErrorToast, showDefaultToast } = useAlert();
+
   return (
     <>
       <PageTitle title="Overview" />
@@ -51,6 +59,15 @@ const OverviewPanel = () => {
           >
             <MdAttachMoney size={30} />
           </CardDataStats>
+
+          <RoundedFilledButton
+            text="showDefaultToast"
+            onClick={() => showDefaultToast('showDefaultToast')}
+          />
+          <RoundedFilledButton
+            text="showSuccessToast"
+            onClick={() => showSuccessToast('showSuccessToast')}
+          />
         </div>
       </DefaultLayout>
     </>
