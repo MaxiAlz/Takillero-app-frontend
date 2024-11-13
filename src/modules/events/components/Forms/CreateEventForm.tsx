@@ -30,15 +30,6 @@ const CreateEventForm = () => {
     ? useGetEventById(+eventId)
     : { eventData: null, isLoading: false, isError: false };
 
-  console.log('eventId :>> ', eventId);
-
-  console.log(
-    'eventData, isLoading, isError :>> ',
-    eventData,
-    isLoading,
-    isError,
-  );
-
   const {
     errors,
     touched,
