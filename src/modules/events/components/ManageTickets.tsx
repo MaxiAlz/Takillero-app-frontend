@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { MdDeleteForever, MdSave } from 'react-icons/md';
 import { Card, Tooltip } from 'flowbite-react';
-import { CreateTicketTypeForm } from '../Forms/CreateTicketTypeForm';
+
 import {
   ModalCustom,
   RoundedFilledButton,
@@ -9,7 +9,8 @@ import {
 } from '../../../components';
 import { useGetTicketsByEvent } from '../hooks/useGetTicketsByEvent';
 import { useNavigate, useParams } from 'react-router-dom';
-import { DeleteTicket } from '../Forms/DeleteTicket';
+import { CreateTicketTypeForm } from './Forms/CreateTicketTypeForm';
+import { DeleteTicket } from './Forms/DeleteTicket';
 
 export const ManageTickets = () => {
   const { eventId } = useParams();

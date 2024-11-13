@@ -1,8 +1,11 @@
 import React from 'react';
-import { RoundedFilledButton, RoundedOutlineButton } from '../../../components';
 import { MdCancel, MdDeleteForever } from 'react-icons/md';
-import { useDeleteTicketMutation } from '../hooks/useDeleteTicketMutation';
-import { useAlert } from '../../../context/AlertContext';
+import { useDeleteTicketMutation } from '../../hooks';
+import { useAlert } from '../../../../context/AlertContext';
+import {
+  RoundedFilledButton,
+  RoundedOutlineButton,
+} from '../../../../components';
 
 interface TicketToDeleteState {
   ticketId: number;

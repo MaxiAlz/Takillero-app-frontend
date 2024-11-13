@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { getEventsById } from '../services/actions';
+import { eventRepository } from '../repositories/eventRepository';
 
 export const useGetEventById = (eventId?: number) => {
-  console.log('eventId :>> ', eventId);
   const {
     isLoading,
     error,
@@ -12,7 +11,7 @@ export const useGetEventById = (eventId?: number) => {
     isFetching,
   } = useQuery({
     queryKey: ['event', eventId, 'eventData'],
-    queryFn: () => getEventsById(eventId!),
+    queryFn: () => eventRepository.getEventsById(eventId!),
     staleTime: 1000 * 60,
   });
   return { isLoading, error, eventData, isFetching, isError, refetch };

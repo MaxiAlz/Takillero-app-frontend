@@ -1,14 +1,12 @@
-export * from './formiks/EventFormik';
-export * from './Forms/CreateEventForm';
-export * from './Forms/CreateTicketTypeForm';
 export * from './hooks/useGetTicketsByEvent';
 export * from './interfaces/event';
-export * from './views/PanelNewEventPage';
-export * from './views/EventDetail';
-export * as eventActions from './services/actions';
+export * from './Pages/PanelNewEventPage';
+export * from './Pages/EventDetail';
+export * as eventActions from './repositories/eventRepository';
 export { useEventMutation } from './hooks/useEventMutation';
 export { useGetTicketsByEvent } from './hooks/useGetTicketsByEvent';
-export { CreateTicketsPage } from './views/PanelTicketsPage';
+export { CreateTicketsPage } from './Pages/PanelTicketsPage';
 export { useTicket } from './hooks/useTicket';
-export { DeleteTicket } from './Forms/DeleteTicket';
-
+export { DeleteTicket } from './components/Forms/DeleteTicket';
+export { CreateTicketTypeForm } from './components/Forms/CreateTicketTypeForm';
+export { ticketsRepository } from './repositories/ticketsRepository';

@@ -1,7 +1,7 @@
 import { Breadcrumb, PageTitle, StepsDashboard } from '../../../components';
 import DefaultLayout from '../../../layout/DefaultLayout';
-import { CreateEventForm } from '../Forms/CreateEventForm';
 import { steps } from '../../../constants';
+import { CreateEventForm } from '../components/Forms/CreateEventForm';
 
 const CreateNewEvent = () => {
   return (

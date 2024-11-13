@@ -2,7 +2,7 @@
 
 import { LoginPage, RegisterPage } from '../modules/Auth/Pages';
 import { CreateTicketsPage, EventDetail } from '../modules/events';
-import { CreateNewEvent } from '../modules/events/views/PanelNewEventPage';
+import { CreateNewEvent } from '../modules/events/Pages/PanelNewEventPage';
 import HomePage from '../modules/home/views/HomePage';
 import {
   EventsPanel,

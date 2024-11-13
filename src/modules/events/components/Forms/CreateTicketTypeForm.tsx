@@ -1,21 +1,21 @@
-import { RoundedFilledButton } from '../../../components';
 import {
   MdDelete,
   MdOutlinePriceChange,
   MdOutlineRefresh,
   MdSave,
 } from 'react-icons/md';
-import { TicketType } from '../interfaces/event';
 import { useFormik } from 'formik';
 import {
   createTicketSchemaValidation,
   ticketsInitialValues,
 } from '../formiks/ticketsFormik';
 import { GiTicket } from 'react-icons/gi';
-import { useTicketMutation } from '../hooks/useTicketMutation';
-import { useTicket } from '../hooks/useTicket';
-import Loader from '../../../common/Loader';
-import { useAlert } from '../../../context/AlertContext';
+import { useTicketMutation } from '../../hooks/useTicketMutation';
+import { useAlert } from '../../../../context/AlertContext';
+import { useTicket } from '../../hooks';
+import { TicketType } from '../../interfaces/event';
+import Loader from '../../../../common/Loader';
+import { RoundedFilledButton } from '../../../../components';
 
 interface CreateTicketTypeFormProps {
   eventId: number;

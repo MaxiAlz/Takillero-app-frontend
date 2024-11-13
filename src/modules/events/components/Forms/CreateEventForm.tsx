@@ -2,10 +2,6 @@ import { useEffect } from 'react';
 import { useFormik } from 'formik';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FileInput, Label } from 'flowbite-react';
-import { INFO_MESSAGES } from '../../../constants';
-import { RoundedFilledButton, StickyBanner } from '../../../components';
-import Loader from '../../../common/Loader';
-import { EventLookLike } from '../interfaces/event';
 import { MdOutlineRefresh, MdSave } from 'react-icons/md';
 import {
   eventFormikInitialValues,
@@ -17,7 +13,11 @@ import {
   useEventCategories,
   useEventMutation,
   useGetEventById,
-} from '../hooks';
+} from '../../hooks';
+import { EventLookLike } from '../../interfaces/event';
+import Loader from '../../../../common/Loader';
+import { RoundedFilledButton, StickyBanner } from '../../../../components';
+import { INFO_MESSAGES } from '../../../../constants';
 
 const CreateEventForm = () => {
   const { eventId } = useParams();
@@ -31,7 +31,7 @@ const CreateEventForm = () => {
     : { eventData: null, isLoading: false, isError: false };
 
   console.log('eventId :>> ', eventId);
-  
+
   console.log(
     'eventData, isLoading, isError :>> ',
     eventData,

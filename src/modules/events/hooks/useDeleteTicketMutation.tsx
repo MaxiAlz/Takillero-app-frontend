@@ -1,10 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
-import { eventActions } from '..';
+import { ticketsRepository } from '../repositories/ticketsRepository';
 
 export const useDeleteTicketMutation = () => {
   return useMutation({
     mutationFn: async (ticketId: number) => {
-      return await eventActions.deleteTicketById(ticketId);
+      return await ticketsRepository.deleteTicketById(ticketId);
     },
   });
 };

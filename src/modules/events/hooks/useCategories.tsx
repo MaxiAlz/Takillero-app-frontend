@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getEventCategories } from '../services/actions';
+import { categoriesRepository } from '../repositories/categoriesRepository';
 
 export const useEventCategories = () => {
   const {
@@ -11,7 +11,7 @@ export const useEventCategories = () => {
     isFetching,
   } = useQuery({
     queryKey: ['event', 'categories'],
-    queryFn: () => getEventCategories(),
+    queryFn: () => categoriesRepository.getEventCategories(),
     staleTime: 1000 * 60 * 10,
   });
   return { isLoading, error, categories, isFetching, isError, refetch };

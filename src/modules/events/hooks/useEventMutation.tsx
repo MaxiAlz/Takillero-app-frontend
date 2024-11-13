@@ -1,24 +1,17 @@
 import { useMutation } from '@tanstack/react-query';
-import { eventActions, EventLookLike } from '..';
+import { eventRepository } from '../repositories/eventRepository';
+import { EventLookLike } from '../interfaces/event';
 
 export const useEventMutation = (ticketId?: number) => {
   return useMutation({
     mutationFn: async (eventData: EventLookLike) => {
       if (ticketId) {
         // Si existe ticketId, actualizamos el evento
-        return await eventActions.updateEvent(ticketId, eventData);
+        return await eventRepository.updateEvent(ticketId, eventData);
       } else {
         // Si no existe ticketId, creamos un nuevo evento
-        return await eventActions.createEvent(eventData);
+        return await eventRepository.createEvent(eventData);
       }
     },
   });
 };
-
-// export const useEventMutation = () => {
-//   const eventMutation = useMutation({
-//     mutationFn: eventActions.createEvent,
-//   });
-
-//   return eventMutation;
-// };

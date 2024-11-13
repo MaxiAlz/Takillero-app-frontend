@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { VALIDATION_MESSAGES } from '../../../constants/forms/messages';
+import { VALIDATION_MESSAGES } from '../../../../constants';
 
 export const formatDateToSendValues = (date: string, time: string) => {
   return new Date(`${date}T${time}`).toISOString();
