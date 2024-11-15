@@ -1,14 +1,10 @@
 import { apiService } from '../../../services/apiService';
-import { EventLookLike, type Event } from '../interfaces/event';
+import { EventLookLike, EvetsPaginated, type Event } from '../interfaces/event';
 
 export const eventRepository = {
-  async getEvents() {
-    try {
-      const { data } = await apiService.get<Event[]>('/Events');
-      return data;
-    } catch (error) {
-      return `Error al obtener eventos: ${error}`;
-    }
+  async getAuthUserEvents() {
+    const { data } = await apiService.get<EvetsPaginated>('/Events');
+    return data;
   },
 
   async getEventsById(eventId: number): Promise<EventLookLike> {
@@ -26,6 +22,11 @@ export const eventRepository = {
       `/Events/${eventId}`,
       payEvent,
     );
+    return data;
+  },
+
+  async publishEvent(eventId: number) {
+    const { data } = await apiService.post<Event>(`/Events/${eventId}/publish`);
     return data;
   },
 };

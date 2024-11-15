@@ -15,7 +15,7 @@ import {
   useGetEventById,
 } from '../../hooks';
 import { EventLookLike } from '../../interfaces/event';
-import Loader from '../../../../common/Loader';
+import Loader from '../../../../components/Loader';
 import { RoundedFilledButton, StickyBanner } from '../../../../components';
 import { INFO_MESSAGES } from '../../../../constants';
 

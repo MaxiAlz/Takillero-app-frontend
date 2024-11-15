@@ -6,7 +6,7 @@ import { BsFillRocketTakeoffFill } from 'react-icons/bs';
 // import { IoLogoGithub } from 'react-icons/io';
 import { GiSittingDog } from 'react-icons/gi';
 import { admin_dashboard_items } from '../../constants/panel/dashboardItems';
-import { APP_TEXT } from '../../common/text';
+import { APP_TEXT } from '../../constants/text';
 
 interface SidebarProps {
   sidebarOpen: boolean;

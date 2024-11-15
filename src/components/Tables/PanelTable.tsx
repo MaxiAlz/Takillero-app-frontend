@@ -7,44 +7,29 @@ import {
 } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { RoundedFilledButton } from '../Buttons';
+import { ItemEvent } from '../../modules/events';
+import { formatDate } from '../../helpers/formatDate';
 
-const dataEventos = {
-  items: [
-    {
-      date: '2024-10-08T22:24:49.357Z',
-      name: 'evento prueba',
-      description: 'evento prueba',
-      state: 0,
-    },
-    {
-      date: '2024-10-21T12:27:40.945Z',
-      name: 'Las pastillas del abuelo | Cordoba',
-      description: 'Las pastillas del abuelo | Cordoba | 21 hs | club paraguay',
-      state: 1,
-    },
-    {
-      date: '2024-10-21T12:27:40.945Z',
-      name: 'Las pastillas de la tia estela | Cordoba',
-      description: 'Las pastillas del abuelo | Cordoba | 21 hs | club paraguay',
-      state: 1,
-    },
-  ],
-  pageIndex: 1,
-  totalPages: 1,
-  hasPreviousPage: false,
-  hasNextPage: false,
-};
-
-function formatDate(dateString: string) {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('es-ES', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-  });
+interface PanelTableProps {
+  tableItems: ItemEvent[] | undefined;
 }
 
-const PanelTable = () => {
+const getStateAttributes = (
+  state: string,
+): { text: string; classes: string } => {
+  switch (state) {
+    case 'PUBLISHED':
+      return { text: 'Publicado', classes: 'bg-success text-success' };
+    case 'DRAFT':
+      return { text: 'Borrador', classes: 'bg-warning text-warning' };
+    case 'FINISHED':
+      return { text: 'Finalizado', classes: 'bg-danger text-danger' };
+    default:
+      return { text: 'Desconocido', classes: 'bg-gray-300 text-gray-500' }; // Valor por defecto
+  }
+};
+
+const PanelTable = ({ tableItems }: PanelTableProps) => {
   const navigate = useNavigate();
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
@@ -95,48 +80,51 @@ const PanelTable = () => {
             </tr>
           </thead>
           <tbody>
-            {dataEventos.items.map((packageItem, key) => (
+            {tableItems!.map((item, key) => (
               <tr
                 key={key}
-                onClick={() => navigate('/panel/ver-evento/' + key)}
+                onClick={() =>
+                  navigate(
+                    item.state != 'DRAFT'
+                      ? `/panel/events/overview/${item.id}`
+                      : `/panel/events/create/${item.id}/tickets/publish`,
+                  )
+                }
                 className="hover:bg-gray-3 dark:hover:bg-meta-4 hover:cursor-pointer"
               >
                 <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                   <h5 className="font-medium text-black dark:text-white">
-                    {key}
+                    {item.id}
                   </h5>
                 </td>
 
                 <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                   <h5 className="font-medium text-black dark:text-white">
-                    {packageItem.name}
+                    {item.name}
                   </h5>
-                  <p className="text-sm">{packageItem.description}</p>
+                  <p className="text-sm">{item.description.slice(0, 25)}</p>
                 </td>
-                <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                  <div className="h-12.5 w-15 rounded-md">
+                <td className=" py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                  <div className="h-12.5 w-15 ">
                     <img
-                      src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR2zs9-9w7mzhz_Xe_mMMb9DrTXz5wydhyHu8XmP3gZsnDLunMA"
-                      alt="Product"
+                      src={item.photo}
+                      alt="Foto Event"
+                      className="rounded-lg"
                     />
                   </div>
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p className="text-black dark:text-white">
-                    {formatDate(packageItem.date)}
+                    {formatDate(item.date)}
                   </p>
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p
                     className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
-                      packageItem.state === 0
-                        ? 'bg-success text-success'
-                        : packageItem.state === 1
-                        ? 'bg-danger text-danger'
-                        : 'bg-warning text-warning'
+                      getStateAttributes(item.state).classes
                     }`}
                   >
-                    {packageItem.state == 0 ? 'Publicado' : 'Finalizado'}
+                    {getStateAttributes(item.state).text}
                   </p>
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">

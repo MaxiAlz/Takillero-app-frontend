@@ -15,7 +15,7 @@ import { GiTicket } from 'react-icons/gi';
 import { useAlert } from '../../../context/AlertContext';
 
 const OverviewPanel = () => {
-  const { showSuccessToast, showErrorToast, showDefaultToast } = useAlert();
+  const { showSuccessToast, showDefaultToast } = useAlert();
 
   return (
     <>

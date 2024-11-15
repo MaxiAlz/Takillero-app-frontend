@@ -1,7 +1,12 @@
 '../pages/Profile';
 
 import { LoginPage, RegisterPage } from '../modules/Auth/Pages';
-import { CreateTicketsPage, EventDetail } from '../modules/events';
+import {
+  CreateTicketsPage,
+  OverviewEventPage,
+  PublishEventPage,
+} from '../modules/events';
+
 import { CreateNewEvent } from '../modules/events/Pages/PanelNewEventPage';
 import HomePage from '../modules/home/views/HomePage';
 import {
@@ -47,7 +52,11 @@ export const authProtectedRoutes: Array<RouteObject> = [
   },
   {
     path: '/panel/events/create/:eventId/tickets/publish',
-    component: EventDetail,
+    component: PublishEventPage,
+  },
+  {
+    path: '/panel/events/overview/:eventId',
+    component: OverviewEventPage,
   },
 
   // user routes

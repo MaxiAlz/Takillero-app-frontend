@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import DropdownUser from '../Header/DropdownUser';
 import DarkModeSwitcher from '../Header/DarkModeSwitcher';
-import { APP_TEXT } from '../../common/text';
+import { APP_TEXT } from '../../constants/text';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { AuthStatus } from '../../modules/Auth/types/authTypes';

@@ -10,6 +10,8 @@ export interface Event {
   date: Date;
 }
 
+export type EventStatus = 'DRAFT' | 'PUBLISHED' | 'FINISHED';
+
 export interface CreateEventData {
   name: string;
   subtitle: string;
@@ -69,4 +71,21 @@ export interface CategoriesTypes {
 export interface CategoryItems {
   id: number;
   name: string;
+}
+export interface EvetsPaginated {
+  items: ItemEvent[];
+  pageIndex: number;
+  totalPages: number;
+  hasPreviousPage: boolean;
+  hasNextPage: boolean;
+}
+
+export interface ItemEvent {
+  id: number;
+  date: Date;
+  name: string;
+  description: string;
+  state: EventStatus;
+  photo: string;
+  verticalPhoto: string;
 }

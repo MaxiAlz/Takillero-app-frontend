@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { APP_TEXT } from '../../common/text';
+import { APP_TEXT } from '../../constants/text';
 
 interface PageTitleProps {
   title: string;

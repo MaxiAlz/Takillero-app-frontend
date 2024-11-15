@@ -9,7 +9,7 @@ import {
   HiUser,
 } from 'react-icons/hi';
 import { Link, useLocation } from 'react-router-dom';
-import { APP_TEXT } from '../../common/text';
+import { APP_TEXT } from '../../constants/text';
 
 interface SidebarProps {
   sidebarOpen: boolean;

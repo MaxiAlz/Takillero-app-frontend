@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { MdDeleteForever, MdSave } from 'react-icons/md';
 import { Card, Tooltip } from 'flowbite-react';
-
 import {
   ModalCustom,
   RoundedFilledButton,

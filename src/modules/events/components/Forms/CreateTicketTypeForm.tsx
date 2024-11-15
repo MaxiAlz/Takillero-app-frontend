@@ -14,7 +14,7 @@ import { useTicketMutation } from '../../hooks/useTicketMutation';
 import { useAlert } from '../../../../context/AlertContext';
 import { useTicket } from '../../hooks';
 import { TicketType } from '../../interfaces/event';
-import Loader from '../../../../common/Loader';
+import Loader from '../../../../components/Loader';
 import { RoundedFilledButton } from '../../../../components';
 
 interface CreateTicketTypeFormProps {
