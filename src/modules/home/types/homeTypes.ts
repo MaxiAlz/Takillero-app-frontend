@@ -11,8 +11,10 @@ export interface EventItem {
   date: Date;
   name: string;
   description: string;
+  subtitle: string;
   state: string;
   photo: string;
   verticalPhoto: string;
   minimumPrice: number;
 }
+

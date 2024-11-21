@@ -10,10 +10,12 @@ import { useGetTicketsByEvent } from '../hooks/useGetTicketsByEvent';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CreateTicketTypeForm } from './Forms/CreateTicketTypeForm';
 import { DeleteTicket } from './Forms/DeleteTicket';
+import { useAlert } from '../../../context/AlertContext';
 
 export const ManageTickets = () => {
   const { eventId } = useParams();
   const navigate = useNavigate();
+  const { showDefaultToast } = useAlert();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openConfirmModal, setOpenConfirmModal] = useState<boolean>(false);
   const [ticketToDelete, setTicketToDelete] = useState({
@@ -47,6 +49,7 @@ export const ManageTickets = () => {
     return <p>Error: ID del evento no encontrado.</p>;
   }
   const handleClickContinue = () => {
+    showDefaultToast('Tickets guardados como borrador');
     navigate(`/panel/events/create/${eventId}/tickets/publish`);
   };
 

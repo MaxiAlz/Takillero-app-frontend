@@ -18,12 +18,14 @@ import { EventLookLike } from '../../interfaces/event';
 import Loader from '../../../../components/Loader';
 import { RoundedFilledButton, StickyBanner } from '../../../../components';
 import { INFO_MESSAGES } from '../../../../constants';
+import { useAlert } from '../../../../context/AlertContext';
 
 const CreateEventForm = () => {
   const { eventId } = useParams();
   const eventMutation = useEventMutation(+eventId!);
   const eventCategories = useEventCategories();
   const navigate = useNavigate();
+  const { showErrorToast, showDefaultToast } = useAlert();
 
   // Solo ejecuta useGetEventById si existe un eventId
   const { eventData, isLoading, isError } = eventId
@@ -50,10 +52,11 @@ const CreateEventForm = () => {
 
       eventMutation.mutate(formatValues, {
         onSuccess(data) {
+          showDefaultToast('Has creado un evento como borrador');
           navigate(`/panel/events/create/${data.id}/tickets`);
         },
         onError(error) {
-          alert(error);
+          showErrorToast(`Error al crear evento: ${error}`);
         },
       });
     },

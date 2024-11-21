@@ -3,7 +3,7 @@ import { Breadcrumb, CardDataStats, PageTitle } from '../../../components';
 import DefaultLayout from '../../../layout/DefaultLayout';
 import { MdEventAvailable } from 'react-icons/md';
 import { GiTicket } from 'react-icons/gi';
-import EventCard from '../../../components/Cards/EventCard';
+import EventHorizontalCard from '../../../components/Cards/EventHorizontalCard';
 import { useGetEventById } from '../hooks';
 
 const OverviewEventPage = () => {
@@ -26,7 +26,7 @@ const OverviewEventPage = () => {
           </div>
           {/* <div className="my-4 border-t border-gray-300"></div> */}
           {getEventInfo.eventData && (
-            <EventCard
+            <EventHorizontalCard
               name={getEventInfo.eventData.name}
               date={getEventInfo.eventData.date}
               location={getEventInfo.eventData.location}

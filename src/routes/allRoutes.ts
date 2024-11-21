@@ -8,7 +8,7 @@ import {
 } from '../modules/events';
 
 import { CreateNewEvent } from '../modules/events/Pages/PanelNewEventPage';
-import HomePage from '../modules/home/views/HomePage';
+import { HomePage, ViewEventDetail } from '../modules/home/views';
 import {
   EventsPanel,
   OverviewPanel,
@@ -63,7 +63,10 @@ export const authProtectedRoutes: Array<RouteObject> = [
   { path: '/user/profile', component: UserProfile },
 ];
 
-export const publicRoutes = [{ path: '/', component: HomePage }];
+export const publicRoutes = [
+  { path: '/', component: HomePage },
+  { path: '/:eventName/:eventId', component: ViewEventDetail },
+];
 
 export const noAuthRoutes = [
   { path: '/auth/login', component: LoginPage },

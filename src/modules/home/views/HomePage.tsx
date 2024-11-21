@@ -16,7 +16,7 @@ const HomePage = () => {
     <>
       <PageTitle title="Inicio | Bobby Hub " />
       <HomeLayaut>
-        <main className="dark:bg-boxdark">
+        <main className="">
           <CarrouselSection />
           <FilterSection />
 
@@ -99,4 +99,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export { HomePage };

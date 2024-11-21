@@ -16,8 +16,8 @@ import { Card } from 'flowbite-react';
 import Loader from '../../../components/Loader';
 import { usePublishEventMutation } from '../hooks/usePublishEventMutation';
 import { useAlert } from '../../../context/AlertContext';
-import { alertBanners } from '../../../components/Banners/ErrorBanner';
-import EventCard from '../../../components/Cards/EventCard';
+import { alertBanners } from '../../../components/Alerts/alertBanner';
+import EventCard from '../../../components/Cards/EventHorizontalCard';
 
 const PublishEventPage = () => {
   const navigate = useNavigate();
