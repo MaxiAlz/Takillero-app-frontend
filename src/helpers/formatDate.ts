@@ -28,3 +28,18 @@ export function formatFullDate(isoString: Date | string): string {
 
   return `${day}/${month}/${year} - ${hours}:${minutes}`;
 }
+
+export const formatDatoToLong = (dateString: Date) => {
+  const date = new Date(dateString);
+
+  // Configuración de formato para obtener el nombre del día, mes, y año en español
+  const options = {
+    weekday: 'long', // Día de la semana completo
+    day: 'numeric', // Día numérico
+    month: 'long', // Mes completo
+    year: 'numeric', // Año numérico
+  };
+
+  // Usar el formato en español
+  return new Intl.DateTimeFormat('es-ES', options).format(date);
+};

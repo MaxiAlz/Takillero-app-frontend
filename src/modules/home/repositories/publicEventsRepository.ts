@@ -1,5 +1,5 @@
 import { apiService } from '../../../services/apiService';
-import { PublicEvents } from '../types/homeTypes';
+import { EventDetailLookLike, PublicEvents } from '../types/homeTypes';
 
 export const publicEventRepository = {
   async getpublicEvent() {
@@ -7,10 +7,12 @@ export const publicEventRepository = {
     return data;
   },
 
-  // async getEventsById(eventId: number): Promise<EventLookLike> {
-  //   const { data } = await apiService.get<EventLookLike>(`/Events/${eventId}`);
-  //   return data;
-  // },
+  async getPublicEventsById(eventId: number): Promise<EventDetailLookLike> {
+    const { data } = await apiService.get<EventDetailLookLike>(
+      `/PublicEvents/${eventId}`,
+    );
+    return data;
+  },
 
   // async createEvent(formData: EventLookLike) {
   //   const { data } = await apiService.post<Event>('/Events', formData);

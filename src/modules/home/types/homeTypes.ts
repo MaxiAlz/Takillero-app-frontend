@@ -18,3 +18,25 @@ export interface EventItem {
   minimumPrice: number;
 }
 
+export interface EventDetailLookLike {
+  name: string;
+  description: string;
+  subtitle: string;
+  photo: string;
+  verticalPhoto: string;
+  date: Date;
+  location: string;
+  venue: string;
+  ticketTypes: TicketType[];
+}
+
+export interface TicketType {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  endOfSale: Date;
+  startOfSale: Date;
+  totalAmount: number;
+  maxAmountPerUser: number;
+}
