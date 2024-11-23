@@ -4,7 +4,6 @@ import {
   RoundedFilledButton,
   RoundedOutlineDarckButton,
 } from '../../../components/Buttons';
-import FooterCustom from '../../../components/Navbar/Footer';
 import { PageTitle } from '../../../components';
 import HomeLayaut from '../../../layout/HomeLayaut';
 import { FilterSection } from '../components/FilterSection';
@@ -92,7 +91,6 @@ const HomePage = () => {
               </div>
             ))}
           </div>
-          <FooterCustom />
         </main>
       </HomeLayaut>
     </>

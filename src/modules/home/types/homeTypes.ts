@@ -12,6 +12,8 @@ export interface EventItem {
   name: string;
   description: string;
   subtitle: string;
+  venue: string;
+  location: string;
   state: string;
   photo: string;
   verticalPhoto: string;

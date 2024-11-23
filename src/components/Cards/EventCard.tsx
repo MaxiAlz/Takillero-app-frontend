@@ -70,13 +70,13 @@ const EventCard = ({ eventData }: EventCardProps) => {
           <div className="flex items-center gap-2">
             <MdOutlineLocationCity size={18} />
             <p className="text-sm text-gray-700 dark:text-gray-400">
-              event.venue
+              {eventData.venue}
             </p>
           </div>
           <div className="flex items-center gap-2">
             <MdLocationOn size={18} />
             <p className="text-sm text-gray-700 dark:text-gray-400">
-              event.location
+              {eventData.location}
             </p>
           </div>
         </div>

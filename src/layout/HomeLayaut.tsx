@@ -1,6 +1,7 @@
 import { ReactNode, useState } from 'react';
 import Navbar from '../components/Navbar/Navbar';
 import { SidebarApp } from '../components/Sidebar/SidebarApp';
+import FooterCustom from '../components/Navbar/Footer';
 
 const HomeLayaut: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
@@ -30,6 +31,7 @@ const HomeLayaut: React.FC<{ children: ReactNode }> = ({ children }) => {
             </div>
           </main>
           {/* <!-- ===== Main Content End ===== --> */}
+          <FooterCustom />
         </div>
         {/* <!-- ===== Content Area End ===== --> */}
       </div>
