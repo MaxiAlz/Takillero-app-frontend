@@ -1,68 +1,83 @@
-import { useEffect, useState } from "react";
-import { TicketItem } from "../../../../hooks/useCardTicketStorage";
-import { alertBanners } from "../../../../components";
+import { useEffect, useState } from 'react';
+import { TicketItem } from '../../../../hooks/useCardTicketStorage';
+import { alertBanners } from '../../../../components';
 
 interface PaymentMethodFormProps {
   selectedProductsCart: TicketItem[];
+  hasPaidProducts: boolean;
 }
+
+const availablePayMethots = [
+  // { name: 'Gratis', value: 'free', paymentMethodKey: 0 },
+  { name: 'Efectivo', value: 'cash', paymentMethodKey: 0 },
+  { name: 'Tarjeta', value: 'card', paymentMethodKey: 1 },
+];
+
 export const PaymentMethodForm = ({
   selectedProductsCart,
+  hasPaidProducts,
 }: PaymentMethodFormProps) => {
-  const availablePayMethots = [
-    { name: 'Gratis', value: 'free', paymentMethodKey: 0 },
-    { name: 'Efectivo', value: 'cash', paymentMethodKey: 0 },
-    { name: 'Tarjeta', value: 'card', paymentMethodKey: 1 },
-  ];
-  const [paymentMethod, setPaymentMethod] = useState<string>('free');
+  const [paymentMethod, setPaymentMethod] = useState<string>('cash');
 
   // TODO: Eliminar el boton de gratis siguiendo el siguiente criterio:
-  // TODO: si el los tickets de evento son gratis, no se debe mostrar el formulario de pago. y se debe mostrar un banner de info
+  // TODO: si los tickets de evento son gratis, no se debe mostrar el formulario de pago. y se debe mostrar un banner de info
   // TODO: si el alguno de los tickets son de pago, se debe mostrar el formulario de pago. con los botones de efectivo y tarjeta.
-  
+
   useEffect(() => {
     if (selectedProductsCart.some((item) => item.price === 0)) {
-      setPaymentMethod('free');
+      setPaymentMethod('cash');
     }
   }, [selectedProductsCart]);
 
+  // const areAllTicketsFree = (tickets: TicketItem[]) => {
+  //   return tickets.every((ticket) => ticket.price === 0);
+  // };
+
+  // const hasPaidTickets = (tickets: TicketItem[]) => {
+  //   return tickets.some((ticket) => ticket.price > 0);
+  // };
+
   return (
-    <div className="border border-black rounded-lg mb-5 bg-white px-5 pt-6 pb-2.5 shadow-lg dark:border-white dark:bg-boxdark sm:px-7.5 xl:pb-1">
+    <div className="border border-black rounded-lg py-4 mb-5 bg-white shadow-lg dark:border-white dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <h2 className="text-xl font-bold mb-4 text-black dark:text-white">
         Método de Pago
       </h2>
 
       <div className="flex gap-4 mb-6">
-        {availablePayMethots.map((paymentMethodItem) => (
-          <button
-            key={paymentMethodItem.paymentMethodKey}
-            className={`px-4 py-2 rounded-lg border  ${
-              paymentMethodItem.value === paymentMethod
-                ? 'bg-primary text-white font-semibold border-hidden'
-                : 'border  '
-            }`}
-            onClick={() => setPaymentMethod(paymentMethodItem.value)}
-          >
-            {paymentMethodItem.name}
-          </button>
-        ))}
+        {hasPaidProducts &&
+          availablePayMethots.map((paymentMethodItem) => (
+            <button
+              key={paymentMethodItem.paymentMethodKey}
+              className={`px-4 py-2 rounded-lg border  ${
+                paymentMethodItem.value === paymentMethod
+                  ? 'bg-primary text-white font-semibold border-hidden'
+                  : 'border  '
+              }`}
+              onClick={() => setPaymentMethod(paymentMethodItem.value)}
+            >
+              {paymentMethodItem.name}
+            </button>
+          ))}
+      </div>
+      <div className="mb-4">
+        {!hasPaidProducts &&
+          alertBanners.showInfoBanner({
+            title: 'Este evento es gratis',
+            message:
+              'Este evento no tiene costo de entrada ni productos de pago seleccionados. Recibiras tus tickets en el email que registraste.',
+          })}
+
+        {hasPaidProducts &&
+          paymentMethod === 'cash' &&
+          alertBanners.showWarningBanner({
+            title: 'Pago en boleteria',
+            message:
+              'Realizaras el pago en efectivo. Procura obtener la informacion necesaria para la validacion de la identidad en el ingreso y la ubicacion de estos puntos de venta.',
+          })}
       </div>
 
-      {paymentMethod === 'free' &&
-        alertBanners.showInfoBanner({
-          title: 'Este evento es gratis',
-          message:
-            'No es necesario realizar ningun pago para acceder a este evento. Recibiras un correo con los detalles de acceso al evento y tus tickets.',
-        })}
-
-      {paymentMethod === 'cash' &&
-        alertBanners.showWarningBanner({
-          title: 'Pago en boleteria',
-          message:
-            'Realizaras el pago en efectivo. Procura obtener la informacion necesaria para la validacion de la identidad en el ingreso y la ubicacion de estos puntos de venta.',
-        })}
-
-      {paymentMethod === 'card' && (
-        <div className="space-y-4">
+      {hasPaidProducts && paymentMethod === 'card' && (
+        <div className="py-4">
           <div>
             <label className="block text-black dark:text-white mb-2">
               Número de Tarjeta

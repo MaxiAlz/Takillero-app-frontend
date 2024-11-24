@@ -42,3 +42,18 @@ export interface TicketType {
   totalAmount: number;
   maxAmountPerUser: number;
 }
+
+export type PourchaseProductItem = {
+  ticketTypeId: number;
+  name: string;
+  price: number;
+  quantity: number;
+};
+
+export interface PurchaseEventProductsPayload {
+  ticketItems: PourchaseProductItem[];
+  email: string;
+  name: string;
+  dni: string;
+  paymentMethod: string;
+}

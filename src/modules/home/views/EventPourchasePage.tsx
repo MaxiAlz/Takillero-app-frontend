@@ -6,27 +6,32 @@ import { useGetPublicEventById } from '../hooks/useGetPublicEventById';
 import { SummaryProductsTable } from '../components/SummaryProductsTable';
 import { useEffect, useState } from 'react';
 import { MdFactCheck } from 'react-icons/md';
-import {
-  TicketItem,
-  useCartTicketStorage,
-} from '../../../hooks/useCardTicketStorage';
+import { useCartTicketStorage } from '../../../hooks/useCardTicketStorage';
 import { PaymentMethodForm } from '../components/forms/PaymentMethotsForm';
 import { CardResume } from '../components/forms/CardResumme';
+import { PourchaseProductItem } from '../types/homeTypes';
 
 const EventPourchasePage = () => {
   const { eventId } = useParams();
-  const { eventData, /* isLoading, isError */ } = useGetPublicEventById(+eventId!);
+  const { eventData /* isLoading, isError */ } = useGetPublicEventById(
+    +eventId!,
+  );
+  
+  // TODO: crear formik para el formulario de compra e integrar con el usePurchaseEventProductsMutation
 
   const { cartsPurchase } = useCartTicketStorage();
   const [selectedProductsCart, setSelectedProductsCart] = useState<
-    TicketItem[]
+    PourchaseProductItem[]
   >([]);
+  const [hasPaidProducts, setHasPaidProducts] = useState<boolean>(false);
 
-  console.log('selectedProductsCart', selectedProductsCart);
+  const hasPaidTickets = (tickets: PourchaseProductItem[]): boolean => {
+    return tickets.some((ticket) => ticket.price > 0);
+  };
 
   useEffect(() => {
     const eventCart = cartsPurchase.find((cart) => cart.eventId === +eventId!);
-
+    setHasPaidProducts(hasPaidTickets(eventCart?.ticketItems || []));
     if (eventCart && eventCart.ticketItems.length > 0) {
       setSelectedProductsCart(eventCart.ticketItems);
     } else {
@@ -50,16 +55,22 @@ const EventPourchasePage = () => {
                 <PourchaseUserInformationForm />
                 <PaymentMethodForm
                   selectedProductsCart={selectedProductsCart}
+                  hasPaidProducts={hasPaidProducts}
                 />
 
                 <RoundedFilledButton
                   className="w-full"
-                  text="Confirmar compra"
+                  text={
+                    hasPaidProducts ? 'Confirmar compra' : 'Obtener tickets'
+                  }
                   icon={<MdFactCheck />}
                 />
               </div>
               <div className="sticky top-26  z-50 flex h-min">
-                <CardResume />
+                <CardResume
+                  selectedProductsCart={selectedProductsCart}
+                  hasPaidProducts={hasPaidProducts}
+                />
               </div>
             </section>
           </>
