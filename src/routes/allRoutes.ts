@@ -8,7 +8,11 @@ import {
 } from '../modules/events';
 
 import { CreateNewEvent } from '../modules/events/Pages/PanelNewEventPage';
-import { HomePage, ViewEventDetail } from '../modules/home/views';
+import {
+  EventPourchasePage,
+  HomePage,
+  ViewEventDetail,
+} from '../modules/home/views';
 import {
   EventsPanel,
   OverviewPanel,
@@ -66,6 +70,10 @@ export const authProtectedRoutes: Array<RouteObject> = [
 export const publicRoutes = [
   { path: '/', component: HomePage },
   { path: '/:eventName/:eventId', component: ViewEventDetail },
+  {
+    path: '/cart/:eventId/pourchase',
+    component: EventPourchasePage,
+  },
 ];
 
 export const noAuthRoutes = [

@@ -13,8 +13,6 @@ const ViewEventDetail = () => {
   const { eventId } = useParams();
   const { eventData, isLoading, isError } = useGetPublicEventById(+eventId!);
 
-
-  console.log('eventData', eventData)
   return (
     <>
       <PageTitle title="Ver Evento | Bobby Hub " />
@@ -42,13 +40,16 @@ const ViewEventDetail = () => {
                   />
                 </div>
               </section>
-             
+
               <EventInfoBanner eventData={eventData} />
 
               <section className="grid lg:grid-cols-3 grid-cols-1 gap-4 lg:mx-10 ">
                 {/* Columna de izquierda */}
                 <div className="col-span-2">
-                  <TicketsPourchaseTable tickets={eventData.ticketTypes} />
+                  <TicketsPourchaseTable
+                    eventId={+eventId!}
+                    tickets={eventData.ticketTypes}
+                  />
                   <Card className="w-full dark:bg-boxdark">
                     <h2 className="font-bold text-xl ">Descripción General:</h2>
                     <p>{eventData.description}</p>

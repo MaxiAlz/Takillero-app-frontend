@@ -13,7 +13,7 @@ import { AvailableEvents } from '../components/AvailableEvents';
 const HomePage = () => {
   return (
     <>
-      <PageTitle title="Inicio | Bobby Hub " />
+      <PageTitle title="Inicio" />
       <HomeLayaut>
         <main className="">
           <CarrouselSection />
