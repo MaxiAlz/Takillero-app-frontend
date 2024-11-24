@@ -70,25 +70,12 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
         <NavLink to="/">
-          {/* <div className="flex font-bold uppercase text-primary text-2xl text-center">
-            <BsFillRocketTakeoffFill size={30} />
-            <h1 className="">ENOROBITA</h1>
-          </div> */}
-
           <div className="flex font-bold uppercase text-primary text-2xl text-center">
             <GiSittingDog size={30} />
             <h1 className="">{APP_TEXT.app_name}</h1>
             <BsFillRocketTakeoffFill size={30} />
           </div>
-          {/* <div className="flex font-bold uppercase text-primary text-2xl text-center">
-            <IoLogoGithub size={30} />
-            <h1 className="">EVENT HUB</h1>
-          </div>
 
-          <div className="flex font-bold uppercase text-primary text-2xl text-center">
-            <IoLogoGithub size={30} />
-            <h1 className="">Movidaap</h1>
-          </div> */}
           {/* <img src={Logo} alt="Logo" /> */}
         </NavLink>
 

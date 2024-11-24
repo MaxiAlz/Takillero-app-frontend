@@ -64,12 +64,18 @@ export const RoundedOutlineButton: React.FC<RoundedOutlineButtonProps> = ({
   onClick,
   text,
   className = '',
+  disabled = false,
 }) => (
   <button
     onClick={onClick}
-    className={`px-2 py-3 inline-flex items-center justify-center rounded-md text-center font-medium text-black dark:text-white hover:bg-opacity-90 border hover:border-primary  ${className}`}
+    disabled={disabled}
+    className={`px-2 py-3 inline-flex items-center justify-center rounded-md text-center font-medium ${
+      disabled
+        ? 'text-gray-400 cursor-not-allowed border-gray-300 hover:border-gray-300'
+        : 'text-black dark:text-white hover:bg-opacity-90 border hover:border-primary'
+    } ${className}`}
   >
-    {Icon && <Icon size={25} />}
+    {Icon && <Icon size={25} className={disabled ? 'text-gray-400' : ''} />}
     {text}
   </button>
 );

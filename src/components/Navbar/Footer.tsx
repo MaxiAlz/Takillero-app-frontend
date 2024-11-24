@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { APP_TEXT } from '../../constants/text';
+import { BsFillRocketTakeoffFill } from 'react-icons/bs';
 
 const FooterCustom = () => {
   return (
@@ -7,10 +8,9 @@ const FooterCustom = () => {
       <div className="container mx-auto px-4 py-5">
         <div className="flex items-center justify-evenly space-x-4 w-full">
           {/* logo */}
-          <div className="text-lg font-bold">
-            <Link to={'/'} className="text-primary font-semibold uppercase ">
-              {APP_TEXT.app_name}
-            </Link>
+          <div className="flex font-bold uppercase text-primary text-2xl text-center">
+            <BsFillRocketTakeoffFill size={20} />
+            <h1 className="">{APP_TEXT.app_name}</h1>
           </div>
           <div className="flex flex-col">
             <h6 className={'hover:text-white hover:cursor-pointer'}>

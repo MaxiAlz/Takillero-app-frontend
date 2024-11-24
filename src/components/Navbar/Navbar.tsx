@@ -5,6 +5,7 @@ import { APP_TEXT } from '../../constants/text';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { AuthStatus } from '../../modules/Auth/types/authTypes';
+import { BsFillRocketTakeoffFill } from 'react-icons/bs';
 
 interface NavbarPorps {
   sidebarOpen: string | boolean | undefined;
@@ -73,7 +74,11 @@ const Navbar = (props: NavbarPorps) => {
                   to={'/'}
                   className="text-primary font-semibold uppercase mx-2"
                 >
-                  {APP_TEXT.app_name}
+                  <div className="flex font-bold uppercase text-primary text-2xl text-center">
+                    {/* <GiSittingDog size={30} /> */}
+                    <BsFillRocketTakeoffFill size={20} />
+                    <h1 className="">{APP_TEXT.app_name}</h1>
+                  </div>
                 </Link>
                 <ul className="flex space-x-6">
                   <li>
