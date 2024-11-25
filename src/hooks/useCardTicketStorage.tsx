@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-const CART_TICKET_STORAGE_KEY = 'cartTicketStorage';
+const CART_TICKET_STORAGE_KEY = 'cartItemStorage';
 
 export interface TicketItem {
   ticketTypeId: number;

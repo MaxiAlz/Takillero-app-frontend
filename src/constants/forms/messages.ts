@@ -6,6 +6,7 @@ export const CONFIRMATION_MESSAGES = {
 
 export const VALIDATION_MESSAGES = {
   email: 'Por favor ingresa un correo electrónico válido.',
+  confirmEmail: 'Los emails no coinciden.',
   password: 'La contraseña debe tener al menos 8 caracteres.',
   required: 'Este campo es obligatorio.',
 };

@@ -10,23 +10,32 @@ import { useCartTicketStorage } from '../../../hooks/useCardTicketStorage';
 import { PaymentMethodForm } from '../components/forms/PaymentMethotsForm';
 import { CardResume } from '../components/forms/CardResumme';
 import { PourchaseProductItem } from '../types/homeTypes';
+import { usePurchaseFormik } from '../formiks/usePoruchaseFormik';
+import { PourchaseUserInformationForm } from '../components/PourchaseUserInfoForm';
+
+const hasPaidTickets = (tickets: PourchaseProductItem[]): boolean => {
+  return tickets.some((ticket) => ticket.price > 0);
+};
 
 const EventPourchasePage = () => {
-  const { eventId } = useParams();
-  const { eventData /* isLoading, isError */ } = useGetPublicEventById(
-    +eventId!,
-  );
-  
-  // TODO: crear formik para el formulario de compra e integrar con el usePurchaseEventProductsMutation
-
-  const { cartsPurchase } = useCartTicketStorage();
+  // 4.1 Hooks (useState, useParams, custom hooks)
   const [selectedProductsCart, setSelectedProductsCart] = useState<
     PourchaseProductItem[]
   >([]);
   const [hasPaidProducts, setHasPaidProducts] = useState<boolean>(false);
+  const { eventId } = useParams();
 
-  const hasPaidTickets = (tickets: PourchaseProductItem[]): boolean => {
-    return tickets.some((ticket) => ticket.price > 0);
+  // 4.2 Custom hooks
+  const { cartsPurchase } = useCartTicketStorage();
+  const { eventData } = useGetPublicEventById(+eventId!);
+  const purchaseFormik = usePurchaseFormik(+eventId!);
+
+  const setTicketItems = () => {
+    const ticketItems = selectedProductsCart.map((product) => ({
+      quantity: product.quantity,
+      ticketTypeId: product.ticketTypeId,
+    }));
+    purchaseFormik.setFieldValue('ticketItems', ticketItems);
   };
 
   useEffect(() => {
@@ -35,9 +44,12 @@ const EventPourchasePage = () => {
     if (eventCart && eventCart.ticketItems.length > 0) {
       setSelectedProductsCart(eventCart.ticketItems);
     } else {
-      alert('Error al acceder a los tickets del evento');
+      return alert('Error al acceder a los tickets del evento');
     }
-  }, [cartsPurchase, eventId]);
+    setTicketItems();
+  }, [cartsPurchase, eventId, selectedProductsCart]);
+
+  console.log('formik', purchaseFormik.values);
 
   return (
     <>
@@ -52,16 +64,24 @@ const EventPourchasePage = () => {
                 <SummaryProductsTable
                   selectedProductsCart={selectedProductsCart}
                 />
-                <PourchaseUserInformationForm />
+                <PourchaseUserInformationForm purchaseFormik={purchaseFormik} />
                 <PaymentMethodForm
                   selectedProductsCart={selectedProductsCart}
                   hasPaidProducts={hasPaidProducts}
+                  purchaseFormik={purchaseFormik}
                 />
 
                 <RoundedFilledButton
                   className="w-full"
+                  disabled={!purchaseFormik.isValid}
+                  type="submit"
+                  onClick={() => purchaseFormik.handleSubmit()}
                   text={
-                    hasPaidProducts ? 'Confirmar compra' : 'Obtener tickets'
+                    purchaseFormik.isSubmitting
+                      ? 'Cargando...'
+                      : hasPaidProducts
+                      ? 'Confirmar compra'
+                      : 'Obtener tickets'
                   }
                   icon={<MdFactCheck />}
                 />
@@ -70,6 +90,7 @@ const EventPourchasePage = () => {
                 <CardResume
                   selectedProductsCart={selectedProductsCart}
                   hasPaidProducts={hasPaidProducts}
+                  purchaseFormik={purchaseFormik}
                 />
               </div>
             </section>
@@ -81,51 +102,3 @@ const EventPourchasePage = () => {
 };
 
 export { EventPourchasePage };
-
-export const PourchaseUserInformationForm = () => {
-  return (
-    <>
-      <div className="border border-black rounded-lg mb-5 bg-white px-5 pt-6 pb-2.5 shadow-lg dark:border-white dark:bg-boxdark sm:px-7.5 xl:pb-1">
-        <h2 className="text-xl font-bold mb-4 text-black dark:text-white">
-          Datos del Comprador
-        </h2>
-        <div className="my-5">
-          <label className="mt-1 block text-black dark:text-white ">
-            Nombre Completo
-          </label>
-          <input
-            type="text"
-            name="name"
-            placeholder="Juan Perez"
-            className="w-full rounded-lg border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-          />
-
-          <label className="mt-1 block text-black dark:text-white ">
-            Email
-          </label>
-          <p>Este email sera usado para enviar los tickets de compra.</p>
-          <input
-            type="email"
-            name="email"
-            placeholder="juan.perez@email.com"
-            className="w-full rounded-lg border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-          />
-
-          <label className="mt-1 block text-black dark:text-white ">
-            DNI o Pasaporte
-          </label>
-          <p>
-            Este DNI o Pasaporte sera usado para la validacion de la identidad
-            en el ingreso al evento.
-          </p>
-          <input
-            type="text"
-            name="dni"
-            placeholder="12345678"
-            className="w-full rounded-lg border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-          />
-        </div>
-      </div>
-    </>
-  );
-};

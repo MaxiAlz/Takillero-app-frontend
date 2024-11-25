@@ -1,9 +1,12 @@
 import { BUSSINES_DATA } from '../../../../constants/bussinessData/businesData';
+import { formatPrice } from '../../../../helpers/formarPrice';
+import { usePurchaseFormik } from '../../formiks/usePoruchaseFormik';
 import { PourchaseProductItem } from '../../types/homeTypes';
 
 interface CardResumeProps {
   selectedProductsCart: PourchaseProductItem[];
   hasPaidProducts: boolean;
+  purchaseFormik: ReturnType<typeof usePurchaseFormik>;
 }
 
 const CardResume = ({
@@ -11,14 +14,6 @@ const CardResume = ({
   hasPaidProducts,
 }: CardResumeProps) => {
   const { SERVICE_CHARGE_PERCENTAGE, TAX_PERCENTAGE } = BUSSINES_DATA;
-
-  const formatPrice = (price: number): string => {
-    return price.toLocaleString('es-ES', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-      useGrouping: true,
-    });
-  };
 
   return (
     <div className="border border-black rounded-lg mb-5 w-full bg-white px-5 pt-6 pb-2.5 shadow-lg dark:border-white dark:bg-boxdark sm:px-7.5">

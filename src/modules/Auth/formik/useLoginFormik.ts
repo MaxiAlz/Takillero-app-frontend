@@ -22,7 +22,6 @@ const useLoginFormik = () => {
     }),
     onSubmit: async (
       values: UserLoginData,
-      // { setSubmitting }
       formikHelpers: FormikHelpers<UserLoginData>,
     ) => {
       formikHelpers.setSubmitting(true);

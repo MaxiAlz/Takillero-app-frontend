@@ -1,13 +1,21 @@
 import { useEffect, useState } from 'react';
 import { TicketItem } from '../../../../hooks/useCardTicketStorage';
 import { alertBanners } from '../../../../components';
+import { usePurchaseFormik } from '../../formiks/usePoruchaseFormik';
 
 interface PaymentMethodFormProps {
   selectedProductsCart: TicketItem[];
   hasPaidProducts: boolean;
+  purchaseFormik: ReturnType<typeof usePurchaseFormik>;
 }
 
-const availablePayMethots = [
+interface PaymentMethod {
+  name: string;
+  value: string;
+  paymentMethodKey: number;
+}
+
+const availablePayMethots: PaymentMethod[] = [
   // { name: 'Gratis', value: 'free', paymentMethodKey: 0 },
   { name: 'Efectivo', value: 'cash', paymentMethodKey: 0 },
   { name: 'Tarjeta', value: 'card', paymentMethodKey: 1 },
@@ -16,17 +24,20 @@ const availablePayMethots = [
 export const PaymentMethodForm = ({
   selectedProductsCart,
   hasPaidProducts,
+  purchaseFormik,
 }: PaymentMethodFormProps) => {
-  const [paymentMethod, setPaymentMethod] = useState<string>('cash');
-
-  // TODO: Eliminar el boton de gratis siguiendo el siguiente criterio:
-  // TODO: si los tickets de evento son gratis, no se debe mostrar el formulario de pago. y se debe mostrar un banner de info
-  // TODO: si el alguno de los tickets son de pago, se debe mostrar el formulario de pago. con los botones de efectivo y tarjeta.
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(
+    availablePayMethots[0],
+  );
 
   useEffect(() => {
     if (selectedProductsCart.some((item) => item.price === 0)) {
-      setPaymentMethod('cash');
+      setPaymentMethod(availablePayMethots[0]);
     }
+    purchaseFormik.setFieldValue(
+      'paymentMethod',
+      paymentMethod.paymentMethodKey,
+    );
   }, [selectedProductsCart]);
 
   // const areAllTicketsFree = (tickets: TicketItem[]) => {
@@ -49,11 +60,11 @@ export const PaymentMethodForm = ({
             <button
               key={paymentMethodItem.paymentMethodKey}
               className={`px-4 py-2 rounded-lg border  ${
-                paymentMethodItem.value === paymentMethod
+                paymentMethodItem.value === paymentMethod.value
                   ? 'bg-primary text-white font-semibold border-hidden'
                   : 'border  '
               }`}
-              onClick={() => setPaymentMethod(paymentMethodItem.value)}
+              onClick={() => setPaymentMethod(paymentMethodItem)}
             >
               {paymentMethodItem.name}
             </button>
@@ -68,7 +79,7 @@ export const PaymentMethodForm = ({
           })}
 
         {hasPaidProducts &&
-          paymentMethod === 'cash' &&
+          paymentMethod.value === 'cash' &&
           alertBanners.showWarningBanner({
             title: 'Pago en boleteria',
             message:
@@ -76,7 +87,7 @@ export const PaymentMethodForm = ({
           })}
       </div>
 
-      {hasPaidProducts && paymentMethod === 'card' && (
+      {hasPaidProducts && paymentMethod.value === 'card' && (
         <div className="py-4">
           <div>
             <label className="block text-black dark:text-white mb-2">
