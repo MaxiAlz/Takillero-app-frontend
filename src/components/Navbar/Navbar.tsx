@@ -6,8 +6,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { AuthStatus } from '../../modules/Auth/types/authTypes';
 import { BsFillRocketTakeoffFill } from 'react-icons/bs';
-import DropdownNotification from '../Header/DropdownNotification';
-import DropdownMessage from '../Header/DropdownMessage';
+
 import { DropdownShoppingCart } from '../Header/DropdownShoppingCart';
 
 interface NavbarPorps {
@@ -15,8 +14,16 @@ interface NavbarPorps {
   setSidebarOpen: (arg0: boolean) => void;
 }
 
+const navbarItems = [
+  { href: '/eventos', label: 'Eventos' },
+  { href: '/contacto', label: 'Contacto' },
+  { href: '/sobre-nosotros', label: 'Sobre Nosotros' },
+  { href: '/ver-tickets', label: 'Ver Tickets' },
+];
+
 const Navbar = (props: NavbarPorps) => {
   const { user, status } = useSelector((state: RootState) => state.auth);
+  // const navigate = useNavigate();
 
   return (
     <>
@@ -83,32 +90,18 @@ const Navbar = (props: NavbarPorps) => {
                     <h1 className="">{APP_TEXT.app_name}</h1>
                   </div>
                 </Link>
-                <ul className="flex space-x-6">
-                  <li>
-                    <a
-                      href="/eventos"
-                      className="text-gray-800 hover:text-primary"
-                    >
-                      Eventos
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/contacto"
-                      className="text-gray-800 hover:text-primary"
-                    >
-                      Contacto
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/sobre-nosotros"
-                      className="text-gray-800 hover:text-primary"
-                    >
-                      Sobre Nosotros
-                    </a>
-                  </li>
-                </ul>
+                {navbarItems.map((item) => (
+                  <ul className="flex">
+                    <li key={item.href} className="mx-2">
+                      <a
+                        href={item.href}
+                        className="text-gray-800 hover:text-primary"
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  </ul>
+                ))}
               </div>
             </div>
           </div>
@@ -125,6 +118,12 @@ const Navbar = (props: NavbarPorps) => {
 
             {/* <!-- User Area --> */}
             {!!user && status === AuthStatus.AUTHENTICATED && <DropdownUser />}
+            {/* {!user && (
+              <RoundedOutlineButton
+                text="Ingresar"
+                onClick={() => navigate('/auth/login')}
+              />
+            )} */}
             {/* <!-- User Area --> */}
           </div>
         </div>
