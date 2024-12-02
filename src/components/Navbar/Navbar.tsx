@@ -6,6 +6,9 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { AuthStatus } from '../../modules/Auth/types/authTypes';
 import { BsFillRocketTakeoffFill } from 'react-icons/bs';
+import DropdownNotification from '../Header/DropdownNotification';
+import DropdownMessage from '../Header/DropdownMessage';
+import { DropdownShoppingCart } from '../Header/DropdownShoppingCart';
 
 interface NavbarPorps {
   sidebarOpen: string | boolean | undefined;
@@ -113,6 +116,9 @@ const Navbar = (props: NavbarPorps) => {
           <div className="flex items-center gap-3 2xsm:gap-7">
             <ul className="flex items-center gap-2 2xsm:gap-4">
               {/* <!-- Dark Mode Toggler --> */}
+              {/* <DropdownMessage /> */}
+              {/* <DropdownNotification /> */}
+              <DropdownShoppingCart />
               <DarkModeSwitcher />
               {/* <!-- Dark Mode Toggler --> */}
             </ul>

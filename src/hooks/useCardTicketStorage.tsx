@@ -10,6 +10,7 @@ export interface TicketItem {
 
 export interface EventCart {
   eventId: number;
+  eventName: string;
   ticketItems: TicketItem[];
 }
 
@@ -46,6 +47,7 @@ export const useCartTicketStorage = () => {
 
   const addItem = (
     eventId: number,
+    eventName: string,
     ticketItem: TicketParams,
     quantity: number,
   ) => {
@@ -73,7 +75,7 @@ export const useCartTicketStorage = () => {
         }
       } else {
         // Crear nuevo carrito de evento
-        prev.push({ eventId, ticketItems: [newItem] });
+        prev.push({ eventId, eventName, ticketItems: [newItem] });
       }
 
       // Filtrar eventos sin tickets antes de retornar
@@ -91,9 +93,14 @@ export const useCartTicketStorage = () => {
       })),
     );
   };
+
+  const removeEventCart = (eventId: number) => {
+    setCartsPurchase((prev) => prev.filter((cart) => cart.eventId !== eventId));
+  };
+
   const clearCart = () => {
     setCartsPurchase([]);
   };
 
-  return { cartsPurchase, addItem, removeItem, clearCart };
+  return { cartsPurchase, addItem, removeItem, clearCart,removeEventCart };
 };

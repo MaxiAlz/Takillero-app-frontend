@@ -1,6 +1,6 @@
 import { GiTicket } from 'react-icons/gi';
 import { RoundedFilledButton, RoundedOutlineButton } from '../../../components';
-import { TicketType } from '../types/homeTypes';
+import { EventDetailLookLike, TicketType } from '../types/homeTypes';
 import {
   EventCart,
   TicketItem,
@@ -12,11 +12,12 @@ import { useNavigate } from 'react-router-dom';
 interface TicketsPourchaseTablePorps {
   eventId: number;
   tickets: TicketType[];
+  eventData: EventDetailLookLike;
 }
-
 const TicketsPourchaseTable = ({
   eventId,
   tickets,
+  eventData,
 }: TicketsPourchaseTablePorps) => {
   const { cartsPurchase, addItem, removeItem } = useCartTicketStorage();
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const TicketsPourchaseTable = ({
     if (quantity === 0) {
       removeItem(ticketType.id);
     } else {
-      addItem(eventId, ticketType, quantity);
+      addItem(eventId, eventData.name, ticketType, quantity);
     }
   };
 

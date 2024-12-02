@@ -49,6 +49,7 @@ const ViewEventDetail = () => {
                   <TicketsPourchaseTable
                     eventId={+eventId!}
                     tickets={eventData.ticketTypes}
+                    eventData={eventData}
                   />
                   <Card className="w-full dark:bg-boxdark">
                     <h2 className="font-bold text-xl ">Descripción General:</h2>

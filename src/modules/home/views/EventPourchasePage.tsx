@@ -51,7 +51,6 @@ const EventPourchasePage = () => {
 
   console.log('formik', purchaseFormik.values);
 
-
   return (
     <>
       <PageTitle title="Compra de tickets" />
