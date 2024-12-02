@@ -49,7 +49,7 @@ export const PaymentMethodForm = ({
   // };
 
   return (
-    <div className="border border-black rounded-lg py-4 mb-5 bg-white shadow-lg dark:border-white dark:bg-boxdark sm:px-7.5 xl:pb-1">
+    <div className="border p-4 border-black rounded-lg py-4 mb-5 bg-white shadow-lg dark:border-white dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <h2 className="text-xl font-bold mb-4 text-black dark:text-white">
         Método de Pago
       </h2>

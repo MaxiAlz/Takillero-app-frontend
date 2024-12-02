@@ -51,6 +51,7 @@ const EventPourchasePage = () => {
 
   console.log('formik', purchaseFormik.values);
 
+
   return (
     <>
       <PageTitle title="Compra de tickets" />
@@ -64,6 +65,13 @@ const EventPourchasePage = () => {
                 <SummaryProductsTable
                   selectedProductsCart={selectedProductsCart}
                 />
+                <div className="order-1 lg:hidden mb-4">
+                  <CardResume
+                    selectedProductsCart={selectedProductsCart}
+                    hasPaidProducts={hasPaidProducts}
+                    purchaseFormik={purchaseFormik}
+                  />
+                </div>
                 <PourchaseUserInformationForm purchaseFormik={purchaseFormik} />
                 <PaymentMethodForm
                   selectedProductsCart={selectedProductsCart}
@@ -71,22 +79,26 @@ const EventPourchasePage = () => {
                   purchaseFormik={purchaseFormik}
                 />
 
-                <RoundedFilledButton
-                  className="w-full"
-                  disabled={!purchaseFormik.isValid}
-                  type="submit"
-                  onClick={() => purchaseFormik.handleSubmit()}
-                  text={
-                    purchaseFormik.isSubmitting
-                      ? 'Cargando...'
-                      : hasPaidProducts
-                      ? 'Confirmar compra'
-                      : 'Obtener tickets'
-                  }
-                  icon={<MdFactCheck />}
-                />
+                <div className="flex flex-col">
+                  <div className="order-2">
+                    <RoundedFilledButton
+                      className="w-full"
+                      disabled={!purchaseFormik.isValid}
+                      type="submit"
+                      onClick={() => purchaseFormik.handleSubmit()}
+                      text={
+                        purchaseFormik.isSubmitting
+                          ? 'Cargando...'
+                          : hasPaidProducts
+                          ? 'Confirmar compra'
+                          : 'Obtener tickets'
+                      }
+                      icon={<MdFactCheck />}
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="sticky top-26  z-50 flex h-min">
+              <div className="sticky top-26 z-50 h-min hidden lg:block">
                 <CardResume
                   selectedProductsCart={selectedProductsCart}
                   hasPaidProducts={hasPaidProducts}

@@ -11,6 +11,7 @@ import { CreateNewEvent } from '../modules/events/Pages/PanelNewEventPage';
 import {
   EventPourchasePage,
   HomePage,
+  PurchaseConfirmationPage,
   ViewEventDetail,
 } from '../modules/home/views';
 import {
@@ -73,6 +74,10 @@ export const publicRoutes = [
   {
     path: '/cart/:eventId/pourchase',
     component: EventPourchasePage,
+  },
+  {
+    path: '/cart/:eventId/pourchase/confirm',
+    component: PurchaseConfirmationPage,
   },
 ];
 

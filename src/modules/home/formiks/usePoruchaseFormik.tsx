@@ -5,7 +5,7 @@ import { VALIDATION_MESSAGES } from '../../../constants';
 import { purchaseEventProductsRepository } from '../repositories/pourchaseEventProductsRepository';
 import { usePurchaseEventProductsMutation } from '../hooks/usePourchaseEventProductsMutation';
 import { useAlert } from '../../../context/AlertContext';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface PurchaseFormValues extends PurchaseEventProductsPayload {
   confirmEmail: string;
@@ -14,7 +14,7 @@ interface PurchaseFormValues extends PurchaseEventProductsPayload {
 const usePurchaseFormik = (eventId: number) => {
   const purchaseMutation = usePurchaseEventProductsMutation(eventId);
   const { showDefaultToast, showErrorToast } = useAlert();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   return useFormik<PurchaseFormValues>({
     initialValues: purchaseFormikInitialValues,
     validationSchema: purchaseFormikValidationSchema,
@@ -26,11 +26,19 @@ const usePurchaseFormik = (eventId: number) => {
       const { confirmEmail, ...submitValues } = values;
 
       await purchaseMutation.mutate(submitValues, {
-        onSuccess: () => {
+        onSuccess: (valueResponse, variables, context) => {
           showDefaultToast('¡Compra realizada con éxito!');
           // Aquí puedes agregar redirección si es necesario
-
-          // navigate('/confirmation');
+          console.log('value', valueResponse);
+          console.log('variables', variables);
+          console.log('context', context);
+          navigate(`/cart/${eventId}/pourchase/confirm`, {
+            state: {
+              purchaseDetails: submitValues,
+              eventId: eventId,
+              valueResponse: valueResponse,
+            },
+          });
           formikHelpers.resetForm();
         },
         onError: (error: any) => {
@@ -41,7 +49,7 @@ const usePurchaseFormik = (eventId: number) => {
         eventId,
         submitValues,
       );
-      alert(JSON.stringify(submitValues));
+
       formikHelpers.setSubmitting(false);
     },
   });

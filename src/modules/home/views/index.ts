@@ -1,3 +1,4 @@
-export * from './HomePage';
-export * from './ViewEventDetail';
 export * from './EventPourchasePage';
+export * from './HomePage';
+export * from './PurchaseConfirmationPage';
+export * from './ViewEventDetail';
