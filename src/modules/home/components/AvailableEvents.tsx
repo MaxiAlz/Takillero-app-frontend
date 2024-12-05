@@ -10,7 +10,6 @@ const AvailableEvents = () => {
   const availablePublicEvents = usePublicEvents();
 
   const handleClickPaginate = () => {};
-  console.log('availablePublicEvents :>> ', availablePublicEvents);
   return (
     <>
       <div className="flex ml-20 my-5">

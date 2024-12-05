@@ -42,6 +42,14 @@ const PublishEventPage = () => {
     });
   };
 
+  const handleDisabledButton = () => {
+    return (
+      getEventInfo.isLoading ||
+      getTicketsInfo.isLoading ||
+      getTicketsInfo.ticketsEvent.length < 1
+    );
+  };
+
   return (
     <>
       <PageTitle title="Publicar" />
@@ -69,7 +77,7 @@ const PublishEventPage = () => {
                 <span className="">
                   Esta es la informacion que cargaste sobre tu evento
                 </span>
-                
+
                 {/* Events detail */}
                 {getEventInfo.eventData && (
                   <EventCard
@@ -146,9 +154,14 @@ const PublishEventPage = () => {
                     <h2 className="font-bold my-2 opacity-85 text-black dark:text-white text-2xl">
                       No hay tckets cargados :(
                     </h2>
+                    <p>Genera tus tickets para publicar tu evento</p>
                     <div className="w-full flex justify-end mt-2">
                       <RoundedFilledButton
-                        text="Editar"
+                        text={
+                          getTicketsInfo.ticketsEvent.length > 0
+                            ? 'Editar'
+                            : 'Cargar tickets'
+                        }
                         icon={<MdEdit />}
                         className="max-w-sm"
                         onClick={() =>
@@ -181,6 +194,7 @@ const PublishEventPage = () => {
 
                 <div className="flex w-full justify-end mt-4">
                   <RoundedFilledButton
+                    disabled={handleDisabledButton()}
                     onClick={handleClickContinue}
                     text="Guardar y Publicar Evento"
                     icon={<MdSave />}

@@ -1,15 +1,12 @@
 import { Label, TextInput } from 'flowbite-react';
 import HomeLayaut from '../../../layout/HomeLayaut';
-import {
-  HiMail,
-  HiIdentification,
-  HiTicket,
-  HiPhone,
-  HiSupport,
-} from 'react-icons/hi';
+import { HiMail, HiIdentification, HiTicket, HiPhone } from 'react-icons/hi';
 import { RoundedFilledButton, RoundedOutlineButton } from '../../../components';
+import { MdOutlineLogin } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 const SearchUserTickets = () => {
+  const navigate = useNavigate();
   return (
     <HomeLayaut>
       <div className="container mx-auto px-4 py-8 dark:bg-gray-800">
@@ -67,14 +64,20 @@ const SearchUserTickets = () => {
               <h2 className="text-2xl font-bold text-gray-900">Información</h2>
               <div className="prose prose-sm">
                 <p className="text-gray-600">
-                  Si no recibiste tus tickets o los has perdido, no te
-                  preocupes. Completa el formulario con tus datos y seran
-                  reenviados a tu correo.
+                  <span className="font-bold">¿No encontrás tus tickets?</span>{' '}
+                  Completá el formulario y los reenviaremos a tu correo. Nuestro
+                  equipo de soporte está disponible para ayudarte.
                 </p>
-                <span>
-                  Tambien puedes solicitar cualquier ayuda a nuestro equipo de
-                  soporte.
-                </span>
+
+                <p className="mt-4">
+                  También podés iniciar sesión o con tu correo de compra.
+                  haciendo{' '}
+                  <a href="#" className="text-primary hover:underline">
+                    {' '}
+                    click aquí
+                  </a>
+                </p>
+
                 <div className="mt-8">
                   <h3 className="text-xl font-semibold mb-4">Contacto</h3>
                   <div className="space-y-4">
@@ -87,9 +90,12 @@ const SearchUserTickets = () => {
                       <span>soporte@ejemplo.com</span>
                     </div>
                     <RoundedOutlineButton
-                      text="Centro de Ayuda"
+                      text="Ingresar a mi cuenta"
                       className="w-full"
-                      icon={HiSupport}
+                      icon={MdOutlineLogin}
+                      onClick={() => {
+                        navigate('/auth/login');
+                      }}
                     />
                   </div>
                 </div>

@@ -3,6 +3,8 @@ import {
   MdOutlinePeople,
   MdEventNote,
   MdOutlineSettings,
+  MdOutlinePerson,
+  MdOutlineReceipt,
 } from 'react-icons/md';
 
 const admin_dashboard_items = [
@@ -13,6 +15,18 @@ const admin_dashboard_items = [
     itemName: 'Configuraciones',
     icon: MdOutlineSettings,
     link: '/panel/settings',
+    subLinksGroup: [
+      {
+        itemName: 'Mi Perfil',
+        link: '/panel/settings/profile',
+        icon: MdOutlinePerson,
+      },
+      {
+        itemName: 'Transacciones',
+        link: '/panel/settings/transactions',
+        icon: MdOutlineReceipt,
+      },
+    ],
   },
 ];
 
