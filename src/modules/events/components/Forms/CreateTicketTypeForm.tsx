@@ -68,12 +68,13 @@ export const CreateTicketTypeForm = ({
 
   return (
     <form onSubmit={createTiketFormik.handleSubmit}>
-      <div className="flex justify-around">
+      {/* <div className="flex justify-around">
         <RoundedFilledButton text="Gratuita" disabled />
         <RoundedFilledButton text="De Pago" disabled />
         <RoundedFilledButton text="Donacion" disabled />
-      </div>
-      <div className="my-4 border-t border-gray-300"></div>
+      </div> */}
+
+      {/* <div className="my-4 border-t border-gray-300"></div> */}
 
       <label className="mt-1 block text-black dark:text-white text-xl">
         Titulo de la entrada

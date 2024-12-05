@@ -35,7 +35,7 @@ export interface EventLookLike {
   time: string;
   location: string;
   description: string;
-  categoryId: number;
+  categoryId: number | null;
 }
 
 export interface TicketType {

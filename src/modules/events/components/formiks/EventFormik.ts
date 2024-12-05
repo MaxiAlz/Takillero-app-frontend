@@ -15,7 +15,7 @@ export const eventFormikInitialValues = {
   venue: '',
   location: '',
   description: '',
-  categoryId: 0,
+  categoryId: null,
 };
 
 export const eventFormikValidationEshema = Yup.object({
@@ -28,5 +28,7 @@ export const eventFormikValidationEshema = Yup.object({
   venue: Yup.string().required(VALIDATION_MESSAGES.required),
   location: Yup.string().required(VALIDATION_MESSAGES.required),
   description: Yup.string().required(VALIDATION_MESSAGES.required),
-  categoryId: Yup.number().required(VALIDATION_MESSAGES.required),
+  categoryId: Yup.number()
+    .required(VALIDATION_MESSAGES.required)
+    .positive(VALIDATION_MESSAGES.categoryPositive),
 });

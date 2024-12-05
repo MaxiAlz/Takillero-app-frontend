@@ -28,7 +28,7 @@ export const ManageTickets = () => {
 
   const { isLoading, ticketsEvent, isError, refetch } = eventId
     ? useGetTicketsByEvent(+eventId)
-    : { isLoading: false, ticketsEvent: [] };
+    : { isLoading: false, ticketsEvent: [], isError: false, refetch: () => {} };
 
   const closeModal = () => {
     setOpenModal(false);
@@ -83,6 +83,17 @@ export const ManageTickets = () => {
       <h3 className="font-bold my-2 mb-5 opacity-85 text-black dark:text-white text-3xl">
         Aqui podras crear y administrar las entradas de tu eventos
       </h3>
+      <div>
+        <p>Puedes crear entradas de tipo: </p>
+        <p>
+          <span className="font-bold">Gratuitas</span>: Perfectas para eventos
+          sin fines de lucro e invitaciones.
+        </p>
+        <p>
+          <span className="font-bold">De Pago</span>: Para eventos privados y
+          publicos que requieras cobrar por la entrada.
+        </p>
+      </div>
 
       {isLoading ? <p>Cargando entradas....</p> : null}
 

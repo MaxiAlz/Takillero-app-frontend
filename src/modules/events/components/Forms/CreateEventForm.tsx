@@ -109,18 +109,22 @@ const CreateEventForm = () => {
               htmlFor="dropzone-file"
               className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
             >
-              <div className="flex flex-col items-center justify-center pb-6 pt-5">
-                <IoMdCloudUpload size={50} />
-                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                  <span className="font-semibold">
-                    Carga una imagen de portada
-                  </span>{' '}
-                  o arrasta
-                </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  PNG, JPG o GIF (MAX. 800x400px)
-                </p>
-              </div>
+              {values.verticalPhoto ? (
+                <img src={values.verticalPhoto} alt="verticalPhoto" />
+              ) : (
+                <div className="flex flex-col items-center justify-center pb-6 pt-5">
+                  <IoMdCloudUpload size={50} />
+                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                    <span className="font-semibold">
+                      Carga una imagen de portada
+                    </span>{' '}
+                    o arrasta
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    PNG, JPG o GIF (MAX. 800x400px)
+                  </p>
+                </div>
+              )}
               <FileInput id="dropzone-file" className="hidden" />
             </Label>
           </div>
@@ -132,7 +136,7 @@ const CreateEventForm = () => {
               <label className="mb-3 block text-black dark:text-white text-3xl">
                 Foto Horizontal
               </label>
-              <p>Foto cuadrada formato 9:16</p>
+              <p>Foto rectangular formato 9:16</p>
               <input
                 name="verticalPhoto"
                 type="text"
@@ -302,12 +306,9 @@ const CreateEventForm = () => {
               className="border rounded-lg block w-full py-2.5 dark:bg-black focus:border-primary my-2"
               onChange={handleChange}
               onBlur={handleBlur}
-              value={values.categoryId}
+              value={values.categoryId || ''}
             >
-              <option disabled key={'empty'} value={'Elige una categoría'}>
-                Elige una categoría
-              </option>
-
+              <option value={''}>Elige una categoría</option>
               {eventCategories.isLoading ? (
                 <option disabled>Cargando Categorias...</option>
               ) : (
@@ -318,6 +319,9 @@ const CreateEventForm = () => {
                 ))
               )}
             </select>
+            {errors.categoryId && touched.categoryId ? (
+              <div className="text-error">{errors.categoryId}</div>
+            ) : null}
 
             {/* <TagInput
               tags={tags}
