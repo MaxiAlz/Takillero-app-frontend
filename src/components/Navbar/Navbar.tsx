@@ -90,8 +90,8 @@ const Navbar = (props: NavbarPorps) => {
                     <h1 className="">{APP_TEXT.app_name}</h1>
                   </div>
                 </Link>
-                {navbarItems.map((item) => (
-                  <ul className="flex">
+                {navbarItems.map((item, index) => (
+                  <ul className="flex" key={item.href + index}>
                     <li key={item.href} className="mx-2">
                       <a
                         href={item.href}
