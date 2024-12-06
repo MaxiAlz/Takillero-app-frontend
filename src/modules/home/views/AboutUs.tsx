@@ -2,12 +2,12 @@ import { PageTitle, RoundedFilledButton } from '../../../components';
 import { APP_TEXT } from '../../../constants/text';
 import HomeLayaut from '../../../layout/HomeLayaut';
 import { BsFillRocketTakeoffFill } from 'react-icons/bs';
-
 const AboutUs = () => {
   return (
     <>
       <PageTitle title="Sobre Nosotros" />
       <HomeLayaut>
+        <HearoSectionDos />
         <div className="bg-gray-50 py-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <HeroSection />
@@ -99,6 +99,61 @@ const AboutUs = () => {
 };
 
 export { AboutUs };
+
+const HearoSectionDos = () => {
+  return (
+    <section className="dark:bg-boxdark-2 h-full bg-white dark:bg-gray-900">
+      <div className="flex justify-evenly items-center">
+        <div className=" ">
+          <div className="flex items-center justify-center lg:justify-start gap-3 mb-2">
+            <BsFillRocketTakeoffFill size={40} className="text-primary" />
+            <h2 className="text-4xl sm:text-5xl font-extrabold">
+              {APP_TEXT.app_name}
+            </h2>
+          </div>
+          <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
+            {/* Plataforma Lider para gestion de eventos */}
+            Herramientas digitales para eventos
+          </h1>
+          <p className="max-w-2xl  font-light text-gray-500  md:text-lg lg:text-xl dark:text-gray-400">
+            No vuelvas a perder nunca mas una oportunidad. Tus experiencias
+            están a un clic de distancia.
+          </p>
+          <p className="font-bold text-primary mt-2 text-xl">
+            ¡Descubre, accede y disfruta!
+          </p>
+
+          <button className="px-6 py-3 flex items-center mt-4 bg-black text-primary-900 font-semibold rounded-lg shadow-md hover:bg-primary  border-gray-300 border border-gray">
+            Descubrir Eventos
+            <svg
+              className="w-5 h-5 ml-2 -mr-1"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+        </div>
+
+        <div className="w-80">
+          {/* <img
+            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png"
+            alt="mockup"
+          /> */}
+          <img
+            src="https://images.pexels.com/photos/8973480/pexels-photo-8973480.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            alt="mockup"
+          />
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const HeroSection = () => {
   return (
