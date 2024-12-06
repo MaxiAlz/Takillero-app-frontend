@@ -46,7 +46,7 @@ const PanelTable = ({ tableItems }: PanelTableProps) => {
           />
         </div>
 
-        <div className="">
+        <div className="mb-4">
           <RoundedFilledButton
             onClick={() => navigate('/panel/events/create')}
             className="flex items-center"
@@ -60,23 +60,23 @@ const PanelTable = ({ tableItems }: PanelTableProps) => {
           <thead>
             <tr className="bg-gray-2 text-left dark:bg-meta-4">
               <th className=" py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                N°
+                N° Evento
               </th>
               <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                 Titulo
               </th>
               <th className=" py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                Cover
+                Portada
               </th>
               <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
                 Fecha de realizacion
               </th>
               <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                Status
+                Estado
               </th>
-              <th className="py-4 px-4 font-medium text-black dark:text-white">
+              {/* <th className="py-4 px-4 font-medium text-black dark:text-white">
                 Actions
-              </th>
+              </th> */}
             </tr>
           </thead>
           <tbody>
@@ -99,7 +99,7 @@ const PanelTable = ({ tableItems }: PanelTableProps) => {
                 </td>
 
                 <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                  <h5 className="font-medium text-black dark:text-white">
+                  <h5 className="font-medium text-black dark:text-white truncate">
                     {item.name}
                   </h5>
                   <p className="text-sm">{item.description.slice(0, 25)}</p>
@@ -127,7 +127,7 @@ const PanelTable = ({ tableItems }: PanelTableProps) => {
                     {getStateAttributes(item.state).text}
                   </p>
                 </td>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                {/* <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <div className="flex items-center space-x-3.5">
                     <button className="hover:text-primary">
                       <MdOutlineRemoveRedEye size={24} />
@@ -139,7 +139,7 @@ const PanelTable = ({ tableItems }: PanelTableProps) => {
                       <MdDownload size={24} />
                     </button>
                   </div>
-                </td>
+                </td> */}
               </tr>
             ))}
           </tbody>

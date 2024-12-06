@@ -16,10 +16,11 @@ const HomePage = () => {
       <PageTitle title="Inicio" />
       <HomeLayaut>
         <main className="">
+          <section className="lg:mx-20 md:mx-5">
           <CarrouselSection />
-          <FilterSection />
-
-          <AvailableEvents />
+            <FilterSection />
+            <AvailableEvents />
+          </section>
 
           <Banner className="mx-20 my-10 shadow-lg border  rounded-xl">
             <div className="flex w-full flex-col justify-between border-b border-gray-200 bg-gray-50 p-4 dark:border-gray-600 dark:bg-gray-700 md:flex-row">
@@ -73,7 +74,7 @@ const HomePage = () => {
           </div>
           <div className="flex justify-center flex-wrap">
             {[100, 200, 100, 100, 100, 100, 551].map((element, index) => (
-              <div className="m-5 " key={index}>
+              <div className="m-5" key={index}>
                 <Card
                   className="max-w-xs p-2 gap-0 dark:bg-boxdark-2"
                   imgAlt="Meaningful alt text for an image that is not purely decorative"

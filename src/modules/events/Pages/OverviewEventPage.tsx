@@ -15,7 +15,7 @@ import {
   MdTrendingUp,
 } from 'react-icons/md';
 import { GiTicket } from 'react-icons/gi';
-import EventHorizontalCard from '../../../components/Cards/EventHorizontalCard';
+import { EventHorizontalCard } from '../../../components/Cards/EventHorizontalCard';
 import { useGetEventById } from '../hooks';
 import { useState } from 'react';
 import { Button, TextInput } from 'flowbite-react';

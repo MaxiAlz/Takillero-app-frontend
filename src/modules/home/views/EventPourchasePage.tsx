@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { PageTitle, RoundedFilledButton } from '../../../components';
-import EventHorizontalCard from '../../../components/Cards/EventHorizontalCard';
+import { EventHorizontalCard } from '../../../components/Cards/EventHorizontalCard';
 import HomeLayaut from '../../../layout/HomeLayaut';
 import { useGetPublicEventById } from '../hooks/useGetPublicEventById';
 import { SummaryProductsTable } from '../components/SummaryProductsTable';

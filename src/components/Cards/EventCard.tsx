@@ -28,7 +28,7 @@ const EventCard = ({ eventData }: EventCardProps) => {
 
   return (
     <div
-      className="w-72 lg:80 xl:w-75 mb-4 dark:bg-boxdark-2 bg-slate-200 rounded-lg border shadow-md shadow-black hover:shadow-primary overflow-hidden transition-shadow"
+      className="grid grid-cols-1 dark:bg-boxdark-2 bg-slate-200 rounded-lg border shadow-md shadow-black hover:shadow-primary overflow-hidden transition-shadow"
       key={eventData.id}
     >
       {/* Imagen */}
@@ -42,7 +42,7 @@ const EventCard = ({ eventData }: EventCardProps) => {
           className="absolute inset-0 object-contain w-full h-full bg-gray-100"
         />
       </div>
-
+      {/* Detalles */}
       <div
         className="p-4 flex flex-col gap-2 hover:cursor-pointer"
         onClick={() => handleClick(eventData.name, eventData.id)}
@@ -50,9 +50,9 @@ const EventCard = ({ eventData }: EventCardProps) => {
         <h6 className="text-lg font-bold text-black dark:text-white">
           {eventData.name}
         </h6>
-        <p className="text-sm text-gray-700 dark:text-gray-400 hidden md:block">
+        {/* <p className="text-sm text-gray-700 dark:text-gray-400 hidden md:block">
           {eventData.subtitle}
-        </p>
+        </p> */}
 
         <div className="mt-2 flex flex-col gap-1">
           {/* Fecha y hora */}
@@ -82,7 +82,7 @@ const EventCard = ({ eventData }: EventCardProps) => {
         </div>
       </div>
       {/* Botones */}
-      <div className="flex items-center justify-around mb-2 bottom-0 relative">
+      <div className="flex items-center gap-2 mb-2 ml-2">
         <RoundedFilledButton
           text={
             eventData.minimumPrice === 0
@@ -91,7 +91,7 @@ const EventCard = ({ eventData }: EventCardProps) => {
           }
           onClick={() => handleClick(eventData.name, eventData.id)}
         />
-        <div className="flex items-center gap-2 relative bottom-0">
+        <div className="flex items-center gap-1">
           <FavoriteButton />
           <button
             className="p-2 rounded-full border border-gray-300 dark:border-gray-600 hover:text-primary"

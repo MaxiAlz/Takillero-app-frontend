@@ -17,7 +17,7 @@ import Loader from '../../../components/Loader';
 import { usePublishEventMutation } from '../hooks/usePublishEventMutation';
 import { useAlert } from '../../../context/AlertContext';
 import { alertBanners } from '../../../components/Alerts/alertBanner';
-import EventCard from '../../../components/Cards/EventHorizontalCard';
+import { EventHorizontalCard } from '../../../components/Cards/EventHorizontalCard';
 
 const PublishEventPage = () => {
   const navigate = useNavigate();
@@ -80,7 +80,7 @@ const PublishEventPage = () => {
 
                 {/* Events detail */}
                 {getEventInfo.eventData && (
-                  <EventCard
+                  <EventHorizontalCard
                     name={getEventInfo.eventData.name}
                     date={getEventInfo.eventData.date}
                     location={getEventInfo.eventData.location}

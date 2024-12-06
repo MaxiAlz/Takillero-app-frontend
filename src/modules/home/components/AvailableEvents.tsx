@@ -12,7 +12,7 @@ const AvailableEvents = () => {
   const handleClickPaginate = () => {};
   return (
     <>
-      <div className="flex ml-20 my-5">
+      <div className="mx-auto">
         <h4 className=" text-black dark:text-white font-bold text-2xl ">
           Eventos en tendencia en tu zona:
         </h4>
@@ -20,12 +20,15 @@ const AvailableEvents = () => {
           Ubicacion del usuario
         </h4>
       </div>
-      <section className="my-auto">
+      <section className="">
         {availablePublicEvents.publicEvents && (
-          <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 justify-center">
-            {availablePublicEvents.publicEvents?.items.map((event, indx) => (
-              <EventCard eventData={event} key={indx} />
-            ))}
+          <div className="flex flex-wrap justify-center ">
+            {/*  */}
+            <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4">
+              {availablePublicEvents.publicEvents?.items.map((event, indx) => (
+                <EventCard eventData={event} key={indx} />
+              ))}
+            </div>
           </div>
         )}
         {availablePublicEvents.isLoading && <Loader />}

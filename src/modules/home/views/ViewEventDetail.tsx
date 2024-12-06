@@ -15,9 +15,9 @@ const ViewEventDetail = () => {
 
   return (
     <>
-      <PageTitle title="Ver Evento | Bobby Hub " />
+      <PageTitle title="Ver Evento" />
       <HomeLayaut>
-        <main className="mx-auto px-4">
+        <main className="lg:mx-20 md:mx-5">
           {isLoading && <Loader />}
           {isError &&
             alertBanners.showErrorBanner({
@@ -27,7 +27,7 @@ const ViewEventDetail = () => {
           {eventData && (
             <>
               <section>
-                <div className="w-full">
+                <div className="">
                   <img
                     src={eventData.verticalPhoto}
                     alt={`${eventData.verticalPhoto} banner cover`}
@@ -43,7 +43,7 @@ const ViewEventDetail = () => {
 
               <EventInfoBanner eventData={eventData} />
 
-              <section className="grid lg:grid-cols-3 grid-cols-1 gap-4 lg:mx-10 ">
+              <section className="grid lg:grid-cols-3 grid-cols-1 gap-6 justify-between">
                 {/* Columna de izquierda */}
                 <div className="col-span-2">
                   <TicketsPourchaseTable
@@ -80,8 +80,8 @@ const ViewEventDetail = () => {
                   </Card>
                 </div>
                 {/* Columna de derecha */}
-                <div className="hidden lg:block">
-                  <Card className="max-w-sm dark:bg-boxdark">
+                <div className=" hidden lg:block">
+                  <Card className=" dark:bg-boxdark">
                     <h2 className="font-semibold text-xl text-primary">
                       Donde se realiza este evento:
                     </h2>
@@ -94,7 +94,7 @@ const ViewEventDetail = () => {
                       </p>
                     </div>
 
-                    <div className="flex ">
+                    <div className="flex">
                       <MdLocationOn size={30} />
                       <p className="font-normal text-gray-700 dark:text-gray-400">
                         Dereccion:{' '}
@@ -103,7 +103,7 @@ const ViewEventDetail = () => {
                     </div>
                   </Card>
 
-                  <Card className="max-w-sm dark:bg-boxdark mt-5">
+                  <Card className=" dark:bg-boxdark mt-5">
                     <h2 className="font-semibold text-xl">
                       Productor del Evento
                     </h2>
@@ -121,8 +121,6 @@ const ViewEventDetail = () => {
                   </Card>
                 </div>
               </section>
-
-              <section></section>
             </>
           )}
         </main>

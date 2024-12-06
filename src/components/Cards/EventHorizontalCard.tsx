@@ -105,4 +105,4 @@ const EventHorizontalCard: React.FC<EventHorizontalCardProps> = ({
   );
 };
 
-export default EventHorizontalCard;
+export { EventHorizontalCard };

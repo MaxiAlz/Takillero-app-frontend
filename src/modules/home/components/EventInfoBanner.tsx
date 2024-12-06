@@ -1,12 +1,17 @@
 import { IoIosRocket } from 'react-icons/io';
 import { EventDetailLookLike } from '../types/homeTypes';
-import { MdAccessTime, MdDateRange, MdLocationOn, MdOutlineLocationCity } from 'react-icons/md';
+import {
+  MdAccessTime,
+  MdDateRange,
+  MdLocationOn,
+  MdOutlineLocationCity,
+} from 'react-icons/md';
 import { formatDatoToLong, formatTime } from '../../../helpers/formatDate';
 
 const EventInfoBanner = ({ eventData }: { eventData: EventDetailLookLike }) => {
   return (
     <section className="w-full grid lg:grid-cols-3 grid-cols-1 border my-5 p-5 rounded-xl">
-      <div className="col-span-2 ">
+      <div className="col-span-2">
         <h1 className="font-semibold text-2xl text-black dark:text-white mb-4">
           {eventData.name}
         </h1>
@@ -20,7 +25,7 @@ const EventInfoBanner = ({ eventData }: { eventData: EventDetailLookLike }) => {
         </div>
         <div className="flex items-center ml-2">
           <MdDateRange size={18} />
-          <p className="  text-gray-700 dark:text-gray-400 mr-2">
+          <p className="  text-gray-700 dark:text-gray-400 ">
             {formatDatoToLong(eventData.date)}
           </p>
         </div>
