@@ -9,11 +9,19 @@ const ErrorConfirm = () => {
     <section className="container mx-auto px-4 py-8 min-h-screen">
       <div className="max-w-2xl mx-auto text-center">
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">
-            Pantalla no disponible
+          <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-4 uppercase">
+            Esta Pantalla no Esta Disponible :(
           </h2>
           <p className="text-gray-600 dark:text-gray-400">
             Lo sentimos, no se puede acceder directamente a esta página.
+          </p>
+        </div>
+        <div className="my-2">
+          <p>
+            Si lo que necesitas es acceder a tus tickes, puedes encontrarlos
+            iniciando sesion en tu perfil con en mismo email que hiciste la
+            compra. Tambien puedes usar nuestro buscador de tickets para volver
+            a enviarlos a tu correo.
           </p>
         </div>
 

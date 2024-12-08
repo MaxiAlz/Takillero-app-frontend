@@ -83,6 +83,7 @@ export interface EvetsPaginated {
 export interface ItemEvent {
   id: number;
   date: Date;
+  subtitle: string;
   name: string;
   description: string;
   state: EventStatus;

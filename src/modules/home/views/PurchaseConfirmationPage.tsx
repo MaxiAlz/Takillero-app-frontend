@@ -9,8 +9,10 @@ import ErrorConfirm from '../components/ErrorConfirm';
 
 const PurchaseConfirmationPage = () => {
   const location = useLocation();
-  const { purchaseDetails, eventId, valueResponse } = location.state;
+  const { purchaseDetails, eventId, valueResponse } = location.state || {};
   const navigate = useNavigate();
+
+  console.log('location.state', location);
 
   if (!purchaseDetails) {
     return (
