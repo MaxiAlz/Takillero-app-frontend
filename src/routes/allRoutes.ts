@@ -1,5 +1,4 @@
 '../pages/Profile';
-
 import { LoginPage, RegisterPage } from '../modules/Auth/Pages';
 import {
   CreateTicketsPage,
@@ -16,6 +15,7 @@ import {
   SearchUserTickets,
   ViewEventDetail,
 } from '../modules/home/views';
+import { TestPage } from '../modules/home/views/TestPage';
 import {
   EventsPanel,
   OverviewPanel,
@@ -49,7 +49,7 @@ export const authProtectedRoutes: Array<RouteObject> = [
   { path: '/panel/users', component: UsersPanel },
   { path: '/panel/settings', component: SettingsPanel },
   { path: '/panel/settings/profile', component: OverviewPanel },
-  { path: '/panel/settings/transactions', component:  OverviewPanel},
+  { path: '/panel/settings/transactions', component: OverviewPanel },
   // panel events
   { path: '/panel/events', component: EventsPanel },
   { path: '/panel/events/create', component: CreateNewEvent },
@@ -83,6 +83,10 @@ export const publicRoutes = [
   {
     path: '/cart/:eventId/pourchase/confirm',
     component: PurchaseConfirmationPage,
+  },
+  {
+    path: '/home/test',
+    component: TestPage,
   },
 ];
 

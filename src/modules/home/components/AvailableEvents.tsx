@@ -12,13 +12,13 @@ const AvailableEvents = () => {
   const handleClickPaginate = () => {};
   return (
     <>
-      <div className="mx-auto">
+      <div className="mx-auto my-5">
         <h4 className=" text-black dark:text-white font-bold text-2xl ">
           Eventos en tendencia en tu zona:
         </h4>
-        <h4 className=" text-primary font-bold text-2xl">
+        {/* <h4 className=" text-primary font-bold text-2xl">
           Ubicacion del usuario
-        </h4>
+        </h4> */}
       </div>
       <section className="">
         {availablePublicEvents.publicEvents && (
@@ -36,7 +36,7 @@ const AvailableEvents = () => {
           alertBanners.showErrorBanner({
             title: 'Error al cargar eventos disponibles',
           })}
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center my-10">
           <RoundedOutlineButton
             text="Cargar mas eventos"
             onClick={handleClickPaginate}

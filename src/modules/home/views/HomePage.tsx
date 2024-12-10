@@ -1,4 +1,4 @@
-import { Banner, Card } from 'flowbite-react';
+import { Banner} from 'flowbite-react';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {
   RoundedFilledButton,
@@ -17,7 +17,7 @@ const HomePage = () => {
       <HomeLayaut>
         <main className="">
           <section className="lg:mx-20 md:mx-5">
-          <CarrouselSection />
+            <CarrouselSection />
             <FilterSection />
             <AvailableEvents />
           </section>
@@ -66,13 +66,13 @@ const HomePage = () => {
             </div>
           </Banner>
 
-          <div className="flex ml-20 my-5">
+          {/* <div className="flex ml-20 my-5">
             <h4 className=" text-black font-bold text-2xl ">Descuentos</h4>
             <h4 className=" text-primary font-bold text-2xl">
               Exclusivos para clientes
             </h4>
-          </div>
-          <div className="flex justify-center flex-wrap">
+          </div> */}
+          {/* <div className="flex justify-center flex-wrap">
             {[100, 200, 100, 100, 100, 100, 551].map((element, index) => (
               <div className="m-5" key={index}>
                 <Card
@@ -91,7 +91,7 @@ const HomePage = () => {
                 </Card>
               </div>
             ))}
-          </div>
+          </div> */}
         </main>
       </HomeLayaut>
     </>
