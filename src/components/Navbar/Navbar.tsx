@@ -15,8 +15,8 @@ interface NavbarPorps {
 }
 
 const navbarItems = [
-  { href: '/eventos', label: 'Eventos' },
-  { href: '/contacto', label: 'Contacto' },
+  // { href: '/eventos', label: 'Eventos' },
+  // { href: '/contacto', label: 'Contacto' },
   { href: '/sobre-nosotros', label: 'Sobre Nosotros' },
   { href: '/ver-tickets', label: 'Ver Tickets' },
 ];
