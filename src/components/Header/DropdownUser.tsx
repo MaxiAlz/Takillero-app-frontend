@@ -1,18 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import UserOne from '../../images/user/user-01.png';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { dropdown_user_links } from '../../constants/panel/dropdownUser_items-';
+import { logoutUser } from '../../redux/slices/auth/authThunk';
+import { UserRoles } from '../../modules/Auth/types/authTypes';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { user /* status */ } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch<any>();
+  const navigate = useNavigate();
+  const { user } = useSelector((state: RootState) => state.auth);
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
-
   // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
@@ -39,6 +42,11 @@ const DropdownUser = () => {
     return () => document.removeEventListener('keydown', keyHandler);
   });
 
+  const handleLogout = async () => {
+    await dispatch(logoutUser());
+    navigate('/auth/login');
+  };
+
   return (
     <div className="relative">
       <Link
@@ -52,8 +60,7 @@ const DropdownUser = () => {
             {user?.name.toUpperCase()}
           </span>
           <span className="block text-xs">
-            {user?.userName} |{' '}
-            {user?.role == 0 ? 'Organizador' : 'Cuenta comun'}
+            {user?.userName} | {UserRoles[user!.role]}
           </span>
         </span>
 
@@ -100,7 +107,10 @@ const DropdownUser = () => {
             </li>
           ))}
         </ul>
-        <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+        <button
+          className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+          onClick={handleLogout}
+        >
           <svg
             className="fill-current"
             width="22"

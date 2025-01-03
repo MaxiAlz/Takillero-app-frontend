@@ -5,10 +5,16 @@ export interface UserLoginData {
 
 export interface UserProfile {
   name: string;
-  role: number;
+  role: UserRoles;
   id: number;
   userName: string;
   email: string;
+}
+
+export enum UserRoles {
+  'PRODUCTOR',
+  'ADMINISTRADOR',
+  'USUARIO',
 }
 
 export enum AuthStatus {
@@ -22,4 +28,3 @@ export interface LoginState {
   status: AuthStatus;
   error: string;
 }
-

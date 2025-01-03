@@ -8,7 +8,6 @@ import {
 
 import { CreateNewEvent } from '../modules/events/Pages/PanelNewEventPage';
 import {
-  AboutUs,
   EventPourchasePage,
   HomePage,
   PurchaseConfirmationPage,
@@ -73,7 +72,7 @@ export const authProtectedRoutes: Array<RouteObject> = [
 
 export const publicRoutes = [
   { path: '/', component: HomePage },
-  { path: '/sobre-nosotros', component: AboutUs },
+  // { path: '/sobre-nosotros', component: AboutUs },
   { path: '/ver-tickets', component: SearchUserTickets },
   { path: '/:eventName/:eventId', component: ViewEventDetail },
   {
