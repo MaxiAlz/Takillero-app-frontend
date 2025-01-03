@@ -1,20 +1,22 @@
 import HomeLayaut from '../../../layout/HomeLayaut';
-import { useLocation, useNavigate } from 'react-router-dom';
-
+import { useNavigate, useParams } from 'react-router-dom';
 import { GiConfirmed } from 'react-icons/gi';
-import { Card } from 'flowbite-react';
-import { RoundedFilledButton } from '../../../components';
-import { MdHome } from 'react-icons/md';
+
 import ErrorConfirm from '../components/ErrorConfirm';
+import { RoundedFilledButton, TicketQrBuyed } from '../../../components';
+import { MdHome } from 'react-icons/md';
+import { Card } from 'flowbite-react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../redux/store';
 
 const PurchaseConfirmationPage = () => {
-  const location = useLocation();
-  const { purchaseDetails, eventId, valueResponse } = location.state || {};
+  // const location = useLocation();
+  const { eventId } = useParams();
   const navigate = useNavigate();
+  const purchaseState = useSelector((state: RootState) => state.purchase);
 
-  console.log('location.state', location);
-
-  if (!purchaseDetails) {
+  console.log('purchaseState', purchaseState);
+  if (!purchaseState.tickets.length) {
     return (
       <HomeLayaut>
         <ErrorConfirm />
@@ -47,27 +49,29 @@ const PurchaseConfirmationPage = () => {
                   Evento
                 </span>
                 <strong className="text-lg">
-                  {valueResponse.eventName || 'N/A'}
+                  {purchaseState.eventData.name || 'N/A'}
                 </strong>
               </div>
               <div className="col-span-2 md:col-span-1">
                 <span className="block text-gray-600 dark:text-gray-400">
-                  Identificador evento:
+                  Identificador evento: N°{eventId}
                 </span>
-                <strong className="text-lg">{eventId}</strong>
+                {/* <strong className="text-lg">{purchaseState.eventData.}</strong> */}
               </div>
               <div className="col-span-2 md:col-span-1">
                 <span className="block text-gray-600 dark:text-gray-400">
                   Total
                 </span>
-                <strong className="text-lg">${valueResponse.total || 0}</strong>
+                <strong className="text-lg">
+                  {/* ${valuePoruchaseResponse.total || 0} */}
+                </strong>
               </div>
               <div className="col-span-2 md:col-span-1">
                 <span className="block text-gray-600 dark:text-gray-400">
                   Número de Transacción
                 </span>
                 <strong className="text-lg">
-                  #{valueResponse.transactionId || 'N/A'}
+                  {/* #{valuePoruchaseResponse.transactionId || 'N/A'} */}
                 </strong>
               </div>
             </div>
@@ -96,23 +100,35 @@ const PurchaseConfirmationPage = () => {
               </a>
             </p>
           </Card>
-
-          <div className=" w-full flex justify-center gap-2 my-5">
-            <RoundedFilledButton
-              text="Volver al inicio"
-              icon={<MdHome size={25} />}
-              onClick={() => {
-                navigate('/', {
-                  replace: true, // Reemplaza la entrada actual en el historial
-                  state: {}, // Limpia el estado
-                });
-              }}
-            />
-          </div>
         </div>
 
+        <section className="w-full  flex flex-col justify-center items-center">
+          {purchaseState.tickets.map((ticket) => (
+            <TicketQrBuyed
+              eventData={purchaseState.eventData}
+              personaData={purchaseState.personaData}
+              ticket={ticket}
+            />
+          ))}
+        </section>
+
         {/* Información de contacto */}
-        <div className="flex flex-row items-center justify-center gap-4">
+
+        <div className=" w-full flex justify-center gap-2 my-5">
+          <RoundedFilledButton
+            text="Volver al inicio"
+            icon={<MdHome size={25} />}
+            onClick={() => {
+              navigate('/', {
+                replace: true, // Reemplaza la entrada actual en el historial
+                state: {}, // Limpia el estado
+              });
+            }}
+          />
+        </div>
+
+        {/* Enlace a tickets */}
+        <div className="flex flex-row items-center justify-center gap-4 my-10">
           <h3 className="text-xl font-semibold ">¿Necesitas ayuda?</h3>
           <a
             href="mailto:contacto@eventos.com"
@@ -128,11 +144,30 @@ const PurchaseConfirmationPage = () => {
             +506 83333333
           </a>
         </div>
-
-        {/* Enlace a tickets */}
       </section>
     </HomeLayaut>
   );
 };
 
 export { PurchaseConfirmationPage };
+
+// {
+//   "message": "Se realizo la compra exitosamente",
+//   "data": {
+//       "eventData": {
+//           "name": "OEISIS (TRIBUTO A OASIS) - KNEBWORTH NIGHT",
+//           "date": "2025-01-25T23:30:00Z",
+//           "location": "Federico Lacroze 3455, CABA"
+//       },
+//       "personaData": {
+//           "name": "Gustavo",
+//           "dni": "123123123"
+//       },
+//       "tickets": [
+//           {
+//               "code": "c03437a3-d569-4fd3-962a-ace7a95dc9e5",
+//               "type": "Entrada general - Preventa 1"
+//           }
+//       ]
+//   }
+// }

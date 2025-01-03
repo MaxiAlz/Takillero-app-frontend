@@ -2,11 +2,14 @@ import { FormikHelpers, useFormik } from 'formik';
 import * as Yup from 'yup';
 import { PurchaseEventProductsPayload } from '../types/homeTypes';
 import { VALIDATION_MESSAGES } from '../../../constants';
-import { purchaseEventProductsRepository } from '../repositories/pourchaseEventProductsRepository';
 import { usePurchaseEventProductsMutation } from '../hooks/usePourchaseEventProductsMutation';
 import { useAlert } from '../../../context/AlertContext';
 import { useNavigate } from 'react-router-dom';
+import { PourchaseResponse } from '../types/purchaseTypes';
+import { useDispatch } from 'react-redux';
+import { setPurchaseData } from '../../../redux/slices/purchase/purchaseSlice';
 
+// TODO: Vamos a guardas la respuesta de los tickets que se han comprado en un estado de redux para que los vea el usuario en la pantalla de los tickets de forma publica, y para no usar el estado del navegador que lo veo mas problematico
 interface PurchaseFormValues extends PurchaseEventProductsPayload {
   confirmEmail: string;
 }
@@ -15,6 +18,8 @@ const usePurchaseFormik = (eventId: number) => {
   const purchaseMutation = usePurchaseEventProductsMutation(eventId);
   const { showDefaultToast, showErrorToast } = useAlert();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   return useFormik<PurchaseFormValues>({
     initialValues: purchaseFormikInitialValues,
     validationSchema: purchaseFormikValidationSchema,
@@ -26,18 +31,17 @@ const usePurchaseFormik = (eventId: number) => {
       const { confirmEmail, ...submitValues } = values;
 
       await purchaseMutation.mutate(submitValues, {
-        onSuccess: (valueResponse, variables, context) => {
+        onSuccess: (valuePoruchaseResponse: PourchaseResponse) => {
           showDefaultToast('¡Compra realizada con éxito!');
           // Aquí puedes agregar redirección si es necesario
-          console.log('value', valueResponse);
-          console.log('variables', variables);
-          console.log('context', context);
+          console.log('valuePoruchaseResponse', valuePoruchaseResponse);
+          dispatch(setPurchaseData(valuePoruchaseResponse.data));
           navigate(`/cart/${eventId}/pourchase/confirm`, {
-            state: {
-              purchaseDetails: submitValues,
-              eventId: eventId,
-              valueResponse: valueResponse,
-            },
+            // state: {
+            //   purchaseDetails: submitValues,
+            //   eventId,
+            //   valuePoruchaseResponse,
+            // },
           });
           formikHelpers.resetForm();
         },
@@ -45,10 +49,6 @@ const usePurchaseFormik = (eventId: number) => {
           showErrorToast(`Error al procesar la compra: ${error.message}`);
         },
       });
-      purchaseEventProductsRepository.purchaseEventProducts(
-        eventId,
-        submitValues,
-      );
 
       formikHelpers.setSubmitting(false);
     },
