@@ -5,16 +5,38 @@ import SidebarLinkGroup from './SidebarLinkGroup';
 import { BsFillRocketTakeoffFill } from 'react-icons/bs';
 // import { IoLogoGithub } from 'react-icons/io';
 import { GiSittingDog } from 'react-icons/gi';
-import { admin_dashboard_items } from '../../constants/panel/dashboardItems';
+import {
+  admin_dashboard_items,
+  producer_dashboard_items,
+  user_dashboard_items,
+} from '../../constants/panel/dashboardItems';
 import { APP_TEXT } from '../../constants/text';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { UserRoles } from '../../modules/Auth/types/authTypes';
 
 interface SidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: (arg: boolean) => void;
 }
 
+const getDashboardItems = (role: UserRoles) => {
+  switch (role) {
+    case UserRoles.ADMINISTRADOR:
+      return admin_dashboard_items;
+    case UserRoles.PRODUCTOR:
+      return producer_dashboard_items;
+    case UserRoles.USUARIO:
+      return user_dashboard_items;
+    default:
+      return [];
+  }
+};
+
 const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const location = useLocation();
+  const { user } = useSelector((state: RootState) => state.auth);
+
   const { pathname } = location;
 
   const trigger = useRef<any>(null);
@@ -24,7 +46,7 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const [sidebarExpanded, setSidebarExpanded] = useState(
     storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true',
   );
-
+  const dashboardItems = getDashboardItems(user!.role);
   // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
@@ -59,6 +81,9 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       document.querySelector('body')?.classList.remove('sidebar-expanded');
     }
   }, [sidebarExpanded]);
+
+  console.log('user!.role ', user!.role);
+  console.log(' UserRoles.ADMINISTRADOR', UserRoles.ADMINISTRADOR);
 
   return (
     <aside
@@ -111,9 +136,8 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               MENU
             </h3>
             <ul className="mb-6 flex flex-col gap-1.5">
-              {admin_dashboard_items.map((item) => {
+              {dashboardItems.map((item) => {
                 let isActive = false;
-
                 if (pathname === item.link) {
                   isActive = true;
                 } else if (
@@ -166,7 +190,7 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                               }`}
                             >
                               <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
-                                {item.subLinksGroup.map((subLink) => (
+                                {item.subLinksGroup?.map((subLink) => (
                                   <li key={subLink.itemName}>
                                     <NavLink
                                       to={subLink.link}

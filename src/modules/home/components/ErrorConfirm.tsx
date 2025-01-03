@@ -18,10 +18,15 @@ const ErrorConfirm = () => {
         </div>
         <div className="my-2">
           <p>
-            Si lo que necesitas es acceder a tus tickes, puedes encontrarlos
-            iniciando sesion en tu perfil con en mismo email que hiciste la
-            compra. Tambien puedes usar nuestro buscador de tickets para volver
-            a enviarlos a tu correo.
+            Si lo que necesitas es{' '}
+            <span className="text-primary ">acceder a tus tickes</span>, puedes
+            encontrarlos{' '}
+            <span className="text-primary hover:underline hover:cursor-pointer" onClick={()=>navigate('/iniciarsesionpibe')}>
+              iniciando sesion
+            </span>{' '}
+            en tu perfil con en mismo email que hiciste la compra. Tambien
+            puedes usar nuestro buscador de tickets para volver a enviarlos a tu
+            correo.
           </p>
         </div>
 
