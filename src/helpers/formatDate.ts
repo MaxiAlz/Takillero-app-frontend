@@ -43,3 +43,16 @@ export const formatDatoToLong = (dateString: Date) => {
   // Usar el formato en español
   return new Intl.DateTimeFormat('es-ES', options).format(date);
 };
+
+export function addDaysToDate({dateInput, daysToAdd}:{dateInput: Date | string,daysToAdd:number}) {
+  // Convertir el parámetro a un objeto Date
+  const date = new Date(dateInput);
+
+  if (isNaN(date.getTime())) {
+    throw new Error('La fecha proporcionada no es válida.');
+  }
+
+  date.setDate(date.getDate() + daysToAdd);
+
+  return date;
+}

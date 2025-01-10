@@ -41,7 +41,7 @@ interface RouteObject {
   component: React.ComponentType<any>;
   exact?: boolean;
 }
-
+// TODO: Validar rutas por rol del usuario
 export const authProtectedRoutes: Array<RouteObject> = [
   // Panel Routes
   { path: '/panel', component: OverviewPanel },

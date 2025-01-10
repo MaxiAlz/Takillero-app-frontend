@@ -33,23 +33,14 @@ const usePurchaseFormik = (eventId: number) => {
       await purchaseMutation.mutate(submitValues, {
         onSuccess: (valuePoruchaseResponse: PourchaseResponse) => {
           showDefaultToast('¡Compra realizada con éxito!');
-          // Aquí puedes agregar redirección si es necesario
-          console.log('valuePoruchaseResponse', valuePoruchaseResponse);
           dispatch(setPurchaseData(valuePoruchaseResponse.data));
-          navigate(`/cart/${eventId}/pourchase/confirm`, {
-            // state: {
-            //   purchaseDetails: submitValues,
-            //   eventId,
-            //   valuePoruchaseResponse,
-            // },
-          });
+          navigate(`/cart/${eventId}/pourchase/confirm`, {});
           formikHelpers.resetForm();
         },
         onError: (error: any) => {
           showErrorToast(`Error al procesar la compra: ${error.message}`);
         },
       });
-
       formikHelpers.setSubmitting(false);
     },
   });

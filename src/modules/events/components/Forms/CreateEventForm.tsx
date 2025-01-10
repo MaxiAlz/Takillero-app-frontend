@@ -49,7 +49,6 @@ const CreateEventForm = () => {
         ...values,
         date: formatDateToSendValues(values.date, values.time),
       };
-
       eventMutation.mutate(formatValues, {
         onSuccess(data) {
           showDefaultToast('Has creado un evento como borrador');
