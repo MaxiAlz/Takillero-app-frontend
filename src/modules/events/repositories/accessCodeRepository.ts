@@ -11,8 +11,8 @@ export const accessCodeRepository = {
   },
 
   async getAccessCodes(eventId: number) {
-    const { data } = await apiService.get<AccessCode>(
-      `/AccessCodes/${eventId}`,
+    const { data } = await apiService.get<AccessCode[]>(
+      `/Events/${eventId}/accesscodes`,
     );
     return data;
   },

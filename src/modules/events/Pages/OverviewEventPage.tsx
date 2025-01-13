@@ -3,16 +3,11 @@ import {
   Breadcrumb,
   CardDataStats,
   DrawerCustom,
-  ModalCustom,
   PageTitle,
-  RoundedFilledButton,
-  RoundedOutlineButton,
 } from '../../../components';
 import DefaultLayout from '../../../layout/DefaultLayout';
 import {
   MdAttachMoney,
-  MdContentCopy,
-  MdDeleteForever,
   MdOutlineBackHand,
   MdOutlineEnhancedEncryption,
   MdPeople,
@@ -22,32 +17,39 @@ import { GiTicket } from 'react-icons/gi';
 import { EventHorizontalCard } from '../../../components/Cards/EventHorizontalCard';
 import { useGetEventById } from '../hooks';
 import { useState } from 'react';
-import { GenerateAccesTokenForm } from '../components/Forms/GenerateAccesTokenForm';
 import CardButton from '../../../components/Buttons/CardButton';
-import { Button } from 'flowbite-react';
-import { useAccessCodesQuery } from '../hooks/useAccessCodesQuery';
-import { formatFullDate } from '../../../helpers';
-import Loader from '../../../components/Loader';
+import ManageAccessCodes from '../components/ManageAccessCodes';
+
+const settingsItems = [
+  {
+    key: 'AccessTokens',
+    name: 'Tokens de Acceso',
+    subtitle: 'No se generaran mas E-Tickets',
+    bgColor: 'bg-primary',
+    icon: <MdOutlineBackHand size={30} />,
+    drawerTtitle: 'Tus Tokens de Acceso',
+  },
+  {
+    key: 'stopSales',
+    name: 'Pausar ventas',
+    subtitle: 'Deten las ventas de tu eventos',
+    bgColor: 'bg-error',
+    icon: <MdOutlineBackHand size={30} />,
+    drawerTtitle: 'Detener ventas en evento',
+  },
+];
 
 const OverviewEventPage = () => {
   const { eventId } = useParams();
   const getEventInfo = useGetEventById(+eventId!);
-  const getAccessCodes = useAccessCodesQuery.getAccesCodesByEventId(+eventId!);
-  const [showAccessCodeDrawer, setShowAccessCodeDrawer] = useState(false);
-  const [showAccessCodeModal, setShowAccessCodeModal] = useState(false);
-  const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
-  const [selectedAccessCode, setSelectedAccessCode] = useState<{
-    name: string;
-    id: number;
-  } | null>(null);
 
-  // TODO: Crear funcion para eliminar codigo de acceso
-  const hadleDeleteAccessCode = (
-    accesCodeId: number,
-    acessCodeName: string,
-  ) => {
-    setShowConfirmDeleteModal(true);
-    setSelectedAccessCode({ name: acessCodeName, id: accesCodeId });
+  const [isShowDrawerOpen, setIsShowDrawerOpen] = useState<{
+    isopen: boolean;
+    key: string;
+  }>({ isopen: false, key: '' });
+
+  const handleCloseDrawer = () => {
+    setIsShowDrawerOpen({ isopen: false, key: '' });
   };
 
   return (
@@ -120,143 +122,35 @@ const OverviewEventPage = () => {
             Configuraciones importantes:
           </h2>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5 mt-5">
-            <CardButton
-              className="bg-primary"
-              title="Tokens de Acceso"
-              subtitle="Genera y escanea tus E-Tickets"
-              children={<MdOutlineEnhancedEncryption size={30} />}
-              onClick={() => setShowAccessCodeDrawer(true)}
-            />
-            <CardButton
-              className="bg-meta-5"
-              title="Pausar ventas"
-              subtitle="No se generaran mas E-Tickets"
-              children={<MdOutlineBackHand size={30} />}
-              onClick={() => {}}
-            />
+            {settingsItems.map((cardItem) => (
+              <CardButton
+                className={cardItem.bgColor}
+                title={cardItem.name}
+                subtitle={cardItem.subtitle}
+                children={cardItem.icon}
+                onClick={() =>
+                  setIsShowDrawerOpen({ isopen: true, key: cardItem.key })
+                }
+              />
+            ))}
           </div>
         </main>
       </DefaultLayout>
 
       <DrawerCustom
-        openModal={showAccessCodeDrawer}
-        setOpenModal={setShowAccessCodeDrawer}
+        openModal={isShowDrawerOpen.isopen}
+        setOpenModal={handleCloseDrawer}
         titleIcon={MdOutlineEnhancedEncryption}
         title="Tus Tokens de Acceso"
-        subtitle="Usa este codigo para validar las E-Tickes en la entrada de tu evento, puedes crear diferentes codigos para identificar a tu Staff si asi lo deseas."
+        // subtitle="Usa este codigo para validar las E-Tickes en la entrada de tu evento, puedes crear diferentes codigos para identificar a tu Staff si asi lo deseas."
       >
-        <article>
-          <div className="flex-grow border-t border-gray-300 dark:border-gray-700 my-2"></div>
-          {
-            <section>
-              {/* {accesCodes.map((ac) => (
-            <div>
-              <label className="block  text-xl">{ac.name}</label>
-              <div className="flex items-center">
-                <input
-                  name="verticalPhoto"
-                  type="text"
-                  placeholder="photo url"
-                  className="w-full rounded-lg m-1 border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                  value={ac.code}
-                />
-                <Button>
-                  <MdContentCopy className="mr-2" /> Copiar
-                </Button>
-              </div>
-            </div>
-          ))} */}
-
-              {getAccessCodes.isLoading ? (
-                <Loader />
-              ) : (
-                getAccessCodes.accessCodesData?.code && (
-                  <div>
-                    <h3 className="dark:text-white text-xl font-bold mb-4">
-                      Tokens de Accesos Activos:
-                    </h3>
-                    {!getAccessCodes.accessCodesData && (
-                      <p>Todavia no hay Codigos de acceso creados</p>
-                    )}
-                    <label className="block text-xl text-primary font-normal">
-                      {getAccessCodes.accessCodesData.name}
-                    </label>
-                    <div className="flex items-center">
-                      <input
-                        name="verticalPhoto"
-                        type="text"
-                        placeholder="photo url"
-                        className="w-full rounded-lg m-1 border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                        value={getAccessCodes.accessCodesData.code}
-                      />
-
-                      <Button>
-                        <MdContentCopy className="" /> Copiar
-                      </Button>
-                    </div>
-                    <p className="text-sm">
-                      Valido del{' '}
-                      <span className=" text-primary">
-                        {formatFullDate(getAccessCodes.accessCodesData?.start)}{' '}
-                        Hs
-                      </span>{' '}
-                      al{' '}
-                      <span className=" text-primary">
-                        {formatFullDate(getAccessCodes.accessCodesData?.end)} Hs
-                      </span>
-                    </p>
-                    <button
-                      className=""
-                      onClick={() =>
-                        hadleDeleteAccessCode(
-                          getAccessCodes.accessCodesData!.id,
-                          getAccessCodes.accessCodesData!.name,
-                        )
-                      }
-                    >
-                      <p className="mt-2 hover:text-error  flex items-center">
-                        <MdDeleteForever /> Eliminar acceso
-                      </p>
-                    </button>
-                    <div className="flex-grow border-t border-gray-300 dark:border-gray-700 my-2 "></div>
-                  </div>
-                )
-              )}
-              <RoundedFilledButton
-                text="Crear nuevo token de acceso"
-                icon={<MdOutlineEnhancedEncryption size={25} />}
-                className="w-full mt-6"
-                onClick={() => setShowAccessCodeModal(true)}
-              />
-            </section>
-          }
-        </article>
+        {isShowDrawerOpen.key === 'AccessTokens' && (
+          <ManageAccessCodes eventId={eventId} />
+        )}
+        {isShowDrawerOpen.key === 'stopSales' && (
+          <div>Formulario pa borrar la cosa</div>
+        )}
       </DrawerCustom>
-      <ModalCustom
-        openModal={showAccessCodeModal}
-        setOpenModal={setShowAccessCodeModal}
-        title="Generar Token de Acceso"
-        subtitle="Usa este codigo para validar las E-Tickes en la entrada de tu evento, puedes crear diferentes codigos para identificar a tu Staff"
-      >
-        <GenerateAccesTokenForm />
-      </ModalCustom>
-
-      <ModalCustom
-        openModal={showConfirmDeleteModal}
-        setOpenModal={setShowConfirmDeleteModal}
-        title="Eliminar codigo de acceso"
-      >
-        <div className="">
-          <p>
-            Estas seguro que desea eliminar{' '}
-            <span className="text-primary">"{selectedAccessCode?.name}"</span>
-          </p>
-          <div className="flex justify-between mt-5">
-            <RoundedFilledButton text="Eliminar codigo de acceso" />
-            <RoundedOutlineButton text="Cancelar" />
-          </div>
-        </div>
-      </ModalCustom>
     </>
   );
 };
