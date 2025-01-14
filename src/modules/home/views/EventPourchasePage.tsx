@@ -49,8 +49,6 @@ const EventPourchasePage = () => {
     setTicketItems();
   }, [cartsPurchase, eventId, selectedProductsCart]);
 
-  console.log('formik', purchaseFormik.values);
-
   return (
     <>
       <PageTitle title="Compra de tickets" />

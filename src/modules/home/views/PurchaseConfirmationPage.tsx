@@ -14,8 +14,7 @@ const PurchaseConfirmationPage = () => {
   const { eventId } = useParams();
   const navigate = useNavigate();
   const purchaseState = useSelector((state: RootState) => state.purchase);
-
-  console.log('purchaseState', purchaseState);
+  
   if (!purchaseState.tickets.length) {
     return (
       <HomeLayaut>

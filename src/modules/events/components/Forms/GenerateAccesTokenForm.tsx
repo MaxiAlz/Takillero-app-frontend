@@ -10,27 +10,20 @@ import {
 import * as Yup from 'yup';
 import { addDaysToDate, formatFullDate } from '../../../../helpers/formatDate';
 import { useParams } from 'react-router-dom';
-import { useAccessCodeMutation } from '../../hooks';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAlert } from '../../../../context/AlertContext';
+import { useCreateAccessCodeMutation } from '../../hooks';
 
 const GenerateAccesTokenForm = () => {
   const [tokenData, setTokenData] = useState<AccessCode | null>(null);
   const { eventId } = useParams();
   // const initialEndDate = addDays(initialStartDate, 2);
-  const accesCodeMutation = useAccessCodeMutation();
+  const createAccesCodeMutation = useCreateAccessCodeMutation();
   const queryClient = useQueryClient();
-  const {  showErrorToast, showSuccessToast } = useAlert();
-
-  // const generateToken = () => {
-  //   // Aquí iría la lógica para generar el token desde el backend
-
-  //   const mockToken =
-  //     'xxxx-xxxx-xxxx-' + Math.random().toString(36).substr(2, 9);
-  //   setToken(mockToken);
-  // };
+  const { showErrorToast, showSuccessToast, showInfoToast } = useAlert();
 
   const copyToken = () => {
+    showInfoToast('Token copiado');
     navigator.clipboard.writeText(tokenData?.code as string);
     // Aquí podrías mostrar un toast de confirmación
   };
@@ -61,11 +54,14 @@ const GenerateAccesTokenForm = () => {
     ) => {
       try {
         formikHelpers.setSubmitting(true);
-        accesCodeMutation.mutate(values, {
+        createAccesCodeMutation.mutate(values, {
           onSuccess(data) {
             queryClient.invalidateQueries({
               queryKey: ['accessCodes', eventId],
-              refetchType: 'active',
+            });
+            queryClient.refetchQueries({
+              queryKey: ['accessCodes'],
+              exact: false,
             });
             setTokenData(data);
             showSuccessToast(`¡Acceso "${data.name}" creado!`);
@@ -99,7 +95,7 @@ const GenerateAccesTokenForm = () => {
       <div className="flex items-center gap-2 mt-4">
         <input
           name="accesCode"
-          disabled={!!tokenData}
+          disabled
           type="text"
           placeholder="AB123CDEF"
           value={tokenData?.code}
@@ -107,7 +103,7 @@ const GenerateAccesTokenForm = () => {
         />
 
         {tokenData?.code && (
-          <Button onClick={copyToken}>
+          <Button onClick={() => copyToken}>
             <MdContentCopy className="mr-2" /> Copiar
           </Button>
         )}
@@ -133,14 +129,6 @@ const GenerateAccesTokenForm = () => {
           className="items-end"
           isLoading={createAccessCodeFormik.isSubmitting}
         />
-        {/* <Button onClick={generateToken} color="primary">
-          Generar Token
-        </Button>
-        {token && (
-          <Button onClick={shareToken} color="success">
-            Copiar Link
-          </Button>
-        )} */}
       </div>
     </form>
   );

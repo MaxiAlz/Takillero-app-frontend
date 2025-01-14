@@ -31,8 +31,7 @@ const PublishEventPage = () => {
 
   const handleClickContinue = () => {
     publishEventMutation.mutate(undefined, {
-      onSuccess: (asd) => {
-        console.log('asd :>> ', asd);
+      onSuccess: () => {
         showSuccessToast('Evento Publicado con exito');
         navigate(`/panel/events/overview/${eventId}`);
       },

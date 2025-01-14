@@ -29,7 +29,6 @@ const DeleteTicket = ({
   const handleDeleteTicket = () => {
     useDeleteTicket.mutate(ticketToDelete.ticketId, {
       onSuccess: (arg) => {
-        console.log('arg :>> ', arg);
         showDefaultToast('Ticket Eliminado');
         setOpenConfirmModal(false);
         refetchTickets?.();

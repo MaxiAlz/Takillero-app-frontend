@@ -16,4 +16,14 @@ export const accessCodeRepository = {
     );
     return data;
   },
+
+  async deleteAccessCodes(acessCodeId: number) {
+    const { data } = await apiService.delete(`/AccessCodes/${acessCodeId}`);
+    return data;
+  },
 };
+
+// async deleteTicketById(ticketId: number) {
+//   const { data } = await apiService.delete(`/TicketTypes/${ticketId}`);
+//   return data;
+// },

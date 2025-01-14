@@ -13,16 +13,22 @@ import {
   RoundedOutlineButton,
 } from '../../../components';
 import { GenerateAccesTokenForm } from './Forms/GenerateAccesTokenForm';
-import { useAccessCodesQuery } from '../hooks/useAccessCodesQuery';
+import { useAccessCodesQuery, useDeleteAccessCodeById } from '../hooks';
+import { useAlert } from '../../../context/AlertContext';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface ListAcessCodesCardsProps {
   eventId: string | undefined;
 }
 
 const ManageAccessCodes = ({ eventId }: ListAcessCodesCardsProps) => {
+  const { showErrorToast, showSuccessToast, showInfoToast } = useAlert();
+  // Mutations nad Querys
+  const deleteAccessCodeById = useDeleteAccessCodeById();
   const { accessCodesData, error, isLoading } =
     useAccessCodesQuery.getAccesCodesByEventId(+eventId!);
-
+  const queryClient = useQueryClient();
+  // usestates
   const [showAccessCodeModal, setShowAccessCodeModal] = useState(false);
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
   const [selectedAccessCode, setSelectedAccessCode] = useState<{
@@ -30,7 +36,7 @@ const ManageAccessCodes = ({ eventId }: ListAcessCodesCardsProps) => {
     id: number;
   } | null>(null);
 
-  const hadleDeleteAccessCode = (
+  const hadleOpenModalsDeleteAccessCode = (
     accesCodeId: number,
     acessCodeName: string,
   ) => {
@@ -38,10 +44,38 @@ const ManageAccessCodes = ({ eventId }: ListAcessCodesCardsProps) => {
     setSelectedAccessCode({ name: acessCodeName, id: accesCodeId });
   };
 
+  const copyToken = (token: string) => {
+    navigator.clipboard.writeText(token);
+    showInfoToast('Token copiado');
+  };
+
+  const handleDeleteAccessCode = () => {
+    deleteAccessCodeById.mutate(selectedAccessCode!.id, {
+      onSuccess: () => {
+        setSelectedAccessCode(null);
+        setShowConfirmDeleteModal(false);
+        queryClient.invalidateQueries({
+          queryKey: ['accessCodes', eventId],
+        });
+        queryClient.refetchQueries({ queryKey: ['accessCodes'], exact: false });
+
+        showSuccessToast('Codigo de Aceeso Eliminado Correctamente');
+      },
+      onError: () => {
+        setSelectedAccessCode(null);
+        setShowConfirmDeleteModal(false);
+        showErrorToast('No se pudo eliminar, Pruebe mas tarde');
+      },
+    });
+  };
+
   function isAccessCodeValid(endDate: Date | string): boolean {
     const now = new Date();
     const finalDate = new Date(endDate);
-    return finalDate >= now;
+    const localNow = new Date(now.toLocaleString());
+    const localFinalDate = new Date(finalDate.toLocaleString());
+
+    return localFinalDate >= localNow;
   }
 
   return (
@@ -59,48 +93,54 @@ const ManageAccessCodes = ({ eventId }: ListAcessCodesCardsProps) => {
             accessCodesData!.length > 0 &&
             !error &&
             accessCodesData?.map((accessCodeData) => (
-              <div
-                key={accessCodeData.id}
-                className={`p-4 rounded-lg ${
-                  isAccessCodeValid(accessCodeData.end)
-                    ? 'opacity-50 pointer-events-none'
-                    : ''
-                }`}
-              >
-                <label className="block text-xl text-primary font-normal">
-                  {accessCodeData.name}{' '}
-                  <span className="text-black dark:text-white">
-                    {isAccessCodeValid(accessCodeData.end) && ':Token vencido'}
-                  </span>
-                </label>
-                <div className="flex items-center">
-                  <input
-                    disabled={isAccessCodeValid(accessCodeData.end)}
-                    name="accessCode"
-                    type="text"
-                    className="w-full rounded-lg m-1 border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                    value={accessCodeData.code}
-                    onChange={() => {}}
-                  />
+              <section>
+                <div
+                  key={accessCodeData.id}
+                  className={`p-4 rounded-lg ${
+                    isAccessCodeValid(accessCodeData.end)
+                      ? 'opacity-50 pointer-events-none'
+                      : ''
+                  }`}
+                >
+                  <label className="block text-xl text-primary font-normal">
+                    {accessCodeData.name}{' '}
+                    <span className="text-black dark:text-white">
+                      {isAccessCodeValid(accessCodeData.end) &&
+                        ':Token vencido'}
+                    </span>
+                  </label>
+                  <div className="flex items-center">
+                    <input
+                      disabled={isAccessCodeValid(accessCodeData.end)}
+                      name="accessCode"
+                      type="text"
+                      className="w-full rounded-lg m-1 border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      value={accessCodeData.code}
+                      onChange={() => {}}
+                    />
 
-                  <Button disabled={isAccessCodeValid(accessCodeData.end)}>
-                    <MdContentCopy className="" /> Copiar
-                  </Button>
+                    <Button
+                      disabled={isAccessCodeValid(accessCodeData.end)}
+                      onClick={() => copyToken(accessCodeData.code)}
+                    >
+                      <MdContentCopy className="" /> Copiar
+                    </Button>
+                  </div>
+                  <p className="text-sm">
+                    Valido del{' '}
+                    <span className=" text-primary">
+                      {formatFullDate(accessCodeData.start)} Hs
+                    </span>{' '}
+                    al{' '}
+                    <span className=" text-primary">
+                      {formatFullDate(accessCodeData.end)} Hs
+                    </span>
+                  </p>
                 </div>
-                <p className="text-sm">
-                  Valido del{' '}
-                  <span className=" text-primary">
-                    {formatFullDate(accessCodeData.start)} Hs
-                  </span>{' '}
-                  al{' '}
-                  <span className=" text-primary">
-                    {formatFullDate(accessCodeData.end)} Hs
-                  </span>
-                </p>
                 <button
                   className=""
                   onClick={() =>
-                    hadleDeleteAccessCode(
+                    hadleOpenModalsDeleteAccessCode(
                       accessCodeData.id,
                       accessCodeData.name,
                     )
@@ -110,13 +150,14 @@ const ManageAccessCodes = ({ eventId }: ListAcessCodesCardsProps) => {
                     <MdDeleteForever /> Eliminar acceso
                   </p>
                 </button>
-                <div className="flex-grow border-t border-gray-300 dark:border-gray-700 my-2 "></div>
-              </div>
+              </section>
             ))
           )}
 
           {!isLoading && !accessCodesData?.length && (
-            <p>Todavia no hay Tockens de acceso creados</p>
+            <p className="mb-2 text-warning">
+              Todavia no hay Tokens de acceso creados
+            </p>
           )}
 
           {!isLoading && error && (
@@ -126,6 +167,7 @@ const ManageAccessCodes = ({ eventId }: ListAcessCodesCardsProps) => {
             </p>
           )}
 
+          <div className="flex-grow border-t border-gray-300 dark:border-gray-700 my-2 "></div>
           <RoundedFilledButton
             text="Crear nuevo token de acceso"
             icon={<MdOutlineEnhancedEncryption size={25} />}
@@ -135,6 +177,7 @@ const ManageAccessCodes = ({ eventId }: ListAcessCodesCardsProps) => {
         </section>
       </article>
 
+      {/* ELIMAR CODIGOS DE ACCESO */}
       <ModalCustom
         openModal={showConfirmDeleteModal}
         setOpenModal={setShowConfirmDeleteModal}
@@ -154,12 +197,18 @@ const ManageAccessCodes = ({ eventId }: ListAcessCodesCardsProps) => {
             <span className="text-primary">"{selectedAccessCode?.name}"</span> ?
           </p>
           <div className="flex justify-between mt-5">
-            <RoundedFilledButton text="Eliminar codigo de acceso" />
+            <RoundedFilledButton
+              disabled={deleteAccessCodeById.isPending}
+              text="Eliminar codigo de acceso"
+              onClick={handleDeleteAccessCode}
+              isLoading={deleteAccessCodeById.isPending}
+            />
             <RoundedOutlineButton text="Cancelar" />
           </div>
         </div>
       </ModalCustom>
 
+      {/* CREAR CODIGOS DE ACCESO */}
       <ModalCustom
         openModal={showAccessCodeModal}
         setOpenModal={setShowAccessCodeModal}

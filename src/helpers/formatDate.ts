@@ -9,31 +9,37 @@ export function formatDate(dateString: Date | string) {
 
 export function formatTime(isoString: Date | string): string {
   const date = new Date(isoString);
-  const hours = date.getUTCHours().toString().padStart(2, '0');
-  const minutes = date.getUTCMinutes().toString().padStart(2, '0');
-  return `${hours}:${minutes}`;
+
+  const options: Intl.DateTimeFormatOptions = {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  };
+  return date.toLocaleString('es-AR', options);
 }
 
+// RETORNA FORMATO: 14/01/25 - 12:17:00
 export function formatFullDate(isoString: Date | string): string {
   const date = new Date(isoString);
 
-  // Extraer día, mes y año
-  const day = date.getUTCDate().toString().padStart(2, '0');
-  const month = (date.getUTCMonth() + 1).toString().padStart(2, '0'); // Los meses van de 0 a 11
-  const year = date.getUTCFullYear().toString().slice(2); // Obtener los últimos dos dígitos del año
-
-  // Extraer horas y minutos
-  const hours = date.getUTCHours().toString().padStart(2, '0');
-  const minutes = date.getUTCMinutes().toString().padStart(2, '0');
-
-  return `${day}/${month}/${year} - ${hours}:${minutes}`;
+  const options: Intl.DateTimeFormatOptions = {
+    day: '2-digit',
+    month: '2-digit',
+    year: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false, 
+  };
+  return date.toLocaleString('es-AR', options);
 }
 
 export const formatDatoToLong = (dateString: Date) => {
   const date = new Date(dateString);
 
   // Configuración de formato para obtener el nombre del día, mes, y año en español
-  const options = {
+  const options: Intl.DateTimeFormatOptions = {
     weekday: 'long', // Día de la semana completo
     day: 'numeric', // Día numérico
     month: 'long', // Mes completo
@@ -44,7 +50,13 @@ export const formatDatoToLong = (dateString: Date) => {
   return new Intl.DateTimeFormat('es-ES', options).format(date);
 };
 
-export function addDaysToDate({dateInput, daysToAdd}:{dateInput: Date | string,daysToAdd:number}) {
+export function addDaysToDate({
+  dateInput,
+  daysToAdd,
+}: {
+  dateInput: Date | string;
+  daysToAdd: number;
+}) {
   // Convertir el parámetro a un objeto Date
   const date = new Date(dateInput);
 
