@@ -9,14 +9,13 @@ import { PourchaseResponse } from '../types/purchaseTypes';
 import { useDispatch } from 'react-redux';
 import { setPurchaseData } from '../../../redux/slices/purchase/purchaseSlice';
 
-// TODO: Vamos a guardas la respuesta de los tickets que se han comprado en un estado de redux para que los vea el usuario en la pantalla de los tickets de forma publica, y para no usar el estado del navegador que lo veo mas problematico
 interface PurchaseFormValues extends PurchaseEventProductsPayload {
   confirmEmail: string;
 }
 
 const usePurchaseFormik = (eventId: number) => {
   const purchaseMutation = usePurchaseEventProductsMutation(eventId);
-  const { showDefaultToast, showErrorToast } = useAlert();
+  const { showErrorToast, showSuccessToast } = useAlert();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -32,7 +31,7 @@ const usePurchaseFormik = (eventId: number) => {
 
       await purchaseMutation.mutate(submitValues, {
         onSuccess: (valuePoruchaseResponse: PourchaseResponse) => {
-          showDefaultToast('¡Compra realizada con éxito!');
+          showSuccessToast('¡Compra realizada con éxito!');
           dispatch(setPurchaseData(valuePoruchaseResponse.data));
           navigate(`/cart/${eventId}/pourchase/confirm`, {});
           formikHelpers.resetForm();

@@ -13,6 +13,9 @@ export interface EventData {
   name: string;
   date: Date | string;
   location: string;
+  photo: string;
+  verticalPhoto: string;
+  venue: string;
 }
 
 export interface PersonaData {

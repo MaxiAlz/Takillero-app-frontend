@@ -6,6 +6,9 @@ const initialState: PurchaseData = {
     name: '',
     date: '',
     location: '',
+    photo: '',
+    verticalPhoto: '',
+    venue: '',
   },
   personaData: {
     name: '',
@@ -18,10 +21,10 @@ const ticketSlice = createSlice({
   name: 'purchase',
   initialState,
   reducers: {
-    setPurchaseData: (state, action: PayloadAction<PurchaseData>) => {
-      state.eventData = action.payload.eventData;
-      state.personaData = action.payload.personaData;
-      state.tickets = action.payload.tickets;
+    setPurchaseData: (state, action: PayloadAction<PurchaseData | null>) => {
+      state.eventData = action.payload!.eventData;
+      state.personaData = action.payload!.personaData;
+      state.tickets = action.payload!.tickets;
     },
     clearTickets: () => initialState,
   },

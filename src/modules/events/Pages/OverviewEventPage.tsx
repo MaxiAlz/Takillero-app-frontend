@@ -8,7 +8,8 @@ import {
 import DefaultLayout from '../../../layout/DefaultLayout';
 import {
   MdAttachMoney,
-  MdOutlineBackHand,
+  MdInfo,
+  // MdOutlineBackHand,
   MdOutlineEnhancedEncryption,
   MdPeople,
   MdTrendingUp,
@@ -16,28 +17,40 @@ import {
 import { GiTicket } from 'react-icons/gi';
 import { EventHorizontalCard } from '../../../components/Cards/EventHorizontalCard';
 import { useGetEventById } from '../hooks';
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import CardButton from '../../../components/Buttons/CardButton';
 import ManageAccessCodes from '../components/ManageAccessCodes';
 
-const settingsItems = [
+const settingsItems: SettingsItem[] = [
   {
     key: 'AccessTokens',
     name: 'Tokens de Acceso',
-    subtitle: 'No se generaran mas E-Tickets',
+    subtitle: 'Administra tus Accesos',
     bgColor: 'bg-primary',
-    icon: <MdOutlineBackHand size={30} />,
-    drawerTtitle: 'Tus Tokens de Acceso',
+    icon: <MdOutlineEnhancedEncryption size={30} />,
+    drawerSubtitle: 'Administra los tokens de accesos a tu evento desde aqui',
+    drawerTtitle: 'Administra tus Tokens de Acceso',
   },
-  {
-    key: 'stopSales',
-    name: 'Pausar ventas',
-    subtitle: 'Deten las ventas de tu eventos',
-    bgColor: 'bg-error',
-    icon: <MdOutlineBackHand size={30} />,
-    drawerTtitle: 'Detener ventas en evento',
-  },
+  // {
+  //   key: 'stopSales',
+  //   name: 'Pausar ventas',
+  //   subtitle: 'Deten las ventas de tu eventos',
+  //   bgColor: 'bg-error',
+  //   icon: <MdOutlineBackHand size={30} />,
+  //   drawerTtitle: 'Detener ventas en evento',
+  //   drawerSubtitle: 'Administra las ventas de tu evento desde aqui',
+  // },
 ];
+
+interface SettingsItem {
+  key: string;
+  name: string;
+  subtitle: string;
+  bgColor: string;
+  drawerTtitle: string;
+  drawerSubtitle: string;
+  icon: ReactElement;
+}
 
 const OverviewEventPage = () => {
   const { eventId } = useParams();
@@ -45,11 +58,11 @@ const OverviewEventPage = () => {
 
   const [isShowDrawerOpen, setIsShowDrawerOpen] = useState<{
     isopen: boolean;
-    key: string;
-  }>({ isopen: false, key: '' });
+    settingsItem: SettingsItem;
+  }>({ isopen: false, settingsItem: settingsItems[0] });
 
   const handleCloseDrawer = () => {
-    setIsShowDrawerOpen({ isopen: false, key: '' });
+    setIsShowDrawerOpen({ isopen: false, settingsItem: settingsItems[0] });
   };
 
   return (
@@ -129,7 +142,10 @@ const OverviewEventPage = () => {
                 subtitle={cardItem.subtitle}
                 children={cardItem.icon}
                 onClick={() =>
-                  setIsShowDrawerOpen({ isopen: true, key: cardItem.key })
+                  setIsShowDrawerOpen({
+                    isopen: true,
+                    settingsItem: cardItem,
+                  })
                 }
               />
             ))}
@@ -140,14 +156,14 @@ const OverviewEventPage = () => {
       <DrawerCustom
         openModal={isShowDrawerOpen.isopen}
         setOpenModal={handleCloseDrawer}
-        titleIcon={MdOutlineEnhancedEncryption}
-        title="Tus Tokens de Acceso"
-        // subtitle="Usa este codigo para validar las E-Tickes en la entrada de tu evento, puedes crear diferentes codigos para identificar a tu Staff si asi lo deseas."
+        titleIcon={MdInfo}
+        title={isShowDrawerOpen.settingsItem.drawerTtitle}
+        subtitle={isShowDrawerOpen.settingsItem.drawerSubtitle}
       >
-        {isShowDrawerOpen.key === 'AccessTokens' && (
+        {isShowDrawerOpen.settingsItem.key === 'AccessTokens' && (
           <ManageAccessCodes eventId={eventId} />
         )}
-        {isShowDrawerOpen.key === 'stopSales' && (
+        {isShowDrawerOpen.settingsItem.key === 'stopSales' && (
           <div>Formulario pa borrar la cosa</div>
         )}
       </DrawerCustom>

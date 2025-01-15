@@ -150,24 +150,30 @@ const ManageAccessCodes = ({ eventId }: ListAcessCodesCardsProps) => {
                     <MdDeleteForever /> Eliminar acceso
                   </p>
                 </button>
+                <div className="flex-grow border-t border-gray-300 dark:border-gray-700 my-2 "></div>
               </section>
             ))
           )}
 
           {!isLoading && !accessCodesData?.length && (
-            <p className="mb-2 text-warning">
-              Todavia no hay Tokens de acceso creados
-            </p>
+            <>
+              <p className="mb-2 text-warning">
+                Todavia no hay Tokens de acceso creados
+              </p>
+              <div className="flex-grow border-t border-gray-300 dark:border-gray-700 my-2 "></div>
+            </>
           )}
 
           {!isLoading && error && (
-            <p className="text-error">
-              Oops! Hubo un error al cargar los tokens de acceso, Pruebe mas
-              tarde...
-            </p>
+            <>
+              <p className="text-error">
+                Oops! Hubo un error al cargar los tokens de acceso, Pruebe mas
+                tarde...
+              </p>
+              <div className="flex-grow border-t border-gray-300 dark:border-gray-700 my-2 "></div>
+            </>
           )}
 
-          <div className="flex-grow border-t border-gray-300 dark:border-gray-700 my-2 "></div>
           <RoundedFilledButton
             text="Crear nuevo token de acceso"
             icon={<MdOutlineEnhancedEncryption size={25} />}
