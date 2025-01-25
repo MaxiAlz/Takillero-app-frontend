@@ -33,7 +33,7 @@ const admin_dashboard_items: DashboardItem[] = [
       },
       {
         itemName: 'Transacciones',
-        link: '/panel/settings/transactions',
+        link: '/panel/billing',
         icon: MdOutlineReceipt,
       },
     ],
@@ -61,7 +61,7 @@ const producer_dashboard_items: DashboardItem[] = [
       },
       {
         itemName: 'Transacciones',
-        link: '/panel/settings/transactions',
+        link: '/panel/billing',
         icon: MdOutlineReceipt,
       },
     ],

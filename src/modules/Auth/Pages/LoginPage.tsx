@@ -113,6 +113,7 @@ const LoginPage: React.FC = () => {
 
               <div className="mb-5">
                 <RoundedFilledButton
+                className='w-full'
                   text="Iniciar sesion"
                   type="submit"
                   disabled={loginFormik.isSubmitting}

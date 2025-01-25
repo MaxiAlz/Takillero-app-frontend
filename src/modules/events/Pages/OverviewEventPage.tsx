@@ -8,6 +8,7 @@ import {
 import DefaultLayout from '../../../layout/DefaultLayout';
 import {
   MdAttachMoney,
+  MdCardGiftcard,
   MdInfo,
   // MdOutlineBackHand,
   MdOutlineEnhancedEncryption,
@@ -31,15 +32,16 @@ const settingsItems: SettingsItem[] = [
     drawerSubtitle: 'Administra los tokens de accesos a tu evento desde aqui',
     drawerTtitle: 'Administra tus Tokens de Acceso',
   },
-  // {
-  //   key: 'stopSales',
-  //   name: 'Pausar ventas',
-  //   subtitle: 'Deten las ventas de tu eventos',
-  //   bgColor: 'bg-error',
-  //   icon: <MdOutlineBackHand size={30} />,
-  //   drawerTtitle: 'Detener ventas en evento',
-  //   drawerSubtitle: 'Administra las ventas de tu evento desde aqui',
-  // },
+  {
+    key: 'invites',
+    name: 'Invitaciones',
+    subtitle: 'Crea invitaciones especiales',
+    bgColor: 'bg-success',
+    icon: <MdCardGiftcard size={30} />,
+    drawerTtitle: 'Invitar personas a tu evento',
+    drawerSubtitle:
+      'Carga asistentes que quieras invitar a tu evento, se les enviara un notificacion y podran descargar sus tickets en su cuenta de Activate!',
+  },
 ];
 
 interface SettingsItem {

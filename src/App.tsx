@@ -12,6 +12,7 @@ function App() {
   const { pathname } = useLocation();
   const dispatch: AppDispatch = useDispatch();
   const { status } = useSelector((state: RootState) => state.auth);
+
   const verifySession = async () => {
     dispatch(checkUserSession());
   };
@@ -29,8 +30,6 @@ function App() {
   ) : (
     <>
       <RouteIndex />
-      {/* <ToastContainer /> */}
-      {/* <Toaster /> */}
     </>
   );
 }

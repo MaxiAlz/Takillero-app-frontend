@@ -7,6 +7,7 @@ import { RootState } from '../../redux/store';
 import { dropdown_user_links } from '../../constants/panel/dropdownUser_items-';
 import { logoutUser } from '../../redux/slices/auth/authThunk';
 import { UserRoles } from '../../modules/Auth/types/authTypes';
+// import { UserRoles } from '../../modules/Auth/types/authTypes';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);

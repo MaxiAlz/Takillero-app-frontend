@@ -14,6 +14,7 @@ const loginUser =
   async (dispatch: Dispatch) => {
     try {
       const response = await apiService.post('/Auth/login', user);
+
       if (response.status == 200) {
         dispatch(setUserAuthenticated(response.data));
         return response;
@@ -29,6 +30,7 @@ const checkUserSession =
   async (dispatch: Dispatch) => {
     try {
       const response = await apiService.get('/Auth/profile');
+      console.log('/Auth/login', response);
       if (response.status === 200) {
         dispatch(setUserAuthenticated(response.data));
       } else {

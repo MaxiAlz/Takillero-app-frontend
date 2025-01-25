@@ -14,6 +14,7 @@ const ProtectedRoutes = ({ children }: ProtectecRouterProps) => {
   if (!(user?.id && status === AuthStatus.AUTHENTICATED)) {
     return <Navigate to={'/auth/login'} />;
   } else return children;
+
 };
 
 export default ProtectedRoutes;

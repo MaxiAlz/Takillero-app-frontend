@@ -1,5 +1,6 @@
 '../pages/Profile';
 import { LoginPage, RegisterPage } from '../modules/Auth/Pages';
+import { BillingPanelPage } from '../modules/billing';
 import {
   CreateTicketsPage,
   OverviewEventPage,
@@ -41,13 +42,18 @@ interface RouteObject {
   component: React.ComponentType<any>;
   exact?: boolean;
 }
-// TODO: Validar rutas por rol del usuario
-export const authProtectedRoutes: Array<RouteObject> = [
+
+export const adminRoutes: Array<RouteObject> = [
+  // // PANEL/USERS
+  { path: '/panel/users', component: UsersPanel },
+];
+
+export const producerRoutes: Array<RouteObject> = [
   // Panel Routes
   { path: '/panel', component: OverviewPanel },
-  { path: '/panel/users', component: UsersPanel },
+
   { path: '/panel/settings', component: SettingsPanel },
-  { path: '/panel/settings/profile', component: OverviewPanel },
+  { path: '/panel/settings/profile', component: Profile },
   { path: '/panel/settings/transactions', component: OverviewPanel },
   // panel events
   { path: '/panel/events', component: EventsPanel },
@@ -61,6 +67,7 @@ export const authProtectedRoutes: Array<RouteObject> = [
     path: '/panel/events/create/:eventId/tickets/publish',
     component: PublishEventPage,
   },
+  { path: '/panel/billing', component: BillingPanelPage },
   {
     path: '/panel/events/overview/:eventId',
     component: OverviewEventPage,
@@ -71,6 +78,8 @@ export const authProtectedRoutes: Array<RouteObject> = [
 ];
 
 export const publicRoutes = [
+  { path: '/auth/login', component: LoginPage },
+  { path: '/auth/register', component: RegisterPage },
   { path: '/', component: HomePage },
   // { path: '/sobre-nosotros', component: AboutUs },
   { path: '/ver-tickets', component: SearchUserTickets },
@@ -89,6 +98,7 @@ export const publicRoutes = [
   },
 ];
 
+// Rutas privadas para usuarios ya authenticados
 export const noAuthRoutes = [
   { path: '/auth/login', component: LoginPage },
   { path: '/auth/register', component: RegisterPage },
