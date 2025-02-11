@@ -45,17 +45,6 @@ export const Modal = ({ closeModal, onSubmit, defaultValue }: any) => {
   };
 
   const handleChange = (e: any) => {
-    // console.log(formState.criterion);
-    // console.log(e.target.name);
-    // console.log(e.target.name == 'para' && e.target.value == 'rating');
-    // console.log(formState.criterion > 1 && formState.criterion < 4);
-    // console.log(e.target.value);
-    // console.log(
-    //   e.target.name == 'para' &&
-    //     e.target.value == 'rating' &&
-    //     formState.criterion > 1 &&
-    //     formState.criterion < 4,
-    // );
     if (
       e.target.name == 'para' &&
       e.target.value == 'rating' &&
@@ -64,8 +53,6 @@ export const Modal = ({ closeModal, onSubmit, defaultValue }: any) => {
     ) {
       setFormState({ ...formState, ['criterion']: 0 });
     }
-
-    console.log(formState.criterion);
     setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 

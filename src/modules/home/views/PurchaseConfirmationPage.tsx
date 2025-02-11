@@ -14,7 +14,7 @@ const PurchaseConfirmationPage = () => {
   const { eventId } = useParams();
   const navigate = useNavigate();
   const purchaseState = useSelector((state: RootState) => state.purchase);
-  
+
   if (!purchaseState.tickets.length) {
     return (
       <HomeLayaut>
@@ -104,6 +104,7 @@ const PurchaseConfirmationPage = () => {
         <section className="w-full  flex flex-col justify-center items-center">
           {purchaseState.tickets.map((ticket) => (
             <TicketQrBuyed
+              key={ticket.code}
               eventData={purchaseState.eventData}
               personaData={purchaseState.personaData}
               ticket={ticket}

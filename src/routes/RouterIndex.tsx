@@ -31,7 +31,6 @@ const RouteIndex = () => {
     }
   };
 
-  // console.log('getRoutesByRole', getRoutesByRole(user?.role));
 
   return (
     <React.Fragment>

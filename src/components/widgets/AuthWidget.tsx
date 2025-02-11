@@ -1,13 +1,16 @@
 import { Link } from 'react-router-dom';
+import { APP_TEXT } from '../../constants/text';
+import { BsFillRocketTakeoffFill } from 'react-icons/bs';
 
 const AuthWidget = () => {
   return (
     <div className="hidden w-full lg:block lg:w-1/2">
       <div className="py-17.5 px-26 text-center">
         <Link to={'/'}>
-          <h4 className="mb-5.5 text-2xl uppercase text-primary font-bold">
-            Show Benefy
-          </h4>
+          <div className="flex font-bold uppercase text-primary text-2xl text-center">
+            <BsFillRocketTakeoffFill size={20} />
+            <h1 className="">{APP_TEXT.app_name}</h1>
+          </div>
         </Link>
 
         <p className="2xl:px-20">

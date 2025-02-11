@@ -82,12 +82,6 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     }
   }, [sidebarExpanded]);
 
-  // console.log('user!.role ', user!.role);
-
-  // console.log(' UserRoles.ADMINISTRADOR', UserRoles.ADMINISTRADOR);
-
-  // z-9999
-
   return (
     <aside
       ref={sidebar}

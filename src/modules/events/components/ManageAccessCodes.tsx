@@ -93,7 +93,7 @@ const ManageAccessCodes = ({ eventId }: ListAcessCodesCardsProps) => {
             accessCodesData!.length > 0 &&
             !error &&
             accessCodesData?.map((accessCodeData) => (
-              <section>
+              <section key={accessCodeData.id}>
                 <div
                   key={accessCodeData.id}
                   className={`p-4 rounded-lg ${
