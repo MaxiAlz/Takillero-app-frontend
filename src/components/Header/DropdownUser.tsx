@@ -7,12 +7,13 @@ import { RootState } from '../../redux/store';
 import { dropdown_user_links } from '../../constants/panel/dropdownUser_items-';
 import { logoutUser } from '../../redux/slices/auth/authThunk';
 import { UserRoles } from '../../modules/Auth/types/authTypes';
-// import { UserRoles } from '../../modules/Auth/types/authTypes';
+import { useQueryClient } from '@tanstack/react-query';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dispatch = useDispatch<any>();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { user } = useSelector((state: RootState) => state.auth);
 
   const trigger = useRef<any>(null);
@@ -46,6 +47,7 @@ const DropdownUser = () => {
   const handleLogout = async () => {
     await dispatch(logoutUser());
     navigate('/auth/login');
+    queryClient.invalidateQueries();
   };
 
   return (

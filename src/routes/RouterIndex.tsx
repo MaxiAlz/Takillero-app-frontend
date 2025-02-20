@@ -23,14 +23,14 @@ const RouteIndex = () => {
       case UserRoles.PRODUCTOR:
         return producerRoutes;
 
+      // SI ES ADMNIN DEVUELVO TODAS LAS RUTAS EXISTENTES
       case UserRoles.ADMINISTRADOR:
-        return adminRoutes;
+        return [...producerRoutes, ...adminRoutes];
 
       default:
         return [];
     }
   };
-
 
   return (
     <React.Fragment>

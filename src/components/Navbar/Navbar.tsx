@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import DropdownUser from '../Header/DropdownUser';
 import DarkModeSwitcher from '../Header/DarkModeSwitcher';
 import { APP_TEXT } from '../../constants/text';
@@ -8,6 +8,7 @@ import { AuthStatus } from '../../modules/Auth/types/authTypes';
 import { BsFillRocketTakeoffFill } from 'react-icons/bs';
 
 import { DropdownShoppingCart } from '../Header/DropdownShoppingCart';
+import { RoundedOutlineButton } from '../Buttons';
 
 interface NavbarPorps {
   sidebarOpen: string | boolean | undefined;
@@ -23,7 +24,7 @@ const navbarItems = [
 
 const Navbar = (props: NavbarPorps) => {
   const { user, status } = useSelector((state: RootState) => state.auth);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -85,7 +86,6 @@ const Navbar = (props: NavbarPorps) => {
                   className="text-primary font-semibold uppercase mx-2"
                 >
                   <div className="flex font-bold uppercase text-primary text-2xl text-center">
-                    {/* <GiSittingDog size={30} /> */}
                     <BsFillRocketTakeoffFill size={20} />
                     <h1 className="">{APP_TEXT.app_name}</h1>
                   </div>
@@ -118,12 +118,12 @@ const Navbar = (props: NavbarPorps) => {
 
             {/* <!-- User Area --> */}
             {!!user && status === AuthStatus.AUTHENTICATED && <DropdownUser />}
-            {/* {!user && (
+            {!user && (
               <RoundedOutlineButton
                 text="Ingresar"
                 onClick={() => navigate('/auth/login')}
               />
-            )} */}
+            )}
             {/* <!-- User Area --> */}
           </div>
         </div>
