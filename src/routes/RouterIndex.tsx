@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import {
   adminRoutes,
@@ -18,12 +18,11 @@ import { ErrorPage } from '../modules/Error/views/ErrorPage';
 const RouteIndex = () => {
   const { user } = useSelector((state: RootState) => state.auth);
 
-  const getRoutesByRole = (userRole: number) => {
+  const getRoutesByRole = (userRole: UserRoles) => {
     switch (userRole) {
       case UserRoles.PRODUCTOR:
         return producerRoutes;
 
-      // SI ES ADMNIN DEVUELVO TODAS LAS RUTAS EXISTENTES
       case UserRoles.ADMINISTRADOR:
         return [...producerRoutes, ...adminRoutes];
 
@@ -35,11 +34,6 @@ const RouteIndex = () => {
   return (
     <React.Fragment>
       <Routes>
-        {/* rutas publicas */}
-        {publicRoutes.map((route: any, idx: number) => (
-          <Route path={route.path} key={idx} element={<route.component />} />
-        ))}
-
         {/* Rutas prohibidas para ususario authenticado */}
         {noAuthRoutes.map((route: any, idx: number) => (
           <Route
@@ -47,10 +41,14 @@ const RouteIndex = () => {
             key={idx}
             element={
               <NoRoutesForAuthenticated>
-                <route.component />
+                {React.createElement(route.component)}
               </NoRoutesForAuthenticated>
             }
           />
+        ))}
+        {/* rutas publicas */}
+        {publicRoutes.map((route: any, idx: number) => (
+          <Route path={route.path} key={idx} element={<route.component />} />
         ))}
 
         {/* Rutas del template */}
@@ -73,6 +71,7 @@ const RouteIndex = () => {
                 />
               );
             }
+
             return (
               <Route
                 key={idx}

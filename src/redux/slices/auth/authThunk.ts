@@ -2,10 +2,7 @@ import { Action, Dispatch, ThunkAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import { apiService } from '../../../services/apiService';
 import { setError, setLogoutUser, setUserAuthenticated } from './authSlice';
-import {
-  UserLoginData,
-  // UserProfile,
-} from '../../../modules/Auth/types/authTypes';
+import { UserLoginData } from '../../../modules/Auth/types/authTypes';
 
 const loginUser =
   (
@@ -14,7 +11,6 @@ const loginUser =
   async (dispatch: Dispatch) => {
     try {
       const response = await apiService.post('/Auth/login', user);
-
       if (response.status == 200) {
         dispatch(setUserAuthenticated(response.data));
         return response;

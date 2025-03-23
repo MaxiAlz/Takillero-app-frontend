@@ -22,7 +22,7 @@ import {
   SettingsPanel,
   UsersPanel,
 } from '../modules/panel/views';
-import { UserProfile } from '../modules/user';
+import { MyUserInformation, UserProfile } from '../modules/user';
 
 import SignIn from '../pages/Authentication/SignIn';
 import SignUp from '../pages/Authentication/SignUp';
@@ -53,7 +53,7 @@ export const producerRoutes: Array<RouteObject> = [
   { path: '/panel', component: OverviewPanel },
 
   { path: '/panel/settings', component: SettingsPanel },
-  { path: '/panel/settings/profile', component: Profile },
+  { path: '/panel/settings/profile', component: MyUserInformation },
   { path: '/panel/settings/transactions', component: OverviewPanel },
   // panel events
   { path: '/panel/events', component: EventsPanel },

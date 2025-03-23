@@ -6,15 +6,15 @@ export interface UserLoginData {
 export interface UserProfile {
   name: string;
   role: UserRoles;
-  id: number;
-  userName: string;
+  // id: number;
+  // userName: string;
   email: string;
 }
 
 export enum UserRoles {
-  'PRODUCTOR',
-  'ADMINISTRADOR',
-  'USUARIO',
+  PRODUCTOR = 'SELLER',
+  ADMINISTRADOR = 'ADMIN',
+  USUARIO = 'USUARIO',
 }
 
 export enum AuthStatus {
