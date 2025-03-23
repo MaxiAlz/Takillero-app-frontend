@@ -1,32 +1,52 @@
 import { apiService } from '../../../services/apiService';
 import { EventLookLike, EvetsPaginated, type Event } from '../interfaces/event';
+import { UserRoles } from '../../Auth/types/authTypes';
+
+const getRoleSpecificUrl = (path: string, userRole: UserRoles) => {
+  if (userRole === UserRoles.ADMINISTRADOR) {
+    return `/admin${path}`;
+  }
+  if (userRole === UserRoles.PRODUCTOR) {
+    return `/seller${path}`;
+  }
+  return path; // Si no es ninguno de los anteriores
+};
 
 export const eventRepository = {
-  async getAuthUserEvents() {
-    const { data } = await apiService.get<EvetsPaginated>('/Events');
+  async getAuthUserEvents(userRole: UserRoles) {
+    const path = getRoleSpecificUrl('/Events', userRole);
+    const { data } = await apiService.get<EvetsPaginated>(path);
     return data;
   },
 
-  async getEventsById(eventId: number): Promise<EventLookLike> {
-    const { data } = await apiService.get<EventLookLike>(`/Events/${eventId}`);
+  async getEventsById(
+    eventId: number,
+    userRole: UserRoles,
+  ): Promise<EventLookLike> {
+    const path = getRoleSpecificUrl(`/Events/${eventId}`, userRole);
+    const { data } = await apiService.get<EventLookLike>(path);
     return data;
   },
 
-  async createEvent(formData: EventLookLike) {
-    const { data } = await apiService.post<Event>('/Events', formData);
+  async createEvent(formData: EventLookLike, userRole: UserRoles) {
+    const path = getRoleSpecificUrl('/Events', userRole);
+    const { data } = await apiService.post<Event>(path, formData);
     return data;
   },
 
-  async updateEvent(eventId: number, payEvent: EventLookLike) {
-    const { data } = await apiService.put<Event>(
-      `/Events/${eventId}`,
-      payEvent,
-    );
+  async updateEvent(
+    eventId: number,
+    payEvent: EventLookLike,
+    userRole: UserRoles,
+  ) {
+    const path = getRoleSpecificUrl(`/Events/${eventId}`, userRole);
+    const { data } = await apiService.put<Event>(path, payEvent);
     return data;
   },
 
-  async publishEvent(eventId: number) {
-    const { data } = await apiService.post<Event>(`/Events/${eventId}/publish`);
+  async publishEvent(eventId: number, userRole: UserRoles) {
+    const path = getRoleSpecificUrl(`/Events/${eventId}/publish`, userRole);
+    const { data } = await apiService.post<Event>(path);
     return data;
   },
 };
