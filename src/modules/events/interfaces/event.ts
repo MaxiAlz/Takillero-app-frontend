@@ -89,4 +89,10 @@ export interface ItemEvent {
   state: EventStatus;
   photo: string;
   verticalPhoto: string;
+  creator?: EventCreator;
+}
+
+export interface EventCreator {
+  id: number;
+  name: string;
 }

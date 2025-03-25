@@ -17,7 +17,7 @@ const ViewEventDetail = () => {
     <>
       <PageTitle title="Ver Evento" />
       <HomeLayaut>
-        <main className="lg:mx-20 md:mx-5">
+        <main className="lg:mx-20 md:mx-5 mt-5">
           {isLoading && <Loader />}
           {isError &&
             alertBanners.showErrorBanner({

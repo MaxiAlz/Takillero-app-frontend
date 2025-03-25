@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { RoundedFilledButton } from '../Buttons';
 import { ItemEvent } from '../../modules/events';
 import { formatDate } from '../../helpers/formatDate';
+import { useUserRole } from '../../hooks/useUserRole';
+import { UserRoles } from '../../modules/Auth/types/authTypes';
 
 interface PanelTableProps {
   tableItems: ItemEvent[] | undefined;
@@ -30,6 +32,7 @@ const getStateAttributes = (
 };
 
 const PanelTable = ({ tableItems }: PanelTableProps) => {
+  const userRole = useUserRole();
   const navigate = useNavigate();
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
@@ -68,9 +71,12 @@ const PanelTable = ({ tableItems }: PanelTableProps) => {
               <th className=" py-4 px-4 font-medium text-black dark:text-white truncate">
                 Titulo
               </th>
-              {/* <th className=" py-4 px-4 font-medium text-black dark:text-white">
-                Fecha
-              </th> */}
+              {userRole === UserRoles.ADMINISTRADOR && (
+                <th className=" py-4 px-4 font-medium text-black dark:text-white">
+                  Productor
+                </th>
+              )}
+
               <th className=" py-4 px-4 font-medium text-black dark:text-white">
                 Estado
               </th>
@@ -117,12 +123,14 @@ const PanelTable = ({ tableItems }: PanelTableProps) => {
                     {item.description.slice(0, 25)}
                   </p> */}
                 </td>
+                {userRole === UserRoles.ADMINISTRADOR && (
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark truncate">
+                    <p className="text-black dark:text-white">
+                      {item.creator?.name}
+                    </p>
+                  </td>
+                )}
 
-                {/* <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  <p className="text-black dark:text-white">
-                    {formatDate(item.date)}
-                  </p>
-                </td> */}
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p
                     className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${

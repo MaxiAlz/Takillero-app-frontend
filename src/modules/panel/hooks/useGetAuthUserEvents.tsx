@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { eventRepository } from '../../events';
-import { useUserRole } from '../../events/hooks/useUserRole';
+import { useUserRole } from '../../../hooks/useUserRole';
 
 export const useGetAuthUserEvents = () => {
   const userRole = useUserRole();

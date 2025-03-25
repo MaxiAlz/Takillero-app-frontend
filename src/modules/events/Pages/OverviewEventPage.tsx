@@ -21,6 +21,8 @@ import { useGetEventById } from '../hooks';
 import { ReactElement, useState } from 'react';
 import CardButton from '../../../components/Buttons/CardButton';
 import ManageAccessCodes from '../components/ManageAccessCodes';
+import { useUserRole } from '../hooks/useUserRole';
+import { UserRoles } from '../../Auth/types/authTypes';
 
 const settingsItems: SettingsItem[] = [
   {
@@ -139,6 +141,7 @@ const OverviewEventPage = () => {
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5 mt-5">
             {settingsItems.map((cardItem) => (
               <CardButton
+                disabled={useUserRole() != UserRoles.PRODUCTOR}
                 key={cardItem.key}
                 className={cardItem.bgColor}
                 title={cardItem.name}

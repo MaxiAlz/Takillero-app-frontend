@@ -1,29 +1,30 @@
 import { apiService } from '../../../services/apiService';
+import { UserRoles } from '../../Auth/types/authTypes';
+import { useGetSpecificUrl } from '../hooks';
 import { AccessCode, AccessCodeFormData } from '../interfaces/accesCodeTypes';
 
 export const accessCodeRepository = {
-  async createAccessCode(accessCodeformData: AccessCodeFormData) {
+  async createAccessCode(
+    accessCodeformData: AccessCodeFormData,
+    userRole: UserRoles,
+  ) {
+    const path = useGetSpecificUrl(`/AccessCodes`, userRole);
     const { data } = await apiService.post<AccessCode>(
-      '/AccessCodes',
+      path,
       accessCodeformData,
     );
     return data;
   },
 
-  async getAccessCodes(eventId: number) {
-    const { data } = await apiService.get<AccessCode[]>(
-      `/Events/${eventId}/accesscodes`,
-    );
+  async getAccessCodes(eventId: number, userRole: UserRoles) {
+    const path = useGetSpecificUrl(`/Events/${eventId}/accesscodes`, userRole);
+    const { data } = await apiService.get<AccessCode[]>(path);
     return data;
   },
 
-  async deleteAccessCodes(acessCodeId: number) {
-    const { data } = await apiService.delete(`/AccessCodes/${acessCodeId}`);
+  async deleteAccessCodes(acessCodeId: number, userRole: UserRoles) {
+    const path = useGetSpecificUrl(`/AccessCodes/${acessCodeId}`, userRole);
+    const { data } = await apiService.delete(path);
     return data;
   },
 };
-
-// async deleteTicketById(ticketId: number) {
-//   const { data } = await apiService.delete(`/TicketTypes/${ticketId}`);
-//   return data;
-// },

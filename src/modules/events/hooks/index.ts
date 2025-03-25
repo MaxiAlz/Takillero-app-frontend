@@ -1,3 +1,5 @@
+export { useGetSpecificUrl } from './useGetEspecificUrl';
+
 export {
   useCreateAccessCodeMutation,
   useDeleteAccessCodeById,

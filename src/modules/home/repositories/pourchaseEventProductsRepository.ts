@@ -8,7 +8,7 @@ export const purchaseEventProductsRepository = {
     payload: PurchaseEventProductsPayload,
   ) {
     const { data } = await apiService.post<PourchaseResponse>(
-      `/Events/${eventId}/purchase`,
+      `/PublicEvents/${eventId}/purchase`,
       payload,
     );
     return data;

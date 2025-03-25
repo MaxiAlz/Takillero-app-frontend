@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 import { PageTitle, RoundedFilledButton } from '../../../components';
-import { EventHorizontalCard } from '../../../components/Cards/EventHorizontalCard';
 import HomeLayaut from '../../../layout/HomeLayaut';
 import { useGetPublicEventById } from '../hooks/useGetPublicEventById';
 import { SummaryProductsTable } from '../components/SummaryProductsTable';
@@ -55,9 +54,22 @@ const EventPourchasePage = () => {
       <HomeLayaut>
         {eventData && (
           <>
-            <EventHorizontalCard {...eventData} />
+            <section className="lg:mx-10 md:mx-5 mx-2">
+              <div className="">
+                <img
+                  src={eventData.verticalPhoto}
+                  alt={`${eventData.verticalPhoto} banner cover`}
+                  className="hidden sm:block inset-0 object-cover w-full h-100"
+                />
+                <img
+                  src={eventData.photo}
+                  alt={`${eventData.photo} banner cover`}
+                  className="block sm:hidden inset-0 object-cover w-full h-100"
+                />
+              </div>
+            </section>
 
-            <section className="grid lg:grid-cols-3 grid-cols-1 gap-4 lg:mx-10 mt-5">
+            <section className="grid lg:grid-cols-3 grid-cols-1 gap-4 lg:mx-10 md:mx-5 mt-5 mx-2">
               <div className="col-span-2">
                 <SummaryProductsTable
                   selectedProductsCart={selectedProductsCart}
@@ -76,7 +88,7 @@ const EventPourchasePage = () => {
                   purchaseFormik={purchaseFormik}
                 />
 
-                <div className="flex flex-col">
+                <div className="flex flex-col my-5 sm:mx-10 md:mx-0">
                   <div className="order-2">
                     <RoundedFilledButton
                       className="w-full"
