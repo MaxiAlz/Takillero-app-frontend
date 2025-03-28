@@ -11,6 +11,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { CreateTicketTypeForm } from './Forms/CreateTicketTypeForm';
 import { DeleteTicket } from './Forms/DeleteTicket';
 import { useAlert } from '../../../context/AlertContext';
+import Loader from '../../../components/Loader';
 
 export const ManageTickets = () => {
   const { eventId } = useParams();
@@ -95,7 +96,7 @@ export const ManageTickets = () => {
         </p>
       </div>
 
-      {isLoading ? <p>Cargando entradas....</p> : null}
+      {isLoading ? <Loader /> : null}
 
       {ticketsEvent.length === 0 && !isError && !isLoading && (
         <div className="w-full text-center my-5">
