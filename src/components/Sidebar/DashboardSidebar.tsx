@@ -225,7 +225,7 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             TEMPLATE ROUTES
           </h3>
           ...Descomentar para ver
-          {ItemsTemplateRoute(pathname, sidebarExpanded, setSidebarExpanded)}
+          {/* {ItemsTemplateRoute(pathname, sidebarExpanded, setSidebarExpanded)} */}
         </nav>
         {/* <!-- Sidebar Menu --> */}
       </div>

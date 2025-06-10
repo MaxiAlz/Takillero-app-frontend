@@ -74,8 +74,8 @@ const ManageAccessCodes = ({ eventId }: ListAcessCodesCardsProps) => {
     const finalDate = new Date(endDate);
     const localNow = new Date(now.toLocaleString());
     const localFinalDate = new Date(finalDate.toLocaleString());
-
-    return localFinalDate >= localNow;
+    const accesCodeValidResult = localFinalDate >= localNow;
+    return !accesCodeValidResult;
   }
 
   return (

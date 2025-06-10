@@ -80,67 +80,71 @@ const PanelTable = ({ tableItems }: PanelTableProps) => {
               <th className=" py-4 px-4 font-medium text-black dark:text-white">
                 Estado
               </th>
-              {/* <th className="py-4 px-4 font-medium text-black dark:text-white">
-                Actions
-              </th> */}
             </tr>
           </thead>
-          <tbody>
-            {tableItems!.map((item, key) => (
-              <tr
-                key={key}
-                onClick={() =>
-                  navigate(
-                    item.state != 'DRAFT'
-                      ? `/panel/events/overview/${item.id}`
-                      : `/panel/events/create/${item.id}/tickets/publish`,
-                  )
-                }
-                className="hover:bg-gray-3 dark:hover:bg-meta-4 hover:cursor-pointer"
-              >
-                <td className="border-b border-[#eee] py-5 px-4  dark:border-strokedark ">
-                  <h5 className="font-medium text-black dark:text-white">
-                    {item.id}
-                  </h5>
-                </td>
-                <td className=" py-5 px-4  dark:border-strokedark ">
-                  <div className="h-12.5 w-15 ">
-                    <img
-                      src={item.photo}
-                      alt="Foto Event"
-                      className="rounded-lg"
-                    />
-                  </div>
-                </td>
-                <td className=" flex flex-col border-b border-[#eee] py-5 px-4  dark:border-strokedark truncate">
-                  <h5 className="font-medium text-black dark:text-white truncate">
-                    {item.name}
-                  </h5>
-                  <p className="text-sm truncate">
-                    Fecha: {formatDate(item.date)}
-                  </p>
-                  {/* <p className="text-sm truncate">
+          {tableItems && tableItems.length == 0 && (
+            <div className="my-5">
+              Todavia no hay eventos cargados, haz click en "Crear nuevo evento"
+              para generar uno nuevo
+            </div>
+          )}
+          {tableItems!.length > 0 && (
+            <tbody>
+              {tableItems!.map((item, key) => (
+                <tr
+                  key={key}
+                  onClick={() =>
+                    navigate(
+                      item.state != 'DRAFT'
+                        ? `/panel/events/overview/${item.id}`
+                        : `/panel/events/create/${item.id}/tickets/publish`,
+                    )
+                  }
+                  className="hover:bg-gray-3 dark:hover:bg-meta-4 hover:cursor-pointer"
+                >
+                  <td className="border-b border-[#eee] py-5 px-4  dark:border-strokedark ">
+                    <h5 className="font-medium text-black dark:text-white">
+                      {item.id}
+                    </h5>
+                  </td>
+                  <td className=" py-5 px-4  dark:border-strokedark ">
+                    <div className="h-12.5 w-15 ">
+                      <img
+                        src={item.photo}
+                        alt="Foto Event"
+                        className="rounded-lg"
+                      />
+                    </div>
+                  </td>
+                  <td className=" flex flex-col border-b border-[#eee] py-5 px-4  dark:border-strokedark truncate">
+                    <h5 className="font-medium text-black dark:text-white truncate">
+                      {item.name}
+                    </h5>
+                    <p className="text-sm truncate">
+                      Fecha: {formatDate(item.date)}
+                    </p>
+                    {/* <p className="text-sm truncate">
                     {item.description.slice(0, 25)}
                   </p> */}
-                </td>
-                {userRole === UserRoles.ADMINISTRADOR && (
-                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark truncate">
-                    <p className="text-black dark:text-white">
-                      {item.creator?.name}
+                  </td>
+                  {userRole === UserRoles.ADMINISTRADOR && (
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark truncate">
+                      <p className="text-black dark:text-white">
+                        {item.creator?.name}
+                      </p>
+                    </td>
+                  )}
+
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p
+                      className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
+                        getStateAttributes(item.state).classes
+                      }`}
+                    >
+                      {getStateAttributes(item.state).text}
                     </p>
                   </td>
-                )}
-
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  <p
-                    className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
-                      getStateAttributes(item.state).classes
-                    }`}
-                  >
-                    {getStateAttributes(item.state).text}
-                  </p>
-                </td>
-                {/* <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                  {/* <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <div className="flex items-center space-x-3.5">
                     <button className="hover:text-primary">
                       <MdOutlineRemoveRedEye size={24} />
@@ -153,9 +157,10 @@ const PanelTable = ({ tableItems }: PanelTableProps) => {
                     </button>
                   </div>
                 </td> */}
-              </tr>
-            ))}
-          </tbody>
+                </tr>
+              ))}
+            </tbody>
+          )}
         </table>
       </div>
     </div>
