@@ -5,10 +5,9 @@ import { APP_TEXT } from '../../constants/text';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { AuthStatus } from '../../modules/Auth/types/authTypes';
-import { BsFillRocketTakeoffFill } from 'react-icons/bs';
-
 import { DropdownShoppingCart } from '../Header/DropdownShoppingCart';
 import { RoundedOutlineButton } from '../Buttons';
+import { GiTicket } from 'react-icons/gi';
 
 interface NavbarPorps {
   sidebarOpen: string | boolean | undefined;
@@ -86,7 +85,9 @@ const Navbar = (props: NavbarPorps) => {
                   className="text-primary font-semibold uppercase mx-2"
                 >
                   <div className="flex font-bold uppercase text-primary text-2xl text-center">
-                    <BsFillRocketTakeoffFill size={20} />
+                    {/* <BsFillRocketTakeoffFill size={20} /> */}
+                    {/* <GiTacos  /> */}
+                    <GiTicket />
                     <h1 className="">{APP_TEXT.app_name}</h1>
                   </div>
                 </Link>

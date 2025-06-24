@@ -130,12 +130,12 @@ const CreateEventForm = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="mx-10 ">
-          <div className="flex justify-between mt-5">
-            <div className="w-full">
+          <div className="grid grid-cols-2 mt-5">
+            <div className="w-full ">
               <label className="mb-3 block text-black dark:text-white text-3xl">
                 Foto Horizontal
               </label>
-              <p>Foto rectangular formato 9:16</p>
+              <p className="text-sm mx-2">Foto rectangular formato 9:16</p>
               <input
                 name="verticalPhoto"
                 type="text"
@@ -153,6 +153,7 @@ const CreateEventForm = () => {
               <label className="mb-3 block text-black dark:text-white text-3xl">
                 Foto cuadrada
               </label>
+              <p className="text-sm mx-2">Foto cuadrada formato 1x1</p>
               <input
                 type="text"
                 name="photo"
@@ -171,7 +172,7 @@ const CreateEventForm = () => {
             <label className="mb-3 block text-black dark:text-white text-3xl">
               Nombre del evento
             </label>
-            <p>
+            <p className="text-sm mx-2">
               Escribí un título claro y descriptivo para indicar de qué se trata
               el evento.
             </p>
@@ -193,7 +194,7 @@ const CreateEventForm = () => {
             <label className="mb-3 block text-black dark:text-white text-3xl">
               Subtitulo
             </label>
-            <p>
+            <p className="text-sm mx-2">
               Captá la atención con de tu publico con una frase corta, los
               visitante lo veran en la pagina principal y el detalle de tu
               evento.(140 caracteres como máximo){' '}
@@ -217,7 +218,9 @@ const CreateEventForm = () => {
               <label className="mb-3 block text-black dark:text-white text-3xl">
                 Fecha y Hora
               </label>
-              <p>Cuando se dara inicio a este evento:</p>
+              <p className="text-sm mx-2">
+                Cuando se dara inicio a este evento:
+              </p>
               <div className="flex">
                 <div>
                   <input
@@ -254,7 +257,9 @@ const CreateEventForm = () => {
               <label className="mb-3 block text-black dark:text-white text-3xl">
                 Venue / Locacion
               </label>
-              <p>Ingrese el nombre del establecimiento</p>
+              <p className="text-sm mx-2">
+                Ingrese el nombre del establecimiento
+              </p>
               <input
                 type="text"
                 name="venue"
@@ -274,7 +279,9 @@ const CreateEventForm = () => {
             <label className="mb-3 block text-black dark:text-white text-3xl">
               Ubicacion
             </label>
-            <p>Describe la direccion completa del establecimiento</p>
+            <p className="text-sm mx-2">
+              Describe la direccion completa del establecimiento
+            </p>
             <input
               type="text"
               name="location"
@@ -295,7 +302,7 @@ const CreateEventForm = () => {
             >
               Categoria
             </label>
-            <p className="my-2">
+            <p className="text-sm mx-2">
               Selecciona la categorías que mejor describan tu evento para ayudar
               a los asistentes a encontrarlo fácilmente.
             </p>
@@ -333,7 +340,7 @@ const CreateEventForm = () => {
             <label className="mb-3 block text-black dark:text-white text-3xl">
               Descripción del evento
             </label>
-            <p className=" my-2">
+            <p className="text-sm mx-2 mb-2">
               Proporciona la información que tu público necesita: detalles del
               lugar, estacionamiento, accesibilidad y cualquier dato relevante
               para los asistentes. (máximo 2500 caracteres)

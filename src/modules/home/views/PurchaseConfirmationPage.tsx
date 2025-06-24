@@ -8,14 +8,17 @@ import { MdHome } from 'react-icons/md';
 import { Card } from 'flowbite-react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
+import { useState } from 'react';
 
 const PurchaseConfirmationPage = () => {
   // const location = useLocation();
   const { eventId } = useParams();
   const navigate = useNavigate();
   const purchaseState = useSelector((state: RootState) => state.purchase);
+  const [isOpen, setIsOpen] = useState(false);
+  const ticketCount = purchaseState.tickets.length;
 
-  if (!purchaseState.tickets.length) {
+  if (!ticketCount) {
     return (
       <HomeLayaut>
         <ErrorConfirm />
@@ -76,7 +79,7 @@ const PurchaseConfirmationPage = () => {
             </div>
 
             <div className="bg-gray-100 dark:bg-meta-4 rounded-lg p-4">
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              {/* <p className="text-sm text-gray-600 dark:text-gray-400">
                 <span className="font-bold text-primary">
                   Aviso Importante:
                 </span>{' '}
@@ -89,7 +92,46 @@ const PurchaseConfirmationPage = () => {
                 >
                   Reenviar tickets
                 </a>
-              </p>
+              </p> */}
+              <div>
+                <div className="space-y-2">
+                  <p>
+                    <span className=" text-primary font-bold">
+                      ¡Aviso Importante!
+                    </span>{' '}
+                    <span className="font-bold ">
+                      Has comprado {ticketCount}{' '}
+                      {ticketCount === 1 ? 'ticket' : 'tickets'}:
+                    </span>
+                  </p>
+
+                  <p className="text-sm">
+                    El titular{' '}
+                    <strong className="font-bold uppercase">
+                      {purchaseState.personaData.name}
+                    </strong>{' '}
+                    con DNI:{' '}
+                    <strong className="font-bold uppercase">
+                      {purchaseState.personaData.dni}
+                    </strong>{' '}
+                    debe presentarse en puerta con{' '}
+                    {ticketCount === 1
+                      ? 'su documento'
+                      : `${ticketCount - 1} personas mas`}
+                    .
+                    {ticketCount > 1 &&
+                      ` Si compraste ${ticketCount} tickets, pueden ingresar ${ticketCount} personas en total.`}
+                  </p>
+                  <p className="text-sm">
+                    <strong className="text-primary">Nota:</strong> Si{' '}
+                    <strong className="font-bold uppercase">
+                      no planeas asistir con la cantidad exacta de personas
+                    </strong>
+                    , considera transferir las entradas para evitar
+                    inconvenientes en la puerta.
+                  </p>
+                </div>
+              </div>
             </div>
             <p className="text-sm text-gray-600 dark:text-gray-400">
               Inicia sesion o crea tu cuenta con este email para acceder a
@@ -98,10 +140,27 @@ const PurchaseConfirmationPage = () => {
                 haciendo click aqui.
               </a>
             </p>
+            <p className="my-2">
+              Los detalles de tu compra han sido enviados a tu correo
+              electrónico. Si no los has recibido, puedes solicitar un reenvío
+              aquí:{' '}
+              <a
+                href={`/solicitar-tickets`}
+                className="text-primary hover:underline font-medium"
+              >
+                Reenviar tickets
+              </a>
+            </p>
           </Card>
         </div>
 
         <section className="w-full  flex flex-col justify-center items-center">
+          <div className="flex items-center gap-3">
+            <h2 className="text-2xl font-bold text-gray-900">Mis Tickets</h2>
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+              {ticketCount} {ticketCount === 1 ? 'ticket' : 'tickets'}
+            </span>
+          </div>
           {purchaseState.tickets.map((ticket) => (
             <TicketQrBuyed
               key={ticket.code}
@@ -113,7 +172,6 @@ const PurchaseConfirmationPage = () => {
         </section>
 
         {/* Información de contacto */}
-
         <div className=" w-full flex justify-center gap-2 my-5">
           <RoundedFilledButton
             text="Volver al inicio"

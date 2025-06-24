@@ -23,6 +23,7 @@
     "@tanstack/react-query-devtools": "^5.59.16",
     "apexcharts": "^3.41.0",
     "axios": "^1.7.7",
+    "dayjs": "^1.11.13",
     "flatpickr": "^4.6.13",
     "flowbite-react": "^0.10.1",
     "formik": "^2.4.6",

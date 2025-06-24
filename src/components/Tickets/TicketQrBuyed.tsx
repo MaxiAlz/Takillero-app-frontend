@@ -5,6 +5,7 @@ import {
   PersonaData,
   Ticket,
 } from '../../modules/home/types/purchaseTypes';
+import { formatFullDate } from '../../helpers';
 
 export interface TicketQrBuyedProps {
   eventData: EventData;
@@ -31,8 +32,12 @@ const TicketQrBuyed = ({
         <BsFillRocketTakeoffFill size={20} />
         <h2 className="">Activate!</h2>
       </div>
-      <QRGeneratorAdapterComponent value={ticket.code} />
-      {/* <p className="text-xl text-center">{ticket.code}</p> */}
+      <div className="flex justify-center">
+        <div className="bg-white border-2 border-black m-2 p-2 flex flex-col items-center">
+          <QRGeneratorAdapterComponent value={ticket.code} />
+          <p className="text-xl text-center">{ticket.code}</p>
+        </div>
+      </div>
       <div className="mx-4 my-4">
         <p>
           <span className="font-bold text-black dark:text-white">Evento:</span>{' '}
@@ -49,7 +54,7 @@ const TicketQrBuyed = ({
           <span className="font-bold text-black dark:text-white">
             Fecha y Hora:
           </span>{' '}
-          20/5/2025 20:30Hs
+          {formatFullDate(eventData.date)}
         </p>
         <p>
           <span className="font-bold text-black dark:text-white">Lugar:</span>{' '}

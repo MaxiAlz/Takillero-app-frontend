@@ -1,3 +1,9 @@
+import { useQueryClient } from '@tanstack/react-query';
+import { useAccessCodesQuery, useDeleteAccessCodeById } from '../hooks';
+import { formatFullDate } from '../../../helpers';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 import { Button } from 'flowbite-react';
 import Loader from '../../../components/Loader';
 import {
@@ -5,7 +11,6 @@ import {
   MdDeleteForever,
   MdOutlineEnhancedEncryption,
 } from 'react-icons/md';
-import { formatFullDate } from '../../../helpers';
 import { useState } from 'react';
 import {
   ModalCustom,
@@ -13,9 +18,7 @@ import {
   RoundedOutlineButton,
 } from '../../../components';
 import { GenerateAccesTokenForm } from './Forms/GenerateAccesTokenForm';
-import { useAccessCodesQuery, useDeleteAccessCodeById } from '../hooks';
 import { useAlert } from '../../../context/AlertContext';
-import { useQueryClient } from '@tanstack/react-query';
 
 interface ListAcessCodesCardsProps {
   eventId: string | undefined;
@@ -69,13 +72,12 @@ const ManageAccessCodes = ({ eventId }: ListAcessCodesCardsProps) => {
     });
   };
 
-  function isAccessCodeValid(endDate: Date | string): boolean {
-    const now = new Date();
-    const finalDate = new Date(endDate);
-    const localNow = new Date(now.toLocaleString());
-    const localFinalDate = new Date(finalDate.toLocaleString());
-    const accesCodeValidResult = localFinalDate >= localNow;
-    return !accesCodeValidResult;
+  function isAccessCodeValid(endDate: string): boolean {
+    dayjs.extend(utc);
+    dayjs.extend(timezone);
+    const nowInArgentina = dayjs().tz('America/Argentina/Buenos_Aires');
+    const endInArgentina = dayjs(endDate).tz('America/Argentina/Buenos_Aires');
+    return endInArgentina.isAfter(nowInArgentina);
   }
 
   return (
@@ -97,7 +99,7 @@ const ManageAccessCodes = ({ eventId }: ListAcessCodesCardsProps) => {
                 <div
                   key={accessCodeData.id}
                   className={`p-4 rounded-lg ${
-                    isAccessCodeValid(accessCodeData.end)
+                    !isAccessCodeValid(accessCodeData.end as string)
                       ? 'opacity-50 pointer-events-none'
                       : ''
                   }`}
@@ -105,13 +107,15 @@ const ManageAccessCodes = ({ eventId }: ListAcessCodesCardsProps) => {
                   <label className="block text-xl text-primary font-normal">
                     {accessCodeData.name}{' '}
                     <span className="text-black dark:text-white">
-                      {isAccessCodeValid(accessCodeData.end) &&
+                      {!isAccessCodeValid(accessCodeData.end as string) &&
                         ':Token vencido'}
                     </span>
                   </label>
                   <div className="flex items-center">
                     <input
-                      disabled={isAccessCodeValid(accessCodeData.end)}
+                      disabled={
+                        !isAccessCodeValid(accessCodeData.end as string)
+                      }
                       name="accessCode"
                       type="text"
                       className="w-full rounded-lg m-1 border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -120,7 +124,9 @@ const ManageAccessCodes = ({ eventId }: ListAcessCodesCardsProps) => {
                     />
 
                     <Button
-                      disabled={isAccessCodeValid(accessCodeData.end)}
+                      disabled={
+                        !isAccessCodeValid(accessCodeData.end as string)
+                      }
                       onClick={() => copyToken(accessCodeData.code)}
                     >
                       <MdContentCopy className="" /> Copiar

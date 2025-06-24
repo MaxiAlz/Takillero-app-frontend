@@ -1,5 +1,6 @@
 import { QRCodeSVG } from 'qrcode.react';
 import { BsFillRocketTakeoffFill } from 'react-icons/bs';
+import { GiTicket } from 'react-icons/gi';
 
 interface QRCodeAdapterProps {
   value: string; // Contenido del código QR
@@ -30,10 +31,11 @@ const QRGeneratorAdapterComponent = (QRgeneratorProps: QRCodeAdapterProps) => {
           excavate: true,
         }}
       />
-      <BsFillRocketTakeoffFill
+      {/* <BsFillRocketTakeoffFill
         className="absolute text-xl text-primary"
         size={40}
-      />
+      /> */}
+      <GiTicket className="absolute text-xl text-primary" size={40} />
     </div>
   );
 };

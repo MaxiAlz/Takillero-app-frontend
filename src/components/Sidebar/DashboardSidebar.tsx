@@ -13,6 +13,7 @@ import { APP_TEXT } from '../../constants/text';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { UserRoles } from '../../modules/Auth/types/authTypes';
+import { GiTicket } from 'react-icons/gi';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -92,7 +93,8 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
         <NavLink to="/">
           <div className="flex font-bold uppercase text-primary text-2xl text-center">
-            <BsFillRocketTakeoffFill size={20} />
+            {/* <BsFillRocketTakeoffFill size={20} /> */}
+            <GiTicket />
             <h1 className="">{APP_TEXT.app_name}</h1>
           </div>
         </NavLink>

@@ -23,16 +23,27 @@ export function formatTime(isoString: Date | string): string {
 export function formatFullDate(isoString: Date | string): string {
   const date = new Date(isoString);
 
-  const options: Intl.DateTimeFormatOptions = {
-    day: '2-digit',
-    month: '2-digit',
-    year: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false, 
-  };
-  return date.toLocaleString('es-AR', options);
+  const day = String(date.getDate()).padStart(2, '0');
+  const monthNames = [
+    'ENE',
+    'FEB',
+    'MAR',
+    'ABR',
+    'MAY',
+    'JUN',
+    'JUL',
+    'AGO',
+    'SEP',
+    'OCT',
+    'NOV',
+    'DIC',
+  ];
+  const month = monthNames[date.getMonth()];
+  const year = String(date.getFullYear()).slice(-2);
+  const hour = String(date.getHours()).padStart(2, '0');
+  const minute = String(date.getMinutes()).padStart(2, '0');
+
+  return `${day}/${month}/${year} - ${hour}:${minute}`;
 }
 
 export const formatDatoToLong = (dateString: Date) => {
