@@ -2,7 +2,14 @@ import { useEffect } from 'react';
 import { useFormik } from 'formik';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FileInput, Label } from 'flowbite-react';
-import { MdOutlineRefresh, MdSave } from 'react-icons/md';
+import {
+  MdAnnouncement,
+  MdCreateNewFolder,
+  MdOutlineCreateNewFolder,
+  MdOutlineImage,
+  MdOutlineRefresh,
+  MdSave,
+} from 'react-icons/md';
 import {
   eventFormikInitialValues,
   eventFormikValidationEshema,
@@ -19,6 +26,7 @@ import Loader from '../../../../components/Loader';
 import { RoundedFilledButton, StickyBanner } from '../../../../components';
 import { INFO_MESSAGES } from '../../../../constants';
 import { useAlert } from '../../../../context/AlertContext';
+import { BsTicketDetailed } from 'react-icons/bs';
 
 const CreateEventForm = () => {
   const { eventId } = useParams();
@@ -96,41 +104,131 @@ const CreateEventForm = () => {
   return (
     <>
       <article>
-        <div className="m-4 mx-15">
-          <StickyBanner
-            text={INFO_MESSAGES.EVENTS_WARNING_BANNER}
-            iconSize={50}
-          />
+        <div className="px-8 py-6 border-b border-gray-200 m-4">
+          <div className="flex">
+            <MdOutlineCreateNewFolder className="text-primary mx-2" size={30} />
+            <h1 className="text-3xl font-bold text-gray-900 mb-2 ">
+              Crear Nuevo Evento
+            </h1>
+          </div>
+          <p className="text-gray-600">
+            Completa la información del evento y sube las imágenes necesarias
+          </p>
         </div>
-        <div className="flex w-full justify-center ">
-          <div className="flex w-10/12 items-center justify-center ">
+        <div className="m-4 mx-15 flex rounded border border-primary p-4">
+          <MdAnnouncement className="m-2 text-primary" size={40} />
+          <div className="flex flex-col">
+            <span className="text-primary font-bold">Importante:</span>
+            <p>{INFO_MESSAGES.EVENTS_WARNING_BANNER}</p>
+          </div>
+        </div>
+        <div className="px-8 py-6 border-b border-gray-200 m-4">
+          <div className="flex">
+            <MdOutlineImage className="mx-2 text-primary" size={30} />
+            <h2 className="text-3xl font-semibold text-gray-900 border-gray-200  ">
+              Imágenes del Evento
+            </h2>
+          </div>
+          <p className="text-gray-600">
+            Las imágenes de portada son importantes para que los visitantes
+            puedan reconocer tu evento.
+          </p>
+        </div>
+        <section className="flex flex-col lg:flex-row gap-6 mb-8 mx-10">
+          {/* Square Image Preview */}
+          <div className="flex-shrink-0">
             <Label
-              htmlFor="dropzone-file"
-              className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+              htmlFor="square-upload"
+              className="flex h-72 w-72 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600 overflow-hidden"
             >
-              {values.verticalPhoto ? (
-                <img src={values.verticalPhoto} alt="verticalPhoto" />
+              {values.photo ? (
+                <div className="w-full h-full relative">
+                  <img
+                    src={values.photo || '/placeholder.svg'}
+                    alt="Vista previa cuadrada"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               ) : (
                 <div className="flex flex-col items-center justify-center pb-6 pt-5">
                   <IoMdCloudUpload size={50} />
-                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400 text-center">
                     <span className="font-semibold">
-                      Carga una imagen de portada
-                    </span>{' '}
-                    o arrasta
+                      Carga una imagen cuadrada
+                    </span>
+                    <br />o arrastra aquí
                   </p>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
-                    PNG, JPG o GIF (MAX. 800x400px)
+                    PNG, JPG o GIF (1:1)
                   </p>
                 </div>
               )}
-              <FileInput id="dropzone-file" className="hidden" />
+              <input
+                id="square-upload"
+                type="file"
+                className="hidden"
+                accept="image/*"
+              />
             </Label>
           </div>
-        </div>
 
+          {/* Horizontal Image Preview */}
+          <div className="flex-1">
+            <Label
+              htmlFor="horizontal-upload"
+              className="flex last: h-72 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600 overflow-hidden"
+            >
+              {values.verticalPhoto ? (
+                <div className="w-full h-full relative">
+                  <img
+                    src={values.verticalPhoto || '/placeholder.svg'}
+                    alt="Vista previa horizontal"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center pb-6 pt-5">
+                  <IoMdCloudUpload size={50} />
+                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400 text-center">
+                    <span className="font-semibold">
+                      Carga una imagen horizontal
+                    </span>
+                    <br />o arrastra aquí
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    PNG, JPG o GIF (16:9)
+                  </p>
+                </div>
+              )}
+              <input
+                id="horizontal-upload"
+                type="file"
+                className="hidden"
+                accept="image/*"
+              />
+            </Label>
+          </div>
+        </section>
         <form onSubmit={handleSubmit} className="mx-10 ">
-          <div className="grid grid-cols-2 mt-5">
+          <section className=" gap-4 grid grid-cols-2 mt-5">
+            <div className="w-full ">
+              <label className="mb-3 block text-black dark:text-white text-3xl">
+                Foto cuadrada
+              </label>
+              <p className="text-sm mx-2">Foto cuadrada formato 1x1</p>
+              <input
+                type="text"
+                name="photo"
+                placeholder=" Foto cuadrada url"
+                className="w-full rounded-lg m-1 border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.photo}
+              />
+              {errors.photo && touched.photo ? (
+                <div className="text-error">{errors.photo}</div>
+              ) : null}
+            </div>
             <div className="w-full ">
               <label className="mb-3 block text-black dark:text-white text-3xl">
                 Foto Horizontal
@@ -149,24 +247,18 @@ const CreateEventForm = () => {
                 <div className="text-error">{errors.verticalPhoto}</div>
               ) : null}
             </div>
-            <div className="w-full ms-2">
-              <label className="mb-3 block text-black dark:text-white text-3xl">
-                Foto cuadrada
-              </label>
-              <p className="text-sm mx-2">Foto cuadrada formato 1x1</p>
-              <input
-                type="text"
-                name="photo"
-                placeholder=" Foto cuadrada url"
-                className="w-full rounded-lg m-1 border-[1.5px] my-2 bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.photo}
-              />
-              {errors.photo && touched.photo ? (
-                <div className="text-error">{errors.photo}</div>
-              ) : null}
+          </section>
+          <div className="my-4 p-4 border-b border-gray-200 ">
+            <div className="flex">
+              <BsTicketDetailed className="text-primary mx-2" size={30} />
+              <h2 className="text-3xl font-semibold text-gray-900 border-gray-200">
+                Informacion del Evento
+              </h2>
             </div>
+            <p className="text-gray-600">
+              Completa la informacion necesaria para que los visitantes sepan
+              mas sobre tu evento.
+            </p>
           </div>
           <div className="my-5">
             <label className="mb-3 block text-black dark:text-white text-3xl">
@@ -221,8 +313,8 @@ const CreateEventForm = () => {
               <p className="text-sm mx-2">
                 Cuando se dara inicio a este evento:
               </p>
-              <div className="flex">
-                <div>
+              <div className="flex w-full">
+                <div className="w-full">
                   <input
                     type="date"
                     name="date"
@@ -236,7 +328,7 @@ const CreateEventForm = () => {
                     <div className="text-error">{errors.date}</div>
                   ) : null}
                 </div>
-                <div className="mx-5">
+                <div className="mx-5 w-full">
                   <input
                     type="time"
                     name="time"
@@ -349,6 +441,7 @@ const CreateEventForm = () => {
               placeholder="Descripción de tu evento"
               name="description"
               maxLength={2500}
+              rows={6}
               className="w-full rounded-lg border-[1.5px] bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               onChange={(e) => {
                 handleChange(e);
