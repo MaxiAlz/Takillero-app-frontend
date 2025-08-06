@@ -46,7 +46,7 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const [sidebarExpanded, setSidebarExpanded] = useState(
     storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true',
   );
-  const dashboardItems = getDashboardItems(user!.role);
+  const dashboardItems = getDashboardItems(user!.data.role);
   // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {

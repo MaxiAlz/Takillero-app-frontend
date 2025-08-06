@@ -59,6 +59,7 @@ interface SettingsItem {
 const OverviewEventPage = () => {
   const { eventId } = useParams();
   const getEventInfo = useGetEventById(+eventId!);
+  console.log('getEventInfo', getEventInfo);
 
   const [isShowDrawerOpen, setIsShowDrawerOpen] = useState<{
     isopen: boolean;
@@ -86,13 +87,13 @@ const OverviewEventPage = () => {
           <div className="my-4">
             {getEventInfo.eventData && (
               <EventHorizontalCard
-                name={getEventInfo.eventData.name}
-                date={getEventInfo.eventData.date}
-                location={getEventInfo.eventData.location}
-                photo={getEventInfo.eventData.photo}
-                venue={getEventInfo.eventData.venue}
-                subtitle={getEventInfo.eventData.subtitle}
-                key={getEventInfo.eventData.id}
+                name={getEventInfo.eventData.data.name}
+                date={getEventInfo.eventData.data.date}
+                location={getEventInfo.eventData.data.location}
+                photo={getEventInfo.eventData.data.photo}
+                venue={getEventInfo.eventData.data.venue}
+                subtitle={getEventInfo.eventData.data.subtitle}
+                key={getEventInfo.eventData.data.id}
               />
             )}
           </div>

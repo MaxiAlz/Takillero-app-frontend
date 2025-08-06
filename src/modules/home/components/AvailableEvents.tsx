@@ -9,7 +9,7 @@ import { usePublicEvents } from '../hooks/usePublicEvents';
 const AvailableEvents = () => {
   const availablePublicEvents = usePublicEvents();
 
-  const handleClickPaginate = () => {};
+  // const handleClickPaginate = () => {};
   return (
     <>
       <div className="mx-auto my-5">
@@ -18,13 +18,13 @@ const AvailableEvents = () => {
         </h4>
       </div>
       <section className="">
-        {availablePublicEvents.publicEvents?.items.length === 0 && (
+        {availablePublicEvents.publicEvents?.data.items.length === 0 && (
           <div>No hay eventos publicados actualmente...</div>
         )}
         {availablePublicEvents.publicEvents && (
           <div className="flex flex-wrap justify-center ">
             <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4">
-              {availablePublicEvents.publicEvents?.items.map((event, indx) => (
+              {availablePublicEvents.publicEvents.data.items.map((event, indx) => (
                 <EventCard eventData={event} key={indx} />
               ))}
             </div>
@@ -35,14 +35,14 @@ const AvailableEvents = () => {
           alertBanners.showErrorBanner({
             title: 'Error al cargar eventos disponibles',
           })}
-        {availablePublicEvents.publicEvents?.hasNextPage && (
+        {/* {availablePublicEvents.publicEvents?.hasNextPage && (
           <div className="w-full flex justify-center my-10">
             <RoundedOutlineButton
               text="Cargar mas eventos"
               onClick={handleClickPaginate}
             />
           </div>
-        )}
+        )} */}
       </section>
     </>
   );

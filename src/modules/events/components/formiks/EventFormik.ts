@@ -16,6 +16,7 @@ export const eventFormikInitialValues = {
   location: '',
   description: '',
   categoryId: null,
+  isFree: true,
 };
 
 export const eventFormikValidationEshema = Yup.object({
@@ -26,6 +27,7 @@ export const eventFormikValidationEshema = Yup.object({
   date: Yup.string().required(VALIDATION_MESSAGES.required),
   time: Yup.string().required(VALIDATION_MESSAGES.required),
   venue: Yup.string().required(VALIDATION_MESSAGES.required),
+  isFree: Yup.boolean().required(VALIDATION_MESSAGES.required),
   location: Yup.string().required(VALIDATION_MESSAGES.required),
   description: Yup.string().required(VALIDATION_MESSAGES.required),
   categoryId: Yup.number()

@@ -36,6 +36,7 @@ export interface EventLookLike {
   location: string;
   description: string;
   categoryId: number | null;
+  isFree: boolean;
 }
 
 export interface TicketType {
@@ -95,4 +96,18 @@ export interface ItemEvent {
 export interface EventCreator {
   id: number;
   name: string;
+}
+
+// responses
+export interface EventResponsePaginated {
+  message: string;
+  data: EvetsPaginated;
+}
+export interface EventResponse {
+  message: string;
+  data: EventLookLike;
+}
+export interface ResponseTicketTypes {
+  message: string;
+  data: TicketType[];
 }

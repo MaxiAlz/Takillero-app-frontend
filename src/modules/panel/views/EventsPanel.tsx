@@ -5,16 +5,16 @@ import { useGetAuthUserEvents } from '../hooks/useGetAuthUserEvents';
 
 const EventsPanel = () => {
   const getUsersEvents = useGetAuthUserEvents();
-
+  console.log('getUsersEvents', getUsersEvents);
   return (
     <>
       <PageTitle title="Eventos" />
       <DefaultLayout>
         <Breadcrumb pageName="Eventos" />
-        {getUsersEvents.isLoading && !getUsersEvents.data?.items ? (
+        {getUsersEvents.isLoading && !getUsersEvents.data?.data.items ? (
           <Loader />
         ) : (
-          <PanelTable tableItems={getUsersEvents.data?.items} />
+          <PanelTable tableItems={getUsersEvents.data?.data.items} />
         )}
       </DefaultLayout>
     </>

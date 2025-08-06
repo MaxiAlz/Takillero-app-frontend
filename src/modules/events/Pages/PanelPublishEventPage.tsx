@@ -29,6 +29,8 @@ const PublishEventPage = () => {
   const [inputValue, setInputValue] = useState<string>('');
   const { showSuccessToast, showErrorToast } = useAlert();
 
+  console.log('getTicketsInfo', getTicketsInfo);
+
   const handleClickContinue = () => {
     publishEventMutation.mutate(undefined, {
       onSuccess: () => {
@@ -45,7 +47,8 @@ const PublishEventPage = () => {
     return (
       getEventInfo.isLoading ||
       getTicketsInfo.isLoading ||
-      getTicketsInfo.ticketsEvent.length < 1
+      !getTicketsInfo.responseTickets?.data ||
+      getTicketsInfo.responseTickets.data.length < 1
     );
   };
 
@@ -80,13 +83,13 @@ const PublishEventPage = () => {
                 {/* Events detail */}
                 {getEventInfo.eventData && (
                   <EventHorizontalCard
-                    name={getEventInfo.eventData.name}
-                    date={getEventInfo.eventData.date}
-                    location={getEventInfo.eventData.location}
-                    photo={getEventInfo.eventData.photo}
-                    venue={getEventInfo.eventData.venue}
-                    subtitle={getEventInfo.eventData.subtitle}
-                    key={getEventInfo.eventData.id}
+                    name={getEventInfo.eventData.data.name}
+                    date={getEventInfo.eventData.data.date}
+                    location={getEventInfo.eventData.data.location}
+                    photo={getEventInfo.eventData.data.photo}
+                    venue={getEventInfo.eventData.data.venue}
+                    subtitle={getEventInfo.eventData.data.subtitle}
+                    key={getEventInfo.eventData.data.id}
                     onEdit={() => navigate(`/panel/events/create/${eventId}`)}
                     iconButton={<MdEdit className="mr-2" />}
                     textButton="Editar"
@@ -102,16 +105,17 @@ const PublishEventPage = () => {
                   Estos son los tickets que has cargado para tu evento
                 </span>
 
-                {getTicketsInfo.ticketsEvent.length > 0 ? (
+                {getTicketsInfo.responseTickets?.data &&
+                getTicketsInfo.responseTickets?.data?.length > 0 ? (
                   <Card className="flex dark:bg-black my-2 ">
                     <h5 className="text-xl font-bold opacity-85 tracking-tight text-gray-900 dark:text-white">
-                      Hay {getTicketsInfo.ticketsEvent.length}{' '}
-                      {getTicketsInfo.ticketsEvent.length > 1
+                      Hay {getTicketsInfo.responseTickets.data.length}{' '}
+                      {getTicketsInfo.responseTickets.data.length > 1
                         ? 'tipos de tickets cargados'
                         : 'tipo de ticket cargado'}
                     </h5>
                     <div className="border-t border-gray-300"></div>
-                    {getTicketsInfo.ticketsEvent.map((ticket) => (
+                    {getTicketsInfo.responseTickets.data.map((ticket) => (
                       <section
                         className="flex items-center justify-between"
                         key={ticket.id}
@@ -151,13 +155,14 @@ const PublishEventPage = () => {
                 ) : (
                   <Card className="flex dark:bg-black my-2 ">
                     <h2 className="font-bold my-2 opacity-85 text-black dark:text-white text-2xl">
-                      No hay tckets cargados :(
+                      No hay Tickets cargados todavia:(
                     </h2>
                     <p>Genera tus tickets para publicar tu evento</p>
                     <div className="w-full flex justify-end mt-2">
                       <RoundedFilledButton
                         text={
-                          getTicketsInfo.ticketsEvent.length > 0
+                          getTicketsInfo.responseTickets?.data &&
+                          getTicketsInfo.responseTickets.data.length > 0
                             ? 'Editar'
                             : 'Cargar tickets'
                         }

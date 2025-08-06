@@ -15,7 +15,6 @@ const DropdownUser = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { user } = useSelector((state: RootState) => state.auth);
-
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
   // close on click outside
@@ -73,9 +72,11 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {user?.name.toUpperCase()}
+            {user?.data.name.toUpperCase()}
           </span>
-          <span className="block text-xs">{setUserRoleTag(user?.role)}</span>
+          <span className="block text-xs">
+            {setUserRoleTag(user?.data.role)}
+          </span>
         </span>
 
         <span className="h-12 w-12 rounded-full">

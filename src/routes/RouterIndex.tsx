@@ -56,8 +56,8 @@ const RouteIndex = () => {
           <Route path={route.path} key={idx} element={<route.component />} />
         ))}
 
-        {user?.role !== undefined &&
-          getRoutesByRole(user.role).map((route: any, idx: number) => {
+        {user?.data.role !== undefined &&
+          getRoutesByRole(user.data.role).map((route: any, idx: number) => {
             if (route.children) {
               return (
                 <Route

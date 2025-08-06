@@ -1,14 +1,19 @@
+import { string } from 'yup';
+
 export interface UserLoginData {
   email: string;
   password: string;
 }
 
-export interface UserProfile {
+export interface UserData {
   name: string;
   role: UserRoles;
-  // id: number;
-  // userName: string;
   email: string;
+}
+
+export interface UserProfile {
+  message: string;
+  data: UserData;
 }
 
 export enum UserRoles {

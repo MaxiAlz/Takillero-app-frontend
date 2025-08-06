@@ -1,21 +1,26 @@
 import { apiService } from '../../../services/apiService';
-import { EventLookLike, EvetsPaginated, type Event } from '../interfaces/event';
+import {
+  EventLookLike,
+  EventResponse,
+  EventResponsePaginated,
+  type Event,
+} from '../interfaces/event';
 import { UserRoles } from '../../Auth/types/authTypes';
 import { useGetSpecificUrl } from '../hooks';
 
 export const eventRepository = {
   async getAuthUserEvents(userRole: UserRoles) {
     const path = useGetSpecificUrl('/Events', userRole);
-    const { data } = await apiService.get<EvetsPaginated>(path);
+    const { data } = await apiService.get<EventResponsePaginated>(path);
     return data;
   },
 
   async getEventsById(
     eventId: number,
     userRole: UserRoles,
-  ): Promise<EventLookLike> {
+  ): Promise<EventResponse> {
     const path = useGetSpecificUrl(`/Events/${eventId}`, userRole);
-    const { data } = await apiService.get<EventLookLike>(path);
+    const { data } = await apiService.get<EventResponse>(path);
     return data;
   },
 
