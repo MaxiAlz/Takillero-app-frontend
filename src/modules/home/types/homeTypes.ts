@@ -34,7 +34,7 @@ export interface PublicEventData {
 
 export interface EventDatailLookLike {
   message: string;
-  data: { items: PublicEventData[] };
+  data: PublicEventData;
 }
 
 export interface TicketType {

@@ -8,13 +8,15 @@ const CreateTicketsPage = () => {
     <>
       <PageTitle title="Tickets" />
       <DefaultLayout>
-        <Breadcrumb pageName={'Cargar entradas'} />
-        <div className="flex">
-          <CreateTickets />
-          <div className="flex h-min sticky top-26">
-            <StepsDashboard steps={steps} currentStep={1} />
+        <section className="m-8">
+          <Breadcrumb pageName={'Cargar entradas'} />
+          <div className="flex">
+            <CreateTickets />
+            <div className="flex h-min sticky top-26">
+              <StepsDashboard steps={steps} currentStep={1} />
+            </div>
           </div>
-        </div>
+        </section>
       </DefaultLayout>
     </>
   );

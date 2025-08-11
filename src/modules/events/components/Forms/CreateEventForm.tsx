@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FileInput, Label } from 'flowbite-react';
 import {
   MdAnnouncement,
   MdCreateNewFolder,
+  MdCreditCard,
   MdOutlineCreateNewFolder,
   MdOutlineImage,
   MdOutlineRefresh,
@@ -26,7 +27,10 @@ import Loader from '../../../../components/Loader';
 import { RoundedFilledButton, StickyBanner } from '../../../../components';
 import { INFO_MESSAGES } from '../../../../constants';
 import { useAlert } from '../../../../context/AlertContext';
-import { BsTicketDetailed } from 'react-icons/bs';
+import {
+  BsFillTrainLightrailFrontFill,
+  BsTicketDetailed,
+} from 'react-icons/bs';
 
 const CreateEventForm = () => {
   const { eventId } = useParams();
@@ -34,7 +38,6 @@ const CreateEventForm = () => {
   const eventCategories = useEventCategories();
   const navigate = useNavigate();
   const { showErrorToast, showDefaultToast } = useAlert();
-
   // Solo ejecuta useGetEventById si existe un eventId
   const { eventData, isLoading, isError } = eventId
     ? useGetEventById(+eventId)
@@ -71,7 +74,9 @@ const CreateEventForm = () => {
 
   useEffect(() => {
     if (eventId && eventData) {
-      const { formattedDate, formattedTime } = formatEventDate(eventData.date);
+      const { formattedDate, formattedTime } = formatEventDate(
+        eventData.data.date,
+      );
       setValues({
         ...eventFormikInitialValues,
         ...eventData,
@@ -420,14 +425,143 @@ const CreateEventForm = () => {
             {errors.categoryId && touched.categoryId ? (
               <div className="text-error">{errors.categoryId}</div>
             ) : null}
-
-            {/* <TagInput
-              tags={tags}
-              setTags={setTags}
-              inputValue={inputValue}
-              setInputValue={setInputValue}
-            /> */}
           </div>
+
+          <div className="mt-5">
+            <label
+              className="mb-3 block text-black dark:text-white text-3xl"
+              htmlFor="isFree"
+            >
+              Tipo de evento:
+            </label>
+            <p className="text-sm my-2 mx-2">
+              Indica si las entradas seran gratuitas o de pago.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {/* Entrada Gratis */}
+              <label className="cursor-pointer">
+                <input
+                  type="radio"
+                  name="isFree"
+                  value="true"
+                  checked={values.isFree === true}
+                  onChange={() => setValues({ ...values, isFree: true })}
+                  className="sr-only"
+                />
+                <div
+                  className={`
+        relative p-4 rounded-lg border-2 transition-all duration-200 hover:shadow-md dark:bg-black
+        ${
+          values.isFree
+            ? 'border-primary bg-orange-50 shadow-sm'
+            : 'border-gray-200 bg-white hover:border-gray-300'
+        }
+      `}
+                >
+                  <div className="flex flex-col items-center text-center space-y-2">
+                    <div
+                      className={`p-2 rounded-full ${
+                        values.isFree ? 'bg-orange-100' : 'bg-gray-100'
+                      }`}
+                    >
+                      <BsFillTrainLightrailFrontFill
+                        className={`w-5 h-5 ${
+                          values.isFree ? 'text-primary' : 'text-gray-600'
+                        }`}
+                      />
+                    </div>
+                    <div>
+                      <h4
+                        className={`font-medium text-sm ${
+                          values.isFree ? 'text-primary' : 'text-gray-900'
+                        }`}
+                      >
+                        Entrada Gratis
+                      </h4>
+                      <p
+                        className={`text-xs mt-1 ${
+                          values.isFree ? 'text-primary' : 'text-gray-500'
+                        }`}
+                      >
+                        Sin costo para los asistentes
+                      </p>
+                    </div>
+                  </div>
+                  {values.isFree && (
+                    <div className="absolute top-2 right-2">
+                      <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                    </div>
+                  )}
+                </div>
+              </label>
+
+              {/* Entrada de Pago */}
+              <label className="cursor-pointer">
+                <input
+                  type="radio"
+                  name="isFree"
+                  value="false"
+                  checked={values.isFree === false}
+                  onChange={() => setValues({ ...values, isFree: false })}
+                  className="sr-only"
+                />
+                <div
+                  className={`
+        relative p-4 rounded-lg border-2 transition-all duration-200 hover:shadow-md dark:bg-black
+        ${
+          values.isFree === false
+            ? 'border-primary bg-orange-50 shadow-sm'
+            : 'border-gray-200 bg-white hover:border-gray-300'
+        }
+      `}
+                >
+                  <div className="flex flex-col items-center text-center space-y-2">
+                    <div
+                      className={`p-2 rounded-full ${
+                        values.isFree === false
+                          ? 'bg-orange-100'
+                          : 'bg-gray-100'
+                      }`}
+                    >
+                      <MdCreditCard
+                        className={`w-5 h-5 ${
+                          values.isFree === false
+                            ? 'text-primary'
+                            : 'text-gray-600'
+                        }`}
+                      />
+                    </div>
+                    <div>
+                      <h4
+                        className={`font-medium text-sm ${
+                          values.isFree === false
+                            ? 'text-primary'
+                            : 'text-gray-900'
+                        }`}
+                      >
+                        Entrada de Pago
+                      </h4>
+                      <p
+                        className={`text-xs mt-1 ${
+                          values.isFree === false
+                            ? 'text-primary'
+                            : 'text-gray-500'
+                        }`}
+                      >
+                        Los asistentes deben pagar
+                      </p>
+                    </div>
+                  </div>
+                  {values.isFree === false && (
+                    <div className="absolute top-2 right-2">
+                      <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    </div>
+                  )}
+                </div>
+              </label>
+            </div>
+          </div>
+
           <div className="my-5">
             <label className="mb-3 block text-black dark:text-white text-3xl">
               Descripción del evento

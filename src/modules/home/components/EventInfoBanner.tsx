@@ -1,5 +1,5 @@
 import { IoIosRocket } from 'react-icons/io';
-import { EventDetailLookLike } from '../types/homeTypes';
+
 import {
   MdAccessTime,
   MdDateRange,
@@ -7,8 +7,9 @@ import {
   MdOutlineLocationCity,
 } from 'react-icons/md';
 import { formatDatoToLong, formatTime } from '../../../helpers/formatDate';
+import { PublicEventData } from '../types/homeTypes';
 
-const EventInfoBanner = ({ eventData }: { eventData: EventDetailLookLike }) => {
+const EventInfoBanner = ({ eventData }: { eventData: PublicEventData }) => {
   return (
     <section className="w-full grid lg:grid-cols-3 grid-cols-1 border my-5 p-5 rounded-xl">
       <div className="col-span-2">

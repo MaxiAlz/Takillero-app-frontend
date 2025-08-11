@@ -27,9 +27,15 @@ export const ManageTickets = () => {
     undefined,
   );
 
-  const { isLoading, ticketsEvent, isError, refetch } = eventId
+  console.log('selectedTicket', selectedTicket);
+  const { isLoading, responseTickets, isError, refetch } = eventId
     ? useGetTicketsByEvent(+eventId)
-    : { isLoading: false, ticketsEvent: [], isError: false, refetch: () => {} };
+    : {
+        isLoading: false,
+        responseTickets: null,
+        isError: false,
+        refetch: () => {},
+      };
 
   const closeModal = () => {
     setOpenModal(false);
@@ -53,6 +59,8 @@ export const ManageTickets = () => {
     showDefaultToast('Tickets guardados como borrador');
     navigate(`/panel/events/create/${eventId}/tickets/publish`);
   };
+
+  console.log('responseTickets', responseTickets);
 
   return (
     <>
@@ -98,18 +106,22 @@ export const ManageTickets = () => {
 
       {isLoading ? <Loader /> : null}
 
-      {ticketsEvent.length === 0 && !isError && !isLoading && (
-        <div className="w-full text-center my-5">
-          <h5 className="text-xl  tracking-tight text-gray-900 dark:text-white">
-            No hay entradas creadas todavia :(
-          </h5>
-        </div>
-      )}
+      {responseTickets &&
+        responseTickets.data.length === 0 &&
+        !isError &&
+        !isLoading && (
+          <div className="w-full text-center my-5">
+            <h5 className="text-xl  tracking-tight text-gray-900 dark:text-white">
+              No hay entradas creadas todavia :(
+            </h5>
+          </div>
+        )}
 
-      {ticketsEvent.length > 0 &&
-        ticketsEvent.map((ticketType) => (
+      {responseTickets &&
+        responseTickets?.data.length > 0 &&
+        responseTickets?.data.map((ticketType) => (
           <div
-            key={ticketType.id}
+            key={ticketType.id + ticketType.name}
             className="flex items-center justify-between my-3"
           >
             <Tooltip content="Eliminar" className="bg-primary">
@@ -149,6 +161,7 @@ export const ManageTickets = () => {
             </Card>
           </div>
         ))}
+
       {!isError && !isLoading && (
         <>
           <button className="w-full hover:shadow-primary hover:shadow-4">

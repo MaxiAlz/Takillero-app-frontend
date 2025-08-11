@@ -13,6 +13,8 @@ const ViewEventDetail = () => {
   const { eventId } = useParams();
   const { eventData, isLoading, isError } = useGetPublicEventById(+eventId!);
 
+  console.log('eventData :>> ', eventData);
+
   return (
     <>
       <PageTitle title="Ver Evento" />
@@ -29,31 +31,31 @@ const ViewEventDetail = () => {
               <section>
                 <div className="">
                   <img
-                    src={eventData.verticalPhoto}
-                    alt={`${eventData.verticalPhoto} banner cover`}
+                    src={eventData.data.verticalPhoto}
+                    alt={`${eventData.data.verticalPhoto} banner cover`}
                     className="hidden sm:block inset-0 object-cover w-full h-100"
                   />
                   <img
-                    src={eventData.photo}
-                    alt={`${eventData.photo} banner cover`}
+                    src={eventData.data.photo}
+                    alt={`${eventData.data.photo} banner cover`}
                     className="block sm:hidden inset-0 object-cover w-full h-100"
                   />
                 </div>
               </section>
 
-              <EventInfoBanner eventData={eventData} />
+              <EventInfoBanner eventData={eventData.data} />
 
               <section className="grid lg:grid-cols-3 grid-cols-1 gap-6 justify-between">
                 {/* Columna de izquierda */}
                 <div className="col-span-2">
                   <TicketsPourchaseTable
                     eventId={+eventId!}
-                    tickets={eventData.ticketTypes}
-                    eventData={eventData}
+                    tickets={eventData.data.ticketTypes}
+                    eventData={eventData.data}
                   />
                   <Card className="w-full dark:bg-boxdark">
                     <h2 className="font-bold text-xl ">Descripción General:</h2>
-                    <p>{eventData.description}</p>
+                    <p>{eventData.data.description}</p>
                     <div>
                       <div className="mt-4 p-4 bg-gray-100 dark:bg-meta-4 rounded-lg">
                         <p className="text-xs text-gray-600 dark:text-gray-400">
@@ -90,7 +92,9 @@ const ViewEventDetail = () => {
 
                       <p className="text-gray-700  dark:text-gray-400">
                         Establecimiento:{' '}
-                        <span className="font-bold">{eventData.venue}</span>
+                        <span className="font-bold">
+                          {eventData.data.venue}
+                        </span>
                       </p>
                     </div>
 
@@ -98,7 +102,9 @@ const ViewEventDetail = () => {
                       <MdLocationOn size={30} />
                       <p className="font-normal text-gray-700 dark:text-gray-400">
                         Dereccion:{' '}
-                        <span className="font-bold">{eventData.location} </span>
+                        <span className="font-bold">
+                          {eventData.data.location}{' '}
+                        </span>
                       </p>
                     </div>
                   </Card>

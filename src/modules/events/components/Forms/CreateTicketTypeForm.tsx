@@ -16,6 +16,8 @@ import { useTicket } from '../../hooks';
 import { TicketType } from '../../interfaces/event';
 import Loader from '../../../../components/Loader';
 import { RoundedFilledButton } from '../../../../components';
+import { getBackendErrorMessage } from '../../../../helpers/handleApiErrors';
+import { AxiosError } from 'axios';
 
 interface CreateTicketTypeFormProps {
   eventId: number;
@@ -33,6 +35,9 @@ export const CreateTicketTypeForm = ({
   const ticketMutation = useTicketMutation(ticketId);
   const { showSuccessToast, showErrorToast } = useAlert();
   const { ticket, isLoading /* error */ } = useTicket(ticketId);
+  console.log('ticket', ticket);
+  console.log('ticketId', ticketId);
+  // console.log('ticketMutation', ticketMutation);
 
   const createTiketFormik = useFormik<TicketType>({
     enableReinitialize: true,
@@ -52,9 +57,14 @@ export const CreateTicketTypeForm = ({
           closeModal();
           refetchTickets?.();
         },
-        onError: () => {
+        onError: (error) => {
+          const err = error as AxiosError<{ message: string }>;
+          const errorMessage = getBackendErrorMessage(
+            err.response?.data.message,
+          );
+          console.log('errorMessage', errorMessage);
           showErrorToast(
-            ticketId ? 'Error al actualizar Ticket' : 'Error al crear Ticket',
+            ticketId ? 'Error al actualizar Ticket' : errorMessage,
           );
           closeModal();
           refetchTickets?.();
@@ -293,7 +303,9 @@ export const CreateTicketTypeForm = ({
             className="bg-error"
             text="Eliminar Ticket"
             icon={<MdDelete size={25} />}
-            type="submit"
+            onClick={() => {
+              // Aquí confirmas y llamas a ticketMutation.mutate para DELETE
+            }}
             isLoading={ticketMutation.isPending}
           />
         )}

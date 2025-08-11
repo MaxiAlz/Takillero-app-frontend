@@ -29,8 +29,6 @@ const PublishEventPage = () => {
   const [inputValue, setInputValue] = useState<string>('');
   const { showSuccessToast, showErrorToast } = useAlert();
 
-  console.log('getTicketsInfo', getTicketsInfo);
-
   const handleClickContinue = () => {
     publishEventMutation.mutate(undefined, {
       onSuccess: () => {
@@ -118,7 +116,7 @@ const PublishEventPage = () => {
                     {getTicketsInfo.responseTickets.data.map((ticket) => (
                       <section
                         className="flex items-center justify-between"
-                        key={ticket.id}
+                        key={ticket.id + ticket.name}
                       >
                         <div>
                           <h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">

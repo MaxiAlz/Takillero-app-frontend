@@ -1,6 +1,6 @@
 import { GiTicket } from 'react-icons/gi';
 import { RoundedFilledButton, RoundedOutlineButton } from '../../../components';
-import { EventDetailLookLike, TicketType } from '../types/homeTypes';
+import { PublicEventData, TicketType } from '../types/homeTypes';
 import {
   EventCart,
   TicketItem,
@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 interface TicketsPourchaseTablePorps {
   eventId: number;
   tickets: TicketType[];
-  eventData: EventDetailLookLike;
+  eventData: PublicEventData;
 }
 const TicketsPourchaseTable = ({
   eventId,
