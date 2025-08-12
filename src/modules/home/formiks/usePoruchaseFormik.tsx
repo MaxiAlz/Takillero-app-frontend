@@ -2,22 +2,26 @@ import { FormikHelpers, useFormik } from 'formik';
 import * as Yup from 'yup';
 import { PurchaseEventProductsPayload } from '../types/homeTypes';
 import { VALIDATION_MESSAGES } from '../../../constants';
-import { usePurchaseEventProductsMutation } from '../hooks/usePourchaseEventProductsMutation';
+import { useReservationEventMutation } from '../hooks/usePourchaseEventProductsMutation';
 import { useAlert } from '../../../context/AlertContext';
 import { useNavigate } from 'react-router-dom';
 import { PourchaseResponse } from '../types/purchaseTypes';
 import { useDispatch } from 'react-redux';
 import { setPurchaseData } from '../../../redux/slices/purchase/purchaseSlice';
+import { AxiosError } from 'axios';
+import { getBackendErrorMessage } from '../../../helpers/handleApiErrors';
+import { secureLocalStorage } from '../../../helpers/secureLocalStorage';
 
 interface PurchaseFormValues extends PurchaseEventProductsPayload {
   confirmEmail: string;
 }
 
 const usePurchaseFormik = (eventId: number) => {
-  const purchaseMutation = usePurchaseEventProductsMutation(eventId);
-  const { showErrorToast, showSuccessToast } = useAlert();
+  const reserveMutation = useReservationEventMutation(eventId);
+  const { showErrorToast, showDefaultToast } = useAlert();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const { setEncryptedItem } = secureLocalStorage();
 
   return useFormik<PurchaseFormValues>({
     initialValues: purchaseFormikInitialValues,
@@ -29,15 +33,28 @@ const usePurchaseFormik = (eventId: number) => {
       formikHelpers.setSubmitting(true);
       const { confirmEmail, ...submitValues } = values;
 
-      await purchaseMutation.mutate(submitValues, {
+      console.log('submitValues', submitValues);
+      await reserveMutation.mutate(submitValues, {
         onSuccess: (valuePoruchaseResponse: PourchaseResponse) => {
-          showSuccessToast('¡Compra realizada con éxito!');
-          dispatch(setPurchaseData(valuePoruchaseResponse.data));
-          navigate(`/cart/${eventId}/pourchase/confirm`, {});
+          showDefaultToast('¡Exelente! Continua con el pago de tu compra');
+          const now = Date.now(); // tiempo actual en ms
+          const expiresAt = now + 10 * 60 * 1000;
+
+          const dataToSave = { ...valuePoruchaseResponse.data, expiresAt };
+          setEncryptedItem('reserveToken', dataToSave);
+
+          // alert(JSON.stringify(valuePoruchaseResponse.data));
+
+          // dispatch(setPurchaseData(valuePoruchaseResponse.data));
+          navigate(`/cart/${eventId}/pourchase/payment`, {});
           formikHelpers.resetForm();
         },
         onError: (error: any) => {
-          showErrorToast(`Error al procesar la compra: ${error.message}`);
+          const err = error as AxiosError<{ message: string }>;
+          const errorMessage = getBackendErrorMessage(
+            err.response?.data.message,
+          );
+          showErrorToast(errorMessage);
         },
       });
       formikHelpers.setSubmitting(false);
@@ -53,7 +70,7 @@ const purchaseFormikInitialValues = {
   confirmEmail: '',
   name: '',
   dni: '',
-  paymentMethod: '',
+  invitationCode: '',
 };
 
 const purchaseFormikValidationSchema = Yup.object({
@@ -67,5 +84,6 @@ const purchaseFormikValidationSchema = Yup.object({
     .oneOf([Yup.ref('email')], VALIDATION_MESSAGES.confirmEmail),
   name: Yup.string().required(VALIDATION_MESSAGES.required),
   dni: Yup.string().required(VALIDATION_MESSAGES.required),
-  paymentMethod: Yup.string().required(VALIDATION_MESSAGES.required),
+  invitationCode: Yup.string(),
+  // paymentMethod: Yup.string().required(VALIDATION_MESSAGES.required),
 });

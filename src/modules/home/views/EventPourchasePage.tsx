@@ -57,13 +57,13 @@ const EventPourchasePage = () => {
             <section className="lg:mx-10 md:mx-5 mx-2">
               <div className="">
                 <img
-                  src={eventData.verticalPhoto}
-                  alt={`${eventData.verticalPhoto} banner cover`}
+                  src={eventData.data.verticalPhoto}
+                  alt={`${eventData.data.verticalPhoto} banner cover`}
                   className="hidden sm:block inset-0 object-cover w-full h-100"
                 />
                 <img
-                  src={eventData.photo}
-                  alt={`${eventData.photo} banner cover`}
+                  src={eventData.data.photo}
+                  alt={`${eventData.data.photo} banner cover`}
                   className="block sm:hidden inset-0 object-cover w-full h-100"
                 />
               </div>
@@ -82,11 +82,12 @@ const EventPourchasePage = () => {
                   />
                 </div>
                 <PourchaseUserInformationForm purchaseFormik={purchaseFormik} />
-                <PaymentMethodForm
+
+                {/* <PaymentMethodForm
                   selectedProductsCart={selectedProductsCart}
                   hasPaidProducts={hasPaidProducts}
                   purchaseFormik={purchaseFormik}
-                />
+                /> */}
 
                 <div className="flex flex-col my-5 sm:mx-10 md:mx-0">
                   <div className="order-2">
@@ -99,7 +100,7 @@ const EventPourchasePage = () => {
                         purchaseFormik.isSubmitting
                           ? 'Cargando...'
                           : hasPaidProducts
-                          ? 'Confirmar compra'
+                          ? 'Continuar con el pago'
                           : 'Obtener tickets'
                       }
                       icon={<MdFactCheck />}

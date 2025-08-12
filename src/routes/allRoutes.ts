@@ -11,6 +11,7 @@ import { CreateNewEvent } from '../modules/events/Pages/PanelNewEventPage';
 import {
   EventPourchasePage,
   HomePage,
+  PayPourchaseEventPage,
   PurchaseConfirmationPage,
   SearchUserTickets,
   ViewEventDetail,
@@ -85,8 +86,12 @@ export const publicRoutes = [
   { path: '/ver-tickets', component: SearchUserTickets },
   { path: '/:eventName/:eventId', component: ViewEventDetail },
   {
-    path: '/cart/:eventId/pourchase',
+    path: '/cart/:eventId/pourchase/' /* :invitationCode? */,
     component: EventPourchasePage,
+  },
+  {
+    path: '/cart/:eventId/pourchase/payment',
+    component: PayPourchaseEventPage,
   },
   {
     path: '/cart/:eventId/pourchase/confirm',

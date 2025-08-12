@@ -3,14 +3,25 @@ import { PurchaseEventProductsPayload } from '../types/homeTypes';
 import { PourchaseResponse } from '../types/purchaseTypes';
 
 export const purchaseEventProductsRepository = {
-  async purchaseEventProducts(
+  async reservationEventProducts(
     eventId: number,
     payload: PurchaseEventProductsPayload,
   ) {
     const { data } = await apiService.post<PourchaseResponse>(
-      `/PublicEvents/${eventId}/purchase`,
+      `/PublicEvents/${eventId}/reserve`,
       payload,
     );
     return data;
+  },
+
+  async purchaseEventProducts(
+    eventId: number,
+    payload: PurchaseEventProductsPayload,
+  ) {
+    // const { data } = await apiService.post<PourchaseResponse>(
+    //   `/PublicEvents/${eventId}/purchase`,
+    //   payload,
+    // );
+    // return data;
   },
 };

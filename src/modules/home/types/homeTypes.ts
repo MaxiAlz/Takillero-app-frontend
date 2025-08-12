@@ -60,5 +60,5 @@ export interface PurchaseEventProductsPayload {
   email: string;
   name: string;
   dni: string;
-  paymentMethod: string;
+  invitationCode?: string;
 }
