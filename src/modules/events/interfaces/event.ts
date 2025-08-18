@@ -111,3 +111,7 @@ export interface ResponseTicketTypes {
   message: string;
   data: TicketType[];
 }
+export interface ResponseCategoriesTypes {
+  message: string;
+  data: CategoriesTypes;
+}

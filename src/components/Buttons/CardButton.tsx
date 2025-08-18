@@ -21,7 +21,7 @@ const CardButton: React.FC<CardButtonProps> = ({
     <button
       type={type}
       disabled={disabled}
-      className={`rounded-md  items-center flex flex-col justify-center py-6 px-7.5 shadow-default hover:opacity-90 ${
+      className={`rounded-md border items-center flex flex-col justify-center py-6 px-7.5 shadow-default hover:opacity-90 ${
         disabled && 'bg-slate-400 cursor-not-allowed'
       } ${className}`}
       {...props}

@@ -63,7 +63,7 @@ const CreateEventForm = () => {
       eventMutation.mutate(formatValues, {
         onSuccess(data) {
           showDefaultToast('Has creado un evento como borrador');
-          navigate(`/panel/events/create/${data.id}/tickets`);
+          navigate(`/panel/events/create/${data.data.id}/tickets`);
         },
         onError(error) {
           showErrorToast(`Error al crear evento: ${error}`);
@@ -415,7 +415,7 @@ const CreateEventForm = () => {
               {eventCategories.isLoading ? (
                 <option disabled>Cargando Categorias...</option>
               ) : (
-                eventCategories.categories!.map((category) => (
+                eventCategories.categories?.data.items.map((category) => (
                   <option key={category.id} value={category.id}>
                     {category.name}
                   </option>

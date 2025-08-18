@@ -11,6 +11,7 @@ import { setPurchaseData } from '../../../redux/slices/purchase/purchaseSlice';
 import { AxiosError } from 'axios';
 import { getBackendErrorMessage } from '../../../helpers/handleApiErrors';
 import { secureLocalStorage } from '../../../helpers/secureLocalStorage';
+import { RESERVE_DATA_STORAGE_KEY } from '../../../constants/storageKeys';
 
 interface PurchaseFormValues extends PurchaseEventProductsPayload {
   confirmEmail: string;
@@ -33,21 +34,19 @@ const usePurchaseFormik = (eventId: number) => {
       formikHelpers.setSubmitting(true);
       const { confirmEmail, ...submitValues } = values;
 
-      console.log('submitValues', submitValues);
       await reserveMutation.mutate(submitValues, {
         onSuccess: (valuePoruchaseResponse: PourchaseResponse) => {
-          showDefaultToast('¡Exelente! Continua con el pago de tu compra');
-          const now = Date.now(); // tiempo actual en ms
+          const now = Date.now();
           const expiresAt = now + 10 * 60 * 1000;
 
           const dataToSave = { ...valuePoruchaseResponse.data, expiresAt };
-          setEncryptedItem('reserveToken', dataToSave);
-
-          // alert(JSON.stringify(valuePoruchaseResponse.data));
-
-          // dispatch(setPurchaseData(valuePoruchaseResponse.data));
-          navigate(`/cart/${eventId}/pourchase/payment`, {});
-          formikHelpers.resetForm();
+          console.log('dataToSave :>> ', dataToSave);
+          setEncryptedItem(RESERVE_DATA_STORAGE_KEY, dataToSave);
+          showDefaultToast('¡Exelente! Continua con el pago de tu compra');
+          navigate(`/cart/${eventId}/pourchase/payment`, {
+            state: { reserveData: dataToSave },
+          });
+          // formikHelpers.resetForm();
         },
         onError: (error: any) => {
           const err = error as AxiosError<{ message: string }>;

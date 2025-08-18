@@ -26,7 +26,7 @@ export const eventRepository = {
 
   async createEvent(formData: EventLookLike, userRole: UserRoles) {
     const path = useGetSpecificUrl('/Events', userRole);
-    const { data } = await apiService.post<Event>(path, formData);
+    const { data } = await apiService.post<EventResponse>(path, formData);
     return data;
   },
 
@@ -36,13 +36,13 @@ export const eventRepository = {
     userRole: UserRoles,
   ) {
     const path = useGetSpecificUrl(`/Events/${eventId}`, userRole);
-    const { data } = await apiService.put<Event>(path, payEvent);
+    const { data } = await apiService.put<EventResponse>(path, payEvent);
     return data;
   },
 
   async publishEvent(eventId: number, userRole: UserRoles) {
     const path = useGetSpecificUrl(`/Events/${eventId}/publish`, userRole);
-    const { data } = await apiService.post<Event>(path);
+    const { data } = await apiService.post<EventResponse>(path);
     return data;
   },
 };

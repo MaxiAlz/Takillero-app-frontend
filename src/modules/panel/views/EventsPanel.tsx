@@ -11,9 +11,18 @@ const EventsPanel = () => {
       <PageTitle title="Eventos" />
       <DefaultLayout>
         <Breadcrumb pageName="Eventos" />
-        {getUsersEvents.isLoading && !getUsersEvents.data?.data.items ? (
+        {getUsersEvents.isLoading && !getUsersEvents.data?.data.items && (
           <Loader />
-        ) : (
+        )}
+
+        {getUsersEvents.isError && (
+          <div className="flex justify-center items-center h-screen">
+            <p className="text-red-500">
+              {getUsersEvents.error?.message || 'Error al cargar los eventos'}
+            </p>
+          </div>
+        )}
+        {getUsersEvents.data?.data.items && (
           <PanelTable tableItems={getUsersEvents.data?.data.items} />
         )}
       </DefaultLayout>

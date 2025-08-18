@@ -83,6 +83,14 @@ const PanelTable = ({ tableItems }: PanelTableProps) => {
               </th>
             </tr>
           </thead>
+          
+          {!tableItems && (
+            <div className="my-5">
+              Ah ocurrido un error, el obtener los eventos, por favor recargue
+              la pagina
+            </div>
+          )}
+
           {tableItems && tableItems.length == 0 && (
             <div className="my-5">
               Todavia no hay eventos cargados, haz click en "Crear nuevo evento"

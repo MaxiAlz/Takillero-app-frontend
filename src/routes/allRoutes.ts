@@ -98,6 +98,10 @@ export const publicRoutes = [
     component: PurchaseConfirmationPage,
   },
   {
+    path: '/pourchase/payment/success',
+    component: PurchaseConfirmationPage,
+  },
+  {
     path: '/home/test',
     component: TestPage,
   },

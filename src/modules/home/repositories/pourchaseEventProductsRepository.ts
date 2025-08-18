@@ -13,15 +13,22 @@ export const purchaseEventProductsRepository = {
     );
     return data;
   },
-
-  async purchaseEventProducts(
-    eventId: number,
-    payload: PurchaseEventProductsPayload,
-  ) {
-    // const { data } = await apiService.post<PourchaseResponse>(
-    //   `/PublicEvents/${eventId}/purchase`,
-    //   payload,
-    // );
-    // return data;
+  // Pagar con mercado Pago
+  async payPurchaseByMp(token: string) {
+    const { data } = await apiService.post(
+      `/PublicEvents/purchase/mp?token=${token}`,
+    );
+    return data;
   },
+
+  // async purchaseEventProducts(
+  //   eventId: number,
+  //   payload: PurchaseEventProductsPayload,
+  // ) {
+  //   const { data } = await apiService.post<PourchaseResponse>(
+  //     `/PublicEvents/${eventId}/purchase`,
+  //     payload,
+  //   );
+  //   return data;
+  // },
 };

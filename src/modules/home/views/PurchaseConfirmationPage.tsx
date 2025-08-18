@@ -15,7 +15,7 @@ const PurchaseConfirmationPage = () => {
   const { eventId } = useParams();
   const navigate = useNavigate();
   const purchaseState = useSelector((state: RootState) => state.purchase);
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   const ticketCount = purchaseState.tickets.length;
 
   if (!ticketCount) {

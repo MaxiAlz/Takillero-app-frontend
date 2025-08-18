@@ -1,11 +1,11 @@
 import { apiService } from '../../../services/apiService';
-import { CategoriesTypes } from '../interfaces/event';
+import { ResponseCategoriesTypes } from '../interfaces/event';
 
 export const categoriesRepository = {
   async getEventCategories() {
-    const { data } = await apiService.get<CategoriesTypes>(
-      '/Categories?pageIndex=1&pageSize=20',
+    const { data } = await apiService.get<ResponseCategoriesTypes>(
+      '/Categories',
     );
-    return data.items;
+    return data;
   },
 };
