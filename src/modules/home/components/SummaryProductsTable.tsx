@@ -3,9 +3,7 @@ import { MdDelete } from 'react-icons/md';
 import { TicketItem } from '../../../hooks/useCardTicketStorage';
 
 interface SummaryProductsTableProps {
-  // pourchaseEventId: number;
   selectedProductsCart: TicketItem[];
-  // onRemoveProduct?: (ticketTypeId: number) => void;
 }
 
 const SummaryProductsTable = ({

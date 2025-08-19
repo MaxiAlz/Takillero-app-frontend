@@ -6,7 +6,7 @@ import { SummaryProductsTable } from '../components/SummaryProductsTable';
 import { useEffect, useState } from 'react';
 import { MdFactCheck } from 'react-icons/md';
 import { useCartTicketStorage } from '../../../hooks/useCardTicketStorage';
-import { PaymentMethodForm } from '../components/forms/PaymentMethotsForm';
+// import { PaymentMethodForm } from '../components/forms/PaymentMethotsForm';
 import { CardResume } from '../components/forms/CardResumme';
 import { PourchaseProductItem } from '../types/homeTypes';
 import { usePurchaseFormik } from '../formiks/usePoruchaseFormik';

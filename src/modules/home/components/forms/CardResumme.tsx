@@ -11,7 +11,6 @@ interface CardResumeProps {
 
 const CardResume = ({
   selectedProductsCart,
-  // hasPaidProducts,
 }: CardResumeProps) => {
   // const { SERVICE_CHARGE_PERCENTAGE, TAX_PERCENTAGE } = BUSSINES_DATA;
 
@@ -23,7 +22,7 @@ const CardResume = ({
 
       <div className="flex justify-between mb-2">
         <span className="text-gray-600 dark:text-gray-400">
-          Productos({selectedProductsCart.length})
+         Total Productos {/* ({selectedProductsCart.length}) */}
         </span>
         <span className="font-semibold text-black dark:text-white">
           {formatPrice(

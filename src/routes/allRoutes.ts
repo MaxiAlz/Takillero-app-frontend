@@ -12,7 +12,7 @@ import {
   EventPourchasePage,
   HomePage,
   PayPourchaseEventPage,
-  PurchaseConfirmationPage,
+  PurchaseSuccesConfirmationPage,
   SearchUserTickets,
   ViewEventDetail,
 } from '../modules/home/views';
@@ -94,12 +94,8 @@ export const publicRoutes = [
     component: PayPourchaseEventPage,
   },
   {
-    path: '/cart/:eventId/pourchase/confirm',
-    component: PurchaseConfirmationPage,
-  },
-  {
     path: '/pourchase/payment/success',
-    component: PurchaseConfirmationPage,
+    component: PurchaseSuccesConfirmationPage,
   },
   {
     path: '/home/test',

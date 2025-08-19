@@ -9,17 +9,32 @@ import { FaRegCreditCard } from 'react-icons/fa6';
 import { useLocation, useParams } from 'react-router-dom';
 import { RESERVE_DATA_STORAGE_KEY } from '../../../constants/storageKeys';
 import { useCartTicketStorage } from '../../../hooks/useCardTicketStorage';
-import { PourchaseProductItem } from '../types/homeTypes';
 import { PaymentMethod } from '../../../constants/bussinessData/businesData';
 import { usePayPurchaseByMp } from '../hooks/usePourchaseEventProductsMutation';
+import { formatPrice } from '../../../helpers/formarPrice';
 
 const PayPourchaseEventPage = () => {
   const location = useLocation();
+  const { eventId } = useParams();
   const { getEncryptedItem, removeEncryptedItem } = secureLocalStorage();
   const payByMpMutation = usePayPurchaseByMp();
-  // const { cartsPurchase } = useCartTicketStorage();
+  const { cartsPurchase } = useCartTicketStorage();
+
+  const eventCart = cartsPurchase.find((cart) => cart.eventId === +eventId!);
+
+  const totalPay =
+    eventCart &&
+    formatPrice(
+      eventCart.ticketItems.reduce(
+        (acc, item) => acc + item.price * item.quantity,
+        0,
+      ),
+    );
+
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [isExpired, setIsExpired] = useState(false);
+
+  console.log('eventCart', eventCart);
 
   useEffect(() => {
     const savedData =
@@ -106,7 +121,7 @@ const PayPourchaseEventPage = () => {
       {isExpired ? (
         <p>El tiempo para realizar el pago ha expirado.</p>
       ) : (
-        <section className="m-5">
+        <section className="my-5 mx-20">
           <h1 className="text-3xl font-bold mb-4 text-black dark:text-white text-center ">
             Pagar Reserva
           </h1>
@@ -136,36 +151,34 @@ const PayPourchaseEventPage = () => {
           </Card>
 
           {/* Información del producto */}
-          {/* <section className="grid grid-cols-2 gap-4">
+          <section className="my-5">
             <Card className=" dark:bg-boxdark">
               <h2 className="text-xl font-bold mb-4 text-black dark:text-white">
                 Resumen de Compra
               </h2>
               <section className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">
-                    Nombre del ticket x (cantidad)
-                  </span>
-                  <span className="font-semibold ">$50.000</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">
-                    Nombre del ticket x (cantidad)
-                  </span>
-                  <span className="font-semibold ">$50.000</span>
-                </div>
+                {eventCart?.ticketItems.map((ticket) => (
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">
+                      {ticket.name} x {ticket.quantity}
+                    </span>
+                    <span className="font-semibold ">
+                      {formatPrice(ticket.price * ticket.quantity)}
+                    </span>
+                  </div>
+                ))}
 
                 <div className="border-t pt-4">
                   <div className="flex justify-between items-center text-lg font-semibold">
                     <span>Total a pagar</span>
                     <span className="text-xl font-bold text-primary">
-                      $100.000
+                      {totalPay}
                     </span>
                   </div>
                 </div>
               </section>
             </Card>
-          </section> */}
+          </section>
 
           <h2 className="text-3xl font-bold mb-4 text-black dark:text-white text-center mt-5">
             Selecciona tu método de pago
