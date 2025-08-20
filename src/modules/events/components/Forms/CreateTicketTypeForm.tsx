@@ -35,9 +35,6 @@ export const CreateTicketTypeForm = ({
   const ticketMutation = useTicketMutation(ticketId);
   const { showSuccessToast, showErrorToast } = useAlert();
   const { ticket, isLoading /* error */ } = useTicket(ticketId);
-  console.log('ticket', ticket);
-  console.log('ticketId', ticketId);
-  // console.log('ticketMutation', ticketMutation);
 
   const createTiketFormik = useFormik<TicketType>({
     enableReinitialize: true,
@@ -62,7 +59,6 @@ export const CreateTicketTypeForm = ({
           const errorMessage = getBackendErrorMessage(
             err.response?.data.message,
           );
-          console.log('errorMessage', errorMessage);
           showErrorToast(
             ticketId ? 'Error al actualizar Ticket' : errorMessage,
           );

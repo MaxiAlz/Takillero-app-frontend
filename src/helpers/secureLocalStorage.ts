@@ -1,7 +1,7 @@
 import SecureLS from 'secure-ls';
 
 const ls = new SecureLS({
-  encodingType: 'aes',
+  encodingType: 'base64',
   encryptionSecret: import.meta.env.VITE_SECURE_KEY,
 });
 

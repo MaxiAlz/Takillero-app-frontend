@@ -40,7 +40,6 @@ const usePurchaseFormik = (eventId: number) => {
           const expiresAt = now + 10 * 60 * 1000;
 
           const dataToSave = { ...valuePoruchaseResponse.data, expiresAt };
-          console.log('dataToSave :>> ', dataToSave);
           setEncryptedItem(RESERVE_DATA_STORAGE_KEY, dataToSave);
           showDefaultToast('¡Exelente! Continua con el pago de tu compra');
           navigate(`/cart/${eventId}/pourchase/payment`, {

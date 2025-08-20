@@ -1,14 +1,13 @@
-import { Banner} from 'flowbite-react';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {
   RoundedFilledButton,
   RoundedOutlineDarckButton,
 } from '../../../components/Buttons';
 import { PageTitle } from '../../../components';
 import HomeLayaut from '../../../layout/HomeLayaut';
-import { FilterSection } from '../components/FilterSection';
 import { CarrouselSection } from '../components/CarrouselSection';
 import { AvailableEvents } from '../components/AvailableEvents';
+import { EventBanner } from '../../../components/Banners/EventBannersOne';
+import { SearchSection } from '../../../components/Search/SearchSectionHome';
 
 const HomePage = () => {
   return (
@@ -16,13 +15,14 @@ const HomePage = () => {
       <PageTitle title="Inicio" />
       <HomeLayaut>
         <main className="">
-          <section className="lg:mx-20 md:mx-5">
-            <CarrouselSection />
-            <FilterSection />
+          <section className="lg:mx-20 md:mx-5 my-5 ">
+            {/* <CarrouselSection /> */}
+            <EventBanner />
+            <SearchSection />
             <AvailableEvents />
           </section>
 
-          <Banner className="mx-20 my-10 shadow-lg border  rounded-xl">
+          {/* <Banner className="mx-20 my-10 shadow-lg border  rounded-xl">
             <div className="flex w-full flex-col justify-between border-b border-gray-200 bg-gray-50 p-4 dark:border-gray-600 dark:bg-gray-700 md:flex-row">
               <div className="mb-4 md:mb-0 md:mr-4">
                 <h2 className="mb-1 text-base font-semibold text-gray-900 dark:text-white">
@@ -64,7 +64,7 @@ const HomePage = () => {
               <RoundedOutlineDarckButton text="Deportes" />
               <RoundedOutlineDarckButton text="Musica" />
             </div>
-          </Banner>
+          </Banner> */}
 
           {/* <div className="flex ml-20 my-5">
             <h4 className=" text-black font-bold text-2xl ">Descuentos</h4>

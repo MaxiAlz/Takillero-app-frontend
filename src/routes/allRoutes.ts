@@ -12,6 +12,8 @@ import {
   EventPourchasePage,
   HomePage,
   PayPourchaseEventPage,
+  PurchaseErrorConfirmationPage,
+  PurchasePendingConfirmationPage,
   PurchaseSuccesConfirmationPage,
   SearchUserTickets,
   ViewEventDetail,
@@ -96,6 +98,14 @@ export const publicRoutes = [
   {
     path: '/pourchase/payment/success',
     component: PurchaseSuccesConfirmationPage,
+  },
+  {
+    path: '/pourchase/payment/error',
+    component: PurchaseErrorConfirmationPage,
+  },
+  {
+    path: '/pourchase/payment/pending',
+    component: PurchasePendingConfirmationPage,
   },
   {
     path: '/home/test',

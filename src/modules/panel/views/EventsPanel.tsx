@@ -5,7 +5,6 @@ import { useGetAuthUserEvents } from '../hooks/useGetAuthUserEvents';
 
 const EventsPanel = () => {
   const getUsersEvents = useGetAuthUserEvents();
-  console.log('getUsersEvents', getUsersEvents);
   return (
     <>
       <PageTitle title="Eventos" />

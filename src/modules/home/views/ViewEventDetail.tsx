@@ -13,8 +13,6 @@ const ViewEventDetail = () => {
   const { eventId } = useParams();
   const { eventData, isLoading, isError } = useGetPublicEventById(+eventId!);
 
-  console.log('eventData :>> ', eventData);
-
   return (
     <>
       <PageTitle title="Ver Evento" />

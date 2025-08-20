@@ -12,12 +12,12 @@ const AvailableEvents = () => {
   // const handleClickPaginate = () => {};
   return (
     <>
-      <div className="mx-auto my-5">
+      <div className="mx-auto mt-5">
         <h4 className=" text-black dark:text-white font-bold text-2xl ">
           Eventos en tendencia en tu zona:
         </h4>
       </div>
-      <section className="">
+      <section className="mt-4 mb-20">
         {availablePublicEvents.publicEvents?.data.items.length === 0 && (
           <div>No hay eventos publicados actualmente...</div>
         )}

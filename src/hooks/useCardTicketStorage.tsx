@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { CART_TICKET_STORAGE_KEY } from '../constants/storageKeys';
-
+import { secureLocalStorage } from '../helpers/secureLocalStorage';
 
 export interface TicketItem {
   ticketTypeId: number;
@@ -23,28 +23,23 @@ export interface TicketParams {
 }
 
 export const useCartTicketStorage = () => {
+  const { setEncryptedItem, getEncryptedItem } = secureLocalStorage();
+
   const [cartsPurchase, setCartsPurchase] = useState<EventCart[]>(() => {
-    const savedCart = localStorage.getItem(CART_TICKET_STORAGE_KEY);
+    const savedCart = getEncryptedItem<EventCart[]>(CART_TICKET_STORAGE_KEY);
     if (savedCart) {
-      const parsedCart: EventCart[] = JSON.parse(savedCart);
-      const filteredCart = parsedCart.filter(
+      const filteredCart = savedCart.filter(
         (cart) => cart.ticketItems.length > 0,
       );
-      localStorage.setItem(
-        CART_TICKET_STORAGE_KEY,
-        JSON.stringify(filteredCart),
-      );
+      setEncryptedItem(CART_TICKET_STORAGE_KEY, filteredCart);
       return filteredCart;
     }
     return [];
   });
 
   useEffect(() => {
-    localStorage.setItem(
-      CART_TICKET_STORAGE_KEY,
-      JSON.stringify(cartsPurchase),
-    );
-  }, [cartsPurchase]);
+    setEncryptedItem(CART_TICKET_STORAGE_KEY, cartsPurchase);
+  }, [cartsPurchase, setEncryptedItem]);
 
   const addItem = (
     eventId: number,
@@ -103,5 +98,5 @@ export const useCartTicketStorage = () => {
     setCartsPurchase([]);
   };
 
-  return { cartsPurchase, addItem, removeItem, clearCart,removeEventCart };
+  return { cartsPurchase, addItem, removeItem, clearCart, removeEventCart };
 };

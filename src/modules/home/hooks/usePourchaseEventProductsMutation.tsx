@@ -1,6 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 import { purchaseEventProductsRepository } from '../repositories/pourchaseEventProductsRepository';
 import { PurchaseEventProductsPayload } from '../types/homeTypes';
+import { AxiosError } from 'axios';
+import { getBackendErrorMessage } from '../../../helpers/handleApiErrors';
+import { useAlert } from '../../../context/AlertContext';
 
 type PayPurchaseMpResponse = {
   message: string;
@@ -21,6 +24,7 @@ export const useReservationEventMutation = (eventId: number) => {
 };
 
 export const usePayPurchaseByMp = () => {
+  const { showErrorToast } = useAlert();
   return useMutation<PayPurchaseMpResponse, Error, string>({
     mutationFn: async (tokenReserve: string) => {
       return await purchaseEventProductsRepository.payPurchaseByMp(
@@ -34,7 +38,11 @@ export const usePayPurchaseByMp = () => {
       }
     },
     onError: (error) => {
-      console.error('Error al procesar pago con Mercado Pago:', error);
+      const err = error as AxiosError<{ message: string }>;
+      const errorMessage = getBackendErrorMessage(err.response?.data.message);
+      showErrorToast(
+        `Error al procesar pago con Mercado Pago:: ${errorMessage}`,
+      );
     },
   });
 };
