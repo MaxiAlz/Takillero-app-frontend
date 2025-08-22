@@ -99,7 +99,7 @@ const ViewEventDetail = () => {
                     <div className="flex">
                       <MdLocationOn size={30} />
                       <p className="font-normal text-gray-700 dark:text-gray-400">
-                        Dereccion:{' '}
+                        Direccion:{' '}
                         <span className="font-bold">
                           {eventData.data.location}{' '}
                         </span>

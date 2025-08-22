@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
 import UserOne from '../../images/user/user-01.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';

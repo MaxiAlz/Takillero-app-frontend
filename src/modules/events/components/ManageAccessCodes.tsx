@@ -92,7 +92,8 @@ const ManageAccessCodes = ({ eventId }: ListAcessCodesCardsProps) => {
           {isLoading ? (
             <Loader />
           ) : (
-            accessCodesData!.length > 0 &&
+            accessCodesData &&
+            accessCodesData.length > 0 &&
             !error &&
             accessCodesData?.map((accessCodeData) => (
               <section key={accessCodeData.id}>
