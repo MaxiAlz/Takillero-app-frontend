@@ -53,5 +53,6 @@ export * from './Tables/TableSettings';
 export * from './Tables/TableThree';
 export * from './Tables/TableTwo';
 export * from './Tickets/TicketQrBuyed';
+export * from './Tickets/TicketTypeList';
 export * from './Timelines/StepsDashboard';
 export * from './widgets/AuthWidget';

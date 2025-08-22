@@ -1,11 +1,8 @@
 import { apiService } from '../../../services/apiService';
 import { UserRoles } from '../../Auth/types/authTypes';
+import { TicketType } from '../../home/types/homeTypes';
 import { useGetSpecificUrl } from '../hooks';
-import {
-  ResponseTicketTypes,
-  TicketLookLike,
-  TicketType,
-} from '../interfaces/event';
+import { ResponseTicketTypes, TicketLookLike } from '../interfaces/event';
 
 export const ticketsRepository = {
   async createTicket(ticket: TicketLookLike) {
@@ -40,7 +37,6 @@ export const ticketsRepository = {
     userRole: UserRoles,
   ): Promise<ResponseTicketTypes> {
     const path = useGetSpecificUrl(`/events/${eventId}/tickets`, userRole);
-
     const { data } = await apiService.get<ResponseTicketTypes>(path);
     return data;
   },

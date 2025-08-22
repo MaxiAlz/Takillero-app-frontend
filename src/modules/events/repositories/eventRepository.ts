@@ -3,7 +3,6 @@ import {
   EventLookLike,
   EventResponse,
   EventResponsePaginated,
-  type Event,
 } from '../interfaces/event';
 import { UserRoles } from '../../Auth/types/authTypes';
 import { useGetSpecificUrl } from '../hooks';

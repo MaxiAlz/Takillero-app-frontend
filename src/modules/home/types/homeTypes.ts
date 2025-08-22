@@ -32,11 +32,23 @@ export interface PublicEventData {
   ticketTypes: TicketType[];
 }
 
+export interface PublicEventsPaginated {
+  items: EventItem[];
+  pageIndex: number;
+  totalPages: number;
+  hasPreviousPage: boolean;
+  hasNextPage: boolean;
+}
+
 export interface EventDatailLookLike {
+  message: string;
+  data: PublicEventsPaginated;
+}
+
+export interface EventDetailsResponse {
   message: string;
   data: PublicEventData;
 }
-
 export interface TicketType {
   id: number;
   name: string;

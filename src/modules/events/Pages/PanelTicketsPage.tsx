@@ -9,7 +9,7 @@ const CreateTicketsPage = () => {
       <PageTitle title="Tickets" />
       <DefaultLayout>
         <section className="m-8">
-          <Breadcrumb pageName={'Cargar entradas'} />
+          <Breadcrumb pageName={'Administrar E-tickets'} />
           <div className="flex">
             <CreateTickets />
             <div className="flex h-min sticky top-26">

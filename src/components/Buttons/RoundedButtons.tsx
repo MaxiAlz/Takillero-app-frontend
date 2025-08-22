@@ -41,7 +41,7 @@ export const RoundedFilledButton = ({
       disabled={disabled}
       className={`font-medium cursor-pointer rounded-lg border flex items-center justify-center  ${
         disabled ? 'border-disabled bg-disabled' : 'border-primary bg-primary'
-      } px-2 py-3 text-white transition hover:bg-opacity-90 ${className}`}
+      } px-2 py-2 text-white transition hover:bg-opacity-90 ${className}`}
       {...props}
     >
       {isLoading ? (

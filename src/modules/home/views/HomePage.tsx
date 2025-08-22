@@ -1,10 +1,5 @@
-import {
-  RoundedFilledButton,
-  RoundedOutlineDarckButton,
-} from '../../../components/Buttons';
 import { PageTitle } from '../../../components';
 import HomeLayaut from '../../../layout/HomeLayaut';
-import { CarrouselSection } from '../components/CarrouselSection';
 import { AvailableEvents } from '../components/AvailableEvents';
 import { EventBanner } from '../../../components/Banners/EventBannersOne';
 import { SearchSection } from '../../../components/Search/SearchSectionHome';

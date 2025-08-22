@@ -85,8 +85,6 @@ const Navbar = (props: NavbarPorps) => {
                   className="text-primary font-semibold uppercase mx-2"
                 >
                   <div className="flex font-bold uppercase text-primary text-2xl text-center">
-                    {/* <BsFillRocketTakeoffFill size={20} /> */}
-                    {/* <GiTacos  /> */}
                     <GiTicket />
                     <h1 className="">{APP_TEXT.app_name}</h1>
                   </div>

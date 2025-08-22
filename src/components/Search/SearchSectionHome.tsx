@@ -1,7 +1,5 @@
-import { Button, Label, Select, TextInput } from 'flowbite-react';
-import { useState } from 'react';
+import { Select, TextInput } from 'flowbite-react';
 import { HiFilter, HiLocationMarker, HiSearch } from 'react-icons/hi';
-import { RiSearchLine, RiMapPinLine, RiFilter3Line } from 'react-icons/ri';
 import { RoundedFilledButton } from '../Buttons';
 
 export function SearchSection() {
@@ -21,7 +19,7 @@ export function SearchSection() {
         />
 
         <Select id="ciudad" icon={HiLocationMarker}>
-          <option disabled selected className="text-black">
+          <option disabled className="text-black">
             Seleccionar ciudad
           </option>
           <option className="text-black">United States</option>
@@ -31,7 +29,7 @@ export function SearchSection() {
         </Select>
 
         <Select id="countries" icon={HiFilter}>
-          <option selected className="text-black">
+          <option defaultValue={0} className="text-black">
             United States
           </option>
           <option className="text-black">Canada</option>

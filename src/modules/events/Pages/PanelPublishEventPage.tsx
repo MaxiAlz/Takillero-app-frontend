@@ -1,4 +1,4 @@
-import { MdEdit, MdSave } from 'react-icons/md';
+import { MdAttachMoney, MdEdit, MdSave } from 'react-icons/md';
 import {
   Breadcrumb,
   PageTitle,
@@ -18,6 +18,8 @@ import { usePublishEventMutation } from '../hooks/usePublishEventMutation';
 import { useAlert } from '../../../context/AlertContext';
 import { alertBanners } from '../../../components/Alerts/alertBanner';
 import { EventHorizontalCard } from '../../../components/Cards/EventHorizontalCard';
+import { IoTicketSharp } from 'react-icons/io5';
+import { FaUsers } from 'react-icons/fa6';
 
 const PublishEventPage = () => {
   const navigate = useNavigate();
@@ -114,30 +116,52 @@ const PublishEventPage = () => {
                     </h5>
                     <div className="border-t border-gray-300"></div>
                     {getTicketsInfo.responseTickets.data.map((ticket) => (
-                      <section
-                        className="flex items-center justify-between"
-                        key={ticket.id + ticket.name}
-                      >
-                        <div>
-                          <h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                            {ticket.name}
-                          </h5>
-                        </div>
-                        <div className="flex justify-between">
-                          <p className="font-normal text-gray-700 dark:text-gray-400">
-                            Cantidad total:{' '}
-                            <span className="font-bold">
-                              {ticket.totalAmount}
-                            </span>
-                          </p>
-                          <p className="font-normal text-gray-700 dark:text-gray-400 mx-5">
-                            Precio:{' '}
-                            <span className="font-bold">
-                              {ticket.price == 0 ? 'Gratuito' : ticket.price}
-                            </span>
-                          </p>
-                        </div>
-                      </section>
+                      <>
+                        <section
+                          className="flex items-center justify-between"
+                          key={ticket.id + ticket.name}
+                        >
+                          <div>
+                            <h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                              {ticket.name}
+                            </h5>
+                          </div>
+                          <div className="flex w-1/2 justify-between items-center">
+                            <div className="flex items-center ">
+                              <MdAttachMoney
+                                size={25}
+                                className="text-primary"
+                              />
+                              <span className="font-bold text-lg ml-1">
+                                {ticket.price === 0 ? 'Gratuito' : ticket.price}
+                                ,00
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <IoTicketSharp
+                                size={25}
+                                className="text-primary"
+                              />
+                              <p>
+                                Total:
+                                <span className="font-bold ml-1">
+                                  {ticket.totalAmount}
+                                </span>
+                              </p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <FaUsers size={25} className="text-primary" />
+                              <p>
+                                Máx. por usuario:
+                                <span className="font-bold ml-1">
+                                  {ticket.maxAmountPerUser}
+                                </span>
+                              </p>
+                            </div>
+                          </div>
+                        </section>
+                        <div className="border-t border-b-graydark opacity-20 my-1 w-full"></div>
+                      </>
                     ))}
                     <div className="w-full flex justify-end mt-2">
                       <RoundedFilledButton

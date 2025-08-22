@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { MdDeleteForever, MdSave } from 'react-icons/md';
-import { Card, Tooltip } from 'flowbite-react';
+import { MdSave } from 'react-icons/md';
+import { Card } from 'flowbite-react';
 import {
   ModalCustom,
   RoundedFilledButton,
-  RoundedOutlineButton,
+  TicketTypeList,
 } from '../../../components';
 import { useGetTicketsByEvent } from '../hooks/useGetTicketsByEvent';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -26,6 +26,8 @@ export const ManageTickets = () => {
   const [selectedTicket, setSelectetTicket] = useState<number | undefined>(
     undefined,
   );
+
+  console.log('selectedTicket', selectedTicket);
 
   const { isLoading, responseTickets, isError, refetch } = eventId
     ? useGetTicketsByEvent(+eventId)
@@ -59,6 +61,7 @@ export const ManageTickets = () => {
     navigate(`/panel/events/create/${eventId}/tickets/publish`);
   };
 
+  console.log('responseTickets', responseTickets);
 
   return (
     <>
@@ -88,19 +91,8 @@ export const ManageTickets = () => {
       </ModalCustom>
 
       <h3 className="font-bold my-2 mb-5 opacity-85 text-black dark:text-white text-3xl">
-        Aqui podras crear y administrar las entradas de tu eventos
+        Crea los tipos de entradas que tendrá tu evento{' '}
       </h3>
-      <div>
-        <p>Puedes crear entradas de tipo: </p>
-        <p>
-          <span className="font-bold">Gratuitas</span>: Perfectas para eventos
-          sin fines de lucro e invitaciones.
-        </p>
-        <p>
-          <span className="font-bold">De Pago</span>: Para eventos privados y
-          publicos que requieras cobrar por la entrada.
-        </p>
-      </div>
 
       {isLoading ? <Loader /> : null}
 
@@ -114,50 +106,16 @@ export const ManageTickets = () => {
             </h5>
           </div>
         )}
-
       {responseTickets &&
         responseTickets?.data.length > 0 &&
         responseTickets?.data.map((ticketType) => (
-          <div
+          <TicketTypeList
             key={ticketType.id + ticketType.name}
-            className="flex items-center justify-between my-3"
-          >
-            <Tooltip content="Eliminar" className="bg-primary">
-              <RoundedOutlineButton
-                icon={MdDeleteForever}
-                onClick={() =>
-                  handleOpenModalConfirm(ticketType.id!, ticketType.name)
-                }
-              />
-            </Tooltip>
-            <Card
-              className="dark:bg-black w-full ml-2 hover:cursor-pointer hover:shadow-primary"
-              onClick={() => {
-                setOpenModal(true);
-                setSelectetTicket(ticketType.id!);
-              }}
-            >
-              <section className="flex items-center justify-between">
-                <div>
-                  <h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    {ticketType.name}
-                  </h5>
-                </div>
-                <div className="flex justify-between">
-                  <p className="font-normal text-gray-700 dark:text-gray-400">
-                    Cantidad total:{' '}
-                    <span className="font-bold">{ticketType.totalAmount}</span>
-                  </p>
-                  <p className="font-normal text-gray-700 dark:text-gray-400 mx-5">
-                    Precio:{' '}
-                    <span className="font-bold">
-                      {ticketType.price == 0 ? 'Gratuito' : ticketType.price}
-                    </span>
-                  </p>
-                </div>
-              </section>
-            </Card>
-          </div>
+            {...ticketType}
+            setOpenModal={setOpenModal}
+            setSelectetTicket={setSelectetTicket}
+            handleOpenModalConfirm={handleOpenModalConfirm}
+          />
         ))}
 
       {!isError && !isLoading && (

@@ -1,28 +1,28 @@
-export interface Event {
-  id: number;
-  name: string;
-  description: string;
-  photo: string;
-  verticalPhoto: string;
-  venue: string;
-  subtitle: string;
-  location: string;
-  date: Date;
-}
+// export interface Event {
+//   id: number;
+//   name: string;
+//   description: string;
+//   photo: string;
+//   verticalPhoto: string;
+//   venue: string;
+//   subtitle: string;
+//   location: string;
+//   date: Date;
+// }
 
 export type EventStatus = 'DRAFT' | 'PUBLISHED' | 'FINISHED';
 
-export interface CreateEventData {
-  name: string;
-  subtitle: string;
-  photo: string;
-  verticalPhoto: string;
-  venue: string;
-  date: string;
-  time: string;
-  location: string;
-  description: string;
-}
+// export interface CreateEventData {
+//   name: string;
+//   subtitle: string;
+//   photo: string;
+//   verticalPhoto: string;
+//   venue: string;
+//   date: string;
+//   time: string;
+//   location: string;
+//   description: string;
+// }
 
 export interface EventLookLike {
   id?: number;
@@ -39,7 +39,7 @@ export interface EventLookLike {
   isFree: boolean;
 }
 
-export interface TicketType {
+interface TicketType {
   id?: number;
   name: string;
   description: string;
