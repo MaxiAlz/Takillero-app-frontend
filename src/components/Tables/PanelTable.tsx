@@ -34,6 +34,7 @@ const getStateAttributes = (
 const PanelTable = ({ tableItems }: PanelTableProps) => {
   const userRole = useUserRole();
   const navigate = useNavigate();
+
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <section className="flex items-center justify-between mb-2">
@@ -82,7 +83,7 @@ const PanelTable = ({ tableItems }: PanelTableProps) => {
               </th>
             </tr>
           </thead>
-          
+
           {!tableItems && (
             <div className="my-5">
               Ah ocurrido un error, el obtener los eventos, por favor recargue

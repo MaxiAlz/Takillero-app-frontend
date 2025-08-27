@@ -5,8 +5,6 @@ import { usePublicEvents } from '../hooks/usePublicEvents';
 const AvailableEvents = () => {
   const availablePublicEvents = usePublicEvents();
 
-  console.log('availablePublicEvents', availablePublicEvents);
-
   return (
     <>
       <div className="mx-auto mt-5">

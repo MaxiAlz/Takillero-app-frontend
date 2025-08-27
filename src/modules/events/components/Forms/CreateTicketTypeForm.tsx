@@ -13,11 +13,11 @@ import { GiTicket } from 'react-icons/gi';
 import { useTicketMutation } from '../../hooks/useTicketMutation';
 import { useAlert } from '../../../../context/AlertContext';
 import { useTicket } from '../../hooks';
-import { TicketType } from '../../interfaces/event';
 import Loader from '../../../../components/Loader';
 import { RoundedFilledButton } from '../../../../components';
 import { getBackendErrorMessage } from '../../../../helpers/handleApiErrors';
 import { AxiosError } from 'axios';
+import { TicketType } from '../../../home/types/homeTypes';
 
 interface CreateTicketTypeFormProps {
   eventId: number;
@@ -34,7 +34,11 @@ export const CreateTicketTypeForm = ({
 }: CreateTicketTypeFormProps) => {
   const ticketMutation = useTicketMutation(ticketId);
   const { showSuccessToast, showErrorToast } = useAlert();
+  // TODO: VERIFICAR QUE TRAIGA LOS DATOS DEL TICKET CON EL TICKETID, CREO QUE ESTA TRAYENDO OTRA COSA
   const { ticket, isLoading /* error */ } = useTicket(ticketId);
+
+  console.log('ticketId', ticketId);
+  console.log('ticket', ticket);
 
   const createTiketFormik = useFormik<TicketType>({
     enableReinitialize: true,

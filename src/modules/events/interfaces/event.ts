@@ -61,18 +61,7 @@ export interface TicketLookLike {
   maxAmountPerUser: number;
   eventId?: number;
 }
-export interface CategoriesTypes {
-  items: CategoryItems[];
-  pageIndex: number;
-  totalPages: number;
-  hasPreviousPage: boolean;
-  hasNextPage: boolean;
-}
 
-export interface CategoryItems {
-  id: number;
-  name: string;
-}
 export interface EvetsPaginated {
   items: ItemEvent[];
   pageIndex: number;
@@ -110,8 +99,4 @@ export interface EventResponse {
 export interface ResponseTicketTypes {
   message: string;
   data: TicketType[];
-}
-export interface ResponseCategoriesTypes {
-  message: string;
-  data: CategoriesTypes;
 }

@@ -1,3 +1,4 @@
+import { IoColorPaletteOutline } from 'react-icons/io5';
 import { IconType } from 'react-icons/lib';
 import {
   MdOutlineDashboard,
@@ -33,8 +34,13 @@ const admin_dashboard_items: DashboardItem[] = [
       },
       {
         itemName: 'Transacciones',
-        link: '/panel/billing',
+        link: '/panel/settings/transactions',
         icon: MdOutlineReceipt,
+      },
+      {
+        itemName: 'Personalizar',
+        link: '/panel/settings/personalize',
+        icon: IoColorPaletteOutline,
       },
     ],
   },

@@ -22,6 +22,7 @@ import { TestPage } from '../modules/home/views/TestPage';
 import {
   EventsPanel,
   OverviewPanel,
+  PersonalizePanel,
   SettingsPanel,
   UsersPanel,
 } from '../modules/panel/views';
@@ -58,6 +59,7 @@ export const producerRoutes: Array<RouteObject> = [
   { path: '/panel/settings', component: SettingsPanel },
   { path: '/panel/settings/profile', component: MyUserInformation },
   { path: '/panel/settings/transactions', component: OverviewPanel },
+  { path: '/panel/settings/personalize', component: PersonalizePanel },
   // panel events
   { path: '/panel/events', component: EventsPanel },
   { path: '/panel/events/create', component: CreateNewEvent },
