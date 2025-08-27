@@ -105,77 +105,84 @@ const CategoryManager = () => {
         }}
         title={modalTitle}
       >
-        <div>
-          <div className="flex-1">
-            <label className="block font-medium mb-1">
-              Nombre de la categoría
-            </label>
-            <input
-              type="text"
-              value={newCategoryName}
-              onChange={(e) => setNewCategoryName(e.target.value)}
-              placeholder="Ej: Música, Deporte..."
-              className="dark:bg-black dark:text-white w-full border rounded-lg my-2"
-            />
+        {createCategoryMutation.isPending ||
+        updateCategoryMutation.isPending ? (
+          <div className="flex justify-center items-center h-32">
+            <Loader />
           </div>
-
-          <div className="flex items-center my-2 gap-4">
-            <div className="flex items-center gap-2">
-              <label className="font-medium mb-1">Elija un color</label>
-              <input
-                type="color"
-                value={newCategoryColor}
-                onChange={(e) => setNewCategoryColor(e.target.value)}
-                className="w-12 h-10 border rounded cursor-pointer"
-                title={newCategoryColor}
-              />
-            </div>
-
-            <div className="flex items-center gap-2">
-              <label className="font-medium mb-1">Codigo Hex</label>
+        ) : (
+          <div>
+            <div className="flex-1">
+              <label className="block font-medium mb-1">
+                Nombre de la categoría
+              </label>
               <input
                 type="text"
-                value={newCategoryColor}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  if (value.match(/^#[0-9A-Fa-f]{0,6}$/)) {
-                    setNewCategoryColor(value);
-                  }
-                }}
-                placeholder="#3b82f6"
-                className="dark:bg-black dark:text-white text-black w-20 px-2 py-2 border rounded-md bg-background text-xs focus:outline-none focus:ring-2 focus:ring-ring"
-                maxLength={7}
+                value={newCategoryName}
+                onChange={(e) => setNewCategoryName(e.target.value)}
+                placeholder="Ej: Música, Deporte..."
+                className="dark:bg-black dark:text-white w-full border rounded-lg my-2"
+              />
+            </div>
+
+            <div className="flex items-center my-2 gap-4">
+              <div className="flex items-center gap-2">
+                <label className="font-medium mb-1">Elija un color</label>
+                <input
+                  type="color"
+                  value={newCategoryColor}
+                  onChange={(e) => setNewCategoryColor(e.target.value)}
+                  className="w-12 h-10 border rounded cursor-pointer"
+                  title={newCategoryColor}
+                />
+              </div>
+
+              <div className="flex items-center gap-2">
+                <label className="font-medium mb-1">Codigo Hex</label>
+                <input
+                  type="text"
+                  value={newCategoryColor}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value.match(/^#[0-9A-Fa-f]{0,6}$/)) {
+                      setNewCategoryColor(value);
+                    }
+                  }}
+                  placeholder="#3b82f6"
+                  className="dark:bg-black dark:text-white text-black w-20 px-2 py-2 border rounded-md bg-background text-xs focus:outline-none focus:ring-2 focus:ring-ring"
+                  maxLength={7}
+                />
+              </div>
+            </div>
+
+            {/* Vista previa */}
+            {newCategoryName.trim() && (
+              <div className="mt-4">
+                <label className="block text-sm text-muted-foreground mb-1">
+                  Vista previa
+                </label>
+                <div className="flex justify-start">
+                  <div
+                    className="inline-flex items-center px-3 py-1 rounded-full border font-medium text-white"
+                    style={{ backgroundColor: newCategoryColor }}
+                  >
+                    {newCategoryName}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="my-4 border-t border-gray-300"></div>
+            <div className="w-full flex justify-end">
+              <RoundedFilledButton
+                text={buttonText}
+                className="mb-2"
+                onClick={handleSaveCategory}
+                disabled={!newCategoryName.trim()}
               />
             </div>
           </div>
-
-          {/* Vista previa */}
-          {newCategoryName.trim() && (
-            <div className="mt-4">
-              <label className="block text-sm text-muted-foreground mb-1">
-                Vista previa
-              </label>
-              <div className="flex justify-start">
-                <div
-                  className="inline-flex items-center px-3 py-1 rounded-full border font-medium text-white"
-                  style={{ backgroundColor: newCategoryColor }}
-                >
-                  {newCategoryName}
-                </div>
-              </div>
-            </div>
-          )}
-
-          <div className="my-4 border-t border-gray-300"></div>
-          <div className="w-full flex justify-end">
-            <RoundedFilledButton
-              text={buttonText}
-              className="mb-2"
-              onClick={handleSaveCategory}
-              disabled={!newCategoryName.trim()}
-            />
-          </div>
-        </div>
+        )}
       </ModalCustom>
 
       <Card className="dark:bg-boxdark-2">
