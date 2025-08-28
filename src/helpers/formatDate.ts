@@ -85,7 +85,7 @@ export function addDaysToDate({
   return date;
 }
 // RETORNA FORMATO: "14/ENE/2025"
-export const formatDateShortWithMonth = (dateString: string): string => {
+export const formatDateShortWithMonth = (dateString: Date | string): string => {
   const date = new Date(dateString);
 
   // Array de meses en mayúsculas y abreviados

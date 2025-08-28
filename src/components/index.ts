@@ -1,3 +1,4 @@
+export * from './Tables/UsersTable';
 export * from './Adapters/QRGeneratorAdapterComponent';
 export * from './Alerts/ToastProvider';
 export * from './Alerts/alertBanner';

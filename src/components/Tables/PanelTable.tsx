@@ -1,8 +1,5 @@
 import {
   MdOutlineSearch,
-  // MdOutlineRemoveRedEye,
-  // MdDeleteForever,
-  // MdDownload,
   MdOutlineCreateNewFolder,
 } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
@@ -59,7 +56,7 @@ const PanelTable = ({ tableItems }: PanelTableProps) => {
           />
         </div>
       </section>
-      <div className=" overflow-x-auto">
+      <div className="overflow-x-auto">
         <table className="w-full table-auto">
           <thead>
             <tr className="bg-gray-2 text-left dark:bg-meta-4">
@@ -132,9 +129,6 @@ const PanelTable = ({ tableItems }: PanelTableProps) => {
                     <p className="text-sm truncate">
                       Fecha: {formatDate(item.date)}
                     </p>
-                    {/* <p className="text-sm truncate">
-                    {item.description.slice(0, 25)}
-                  </p> */}
                   </td>
                   {userRole === UserRoles.ADMINISTRADOR && (
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark truncate">
@@ -153,19 +147,6 @@ const PanelTable = ({ tableItems }: PanelTableProps) => {
                       {getStateAttributes(item.state).text}
                     </p>
                   </td>
-                  {/* <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  <div className="flex items-center space-x-3.5">
-                    <button className="hover:text-primary">
-                      <MdOutlineRemoveRedEye size={24} />
-                    </button>
-                    <button className="hover:text-primary">
-                      <MdDeleteForever size={24} />
-                    </button>
-                    <button className="hover:text-primary">
-                      <MdDownload size={24} />
-                    </button>
-                  </div>
-                </td> */}
                 </tr>
               ))}
             </tbody>
