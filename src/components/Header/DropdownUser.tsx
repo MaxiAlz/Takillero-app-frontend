@@ -6,7 +6,7 @@ import { RootState } from '../../redux/store';
 import { dropdown_user_links } from '../../constants/panel/dropdownUser_items-';
 import { logoutUser } from '../../redux/slices/auth/authThunk';
 import { useQueryClient } from '@tanstack/react-query';
-import { UserRoles } from '../../modules/Auth/types/authTypes';
+import { setUserRoleTag } from '../../helpers/userRolesHelper';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -46,19 +46,6 @@ const DropdownUser = () => {
     await dispatch(logoutUser());
     navigate('/auth/login');
     queryClient.invalidateQueries();
-  };
-
-  const setUserRoleTag = (userRole: UserRoles | undefined) => {
-    switch (userRole) {
-      case UserRoles.PRODUCTOR:
-        return 'PRODUCTOR';
-
-      case UserRoles.ADMINISTRADOR:
-        return 'ADMINISTRADOR';
-
-      default:
-        return 'USUARIO';
-    }
   };
 
   return (

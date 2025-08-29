@@ -1,5 +1,3 @@
-import { string } from 'yup';
-
 export interface UserLoginData {
   email: string;
   password: string;
@@ -20,6 +18,7 @@ export enum UserRoles {
   PRODUCTOR = 'SELLER',
   ADMINISTRADOR = 'ADMIN',
   USUARIO = 'USUARIO',
+  COMPRADOR = 'BUYER',
 }
 
 export enum AuthStatus {

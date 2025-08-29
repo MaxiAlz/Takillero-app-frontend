@@ -12,6 +12,14 @@ export type UpdateCategoryInput = {
   categoryFormData: CategoryFormData;
 };
 
+export interface CreateUserFormData {
+  name: string;
+  email: string;
+  username: string;
+  password: string;
+  role: number;
+}
+
 export interface UserDataPaginated {
   items: UsersItems[];
   pageIndex: number;

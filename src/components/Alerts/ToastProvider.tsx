@@ -11,6 +11,7 @@ const ToastProvider: React.FC = () => {
       pauseOnHover
       draggable
       theme="colored"
+      className={'z-999999'}
     />
   );
 };
