@@ -8,9 +8,11 @@ import { UserRoles } from '../../Auth/types/authTypes';
 import { useGetSpecificUrl } from '../hooks';
 
 export const eventRepository = {
-  async getAuthUserEvents(userRole: UserRoles) {
+  async getAuthUserEvents(userRole: UserRoles, page: number) {
     const path = useGetSpecificUrl('/Events', userRole);
-    const { data } = await apiService.get<EventResponsePaginated>(path);
+    const { data } = await apiService.get<EventResponsePaginated>(
+      `${path}?pageIndex=${page}`,
+    );
     return data;
   },
 

@@ -9,10 +9,9 @@ interface PaginationProps {
 /*
 Modo de uso:
 crear un estado en el Hook del UseQuery : const [page, setPage] = useState(1);
-Pasaer el page en el repositorio y usarlo de la siguiente forma: /Users?pageIndex=${page}
+Pasaer el page al la key del Hook y el repositorio, usarlo de la siguiente forma: /Users?pageIndex=${page}
 Desesctructurar el setpage del hook en el componente a usar:  const { usersData, isLoading, setPage } = useGetUsers();
 Pasarlo en el componente de PaginationsButtons como props
-
 */
 
 const PaginationsButtons: React.FC<PaginationProps> = ({

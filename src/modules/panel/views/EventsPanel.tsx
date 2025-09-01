@@ -22,7 +22,12 @@ const EventsPanel = () => {
           </div>
         )}
         {getUsersEvents.data?.data.items && (
-          <PanelTable tableItems={getUsersEvents.data?.data.items} />
+          <PanelTable
+            tableItems={getUsersEvents.data?.data.items}
+            pageIndex={getUsersEvents.data?.data.pageIndex}
+            totalPages={getUsersEvents.data?.data.totalPages}
+            setPage={getUsersEvents.setPage}
+          />
         )}
       </DefaultLayout>
     </>

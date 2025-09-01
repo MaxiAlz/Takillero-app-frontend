@@ -1,16 +1,17 @@
-import {
-  MdOutlineSearch,
-  MdOutlineCreateNewFolder,
-} from 'react-icons/md';
+import { MdOutlineSearch, MdOutlineCreateNewFolder } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { RoundedFilledButton } from '../Buttons';
 import { ItemEvent } from '../../modules/events';
 import { formatDate } from '../../helpers/formatDate';
 import { useUserRole } from '../../hooks/useUserRole';
 import { UserRoles } from '../../modules/Auth/types/authTypes';
+import { PaginationsButtons } from '../Pagination/PaginationsButtons';
 
 interface PanelTableProps {
   tableItems: ItemEvent[] | undefined;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  pageIndex: number;
+  totalPages: number;
 }
 
 const getStateAttributes = (
@@ -28,7 +29,12 @@ const getStateAttributes = (
   }
 };
 
-const PanelTable = ({ tableItems }: PanelTableProps) => {
+const PanelTable = ({
+  tableItems,
+  setPage,
+  pageIndex,
+  totalPages,
+}: PanelTableProps) => {
   const userRole = useUserRole();
   const navigate = useNavigate();
 
@@ -152,6 +158,11 @@ const PanelTable = ({ tableItems }: PanelTableProps) => {
             </tbody>
           )}
         </table>
+        <PaginationsButtons
+          onPageChange={setPage}
+          pageIndex={pageIndex}
+          totalPages={totalPages}
+        />
       </div>
     </div>
   );
