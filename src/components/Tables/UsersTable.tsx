@@ -1,18 +1,19 @@
 import { MdDelete, MdEdit, MdOutlineSearch } from 'react-icons/md';
 import { RoundedFilledButton } from '../Buttons';
-import { UsersItems } from '../../modules/panel/interfaces/adminTypes';
+import { UserDataPaginated } from '../../modules/panel/interfaces/adminTypes';
 import { FaUser } from 'react-icons/fa6';
 import { formatDateShortWithMonth } from '../../helpers/formatDate';
 import { UserRoles } from '../../modules/Auth/types/authTypes';
 import { useState } from 'react';
 import { ModalCustom } from '../Modal/ModalCustom';
 import { CreateUserForm } from '../../modules/panel/components/CreateUserForm';
+import { PaginationsButtons } from '../Pagination/PaginationsButtons';
 
 interface UsersTableProps {
-  usersItems: UsersItems[];
+  usersItems: UserDataPaginated;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 }
-const UsersTable = ({ usersItems }: UsersTableProps) => {
-  // const navigate = useNavigate();
+const UsersTable = ({ usersItems, setPage }: UsersTableProps) => {
   const [openModal, setOpenModal] = useState<boolean>(false);
 
   const getRoleAttributes = (role: UserRoles | string) => {
@@ -92,7 +93,7 @@ const UsersTable = ({ usersItems }: UsersTableProps) => {
               </tr>
             </thead>
             <tbody className=" divide-y divide-gray-200 dark:divide-gray-700">
-              {usersItems.map((user, index) => (
+              {usersItems.items.map((user, index) => (
                 <tr
                   key={index}
                   className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
@@ -144,7 +145,13 @@ const UsersTable = ({ usersItems }: UsersTableProps) => {
                 </tr>
               ))}
             </tbody>
+            <div className="flex overflow-x-auto justify-between ws sm:justify-center mt-4"></div>
           </table>
+          <PaginationsButtons
+            onPageChange={setPage}
+            pageIndex={usersItems.pageIndex}
+            totalPages={usersItems.totalPages}
+          />
         </div>
       </div>
     </>

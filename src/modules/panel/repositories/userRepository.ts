@@ -20,8 +20,10 @@ export const userRepository = {
     return data;
   },
 
-  async getUsers() {
-    const { data } = await apiService.get<UsersDataResponde>('/Users');
+  async getUsers(page: number) {
+    const { data } = await apiService.get<UsersDataResponde>(
+      `/Users?pageIndex=${page}`,
+    );
     return data;
   },
 };
