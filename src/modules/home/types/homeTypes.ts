@@ -18,6 +18,8 @@ export interface EventItem {
   photo: string;
   verticalPhoto: string;
   minimumPrice: number;
+  categoryName: string;
+  categoryColor: string;
 }
 
 export interface PublicEventData {
@@ -50,12 +52,12 @@ export interface EventDetailsResponse {
   data: PublicEventData;
 }
 export interface TicketType {
-  id: number;
+  id?: number;
   name: string;
   description: string;
   price: number;
-  endOfSale: Date;
-  startOfSale: Date;
+  endOfSale: string;
+  startOfSale: string;
   totalAmount: number;
   maxAmountPerUser: number;
 }

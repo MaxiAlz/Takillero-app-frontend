@@ -1,8 +1,4 @@
-import {
-  Breadcrumb,
-  PageTitle,
-  UsersTable,
-} from '../../../components';
+import { Breadcrumb, PageTitle, UsersTable } from '../../../components';
 import Loader from '../../../components/Loader';
 import DefaultLayout from '../../../layout/DefaultLayout';
 import { useGetUsers } from '../hooks/useGetUsers';
@@ -10,7 +6,6 @@ import { useGetUsers } from '../hooks/useGetUsers';
 const UsersPanel = () => {
   const { usersData, isLoading, setPage } = useGetUsers();
 
-  console.log('users', usersData);
   return (
     <>
       <PageTitle title="Usuarios" />

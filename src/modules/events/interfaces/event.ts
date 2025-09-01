@@ -44,8 +44,8 @@ interface TicketType {
   name: string;
   description: string;
   price: number;
-  endOfSale: string;
-  startOfSale: string;
+  endOfSale: Date;
+  startOfSale: Date;
   totalAmount: number;
   maxAmountPerUser: number;
   eventId?: number;

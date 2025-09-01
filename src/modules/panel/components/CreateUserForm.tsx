@@ -71,18 +71,14 @@ const CreateUserForm = ({ setOpenModal }: CreateUserFormProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log('formData', formData);
       userMutation.mutate(formData, {
         onSuccess: (data) => {
-          console.log('data', data);
           queryClient.invalidateQueries({ queryKey: ['users', 'list'] });
           const message = getBackendErrorMessage(data.message);
           showSuccessToast(message ? message : 'Usuario creada con éxito');
           setOpenModal(false);
         },
-        onError: (data) => {
-          console.log('data', data);
-
+        onError: () => {
           showErrorToast('Error al crear usuario');
         },
       });

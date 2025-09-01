@@ -32,12 +32,10 @@ export const ticketsRepository = {
     return data;
   },
 
-  async getTicketsById(
-    eventId: number,
-    userRole: UserRoles,
-  ): Promise<ResponseTicketTypes> {
-    const path = useGetSpecificUrl(`/events/${eventId}/tickets`, userRole);
-    const { data } = await apiService.get<ResponseTicketTypes>(path);
-    return data;
+  async getTicketsById(ticketId: number): Promise<TicketType> {
+    const response = await apiService.get<TicketType>(
+      `/TicketTypes/${ticketId}`,
+    );
+    return response.data;
   },
 };

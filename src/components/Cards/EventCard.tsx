@@ -1,7 +1,4 @@
-import {
-  MdDateRange,
-  MdLocationOn,
-} from 'react-icons/md';
+import { MdDateRange, MdLocationOn } from 'react-icons/md';
 
 import { RoundedFilledButton } from '../Buttons';
 import { EventItem } from '../../modules/home/types/homeTypes';
@@ -12,7 +9,6 @@ import { formatSpanishDate } from '../../helpers/formatDate';
 interface EventCardProps {
   eventData: EventItem;
 }
-
 
 const EventCard = ({ eventData }: EventCardProps) => {
   const navigate = useNavigate();
@@ -37,9 +33,14 @@ const EventCard = ({ eventData }: EventCardProps) => {
           alt={`${eventData.name} photo`}
           className="max-w-full max-h-full object-contain"
         />
-        {eventData.state && (
-          <span className="absolute top-2 left-2 inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-500 text-white shadow-md">
-            {eventData.state}
+        {eventData.categoryName && (
+          <span
+            className="absolute top-2 left-2 inline-flex items-center px-2 py-1 rounded-full text-xs font-medium  text-white shadow-md"
+            style={{
+              backgroundColor: `#${eventData.categoryColor}`,
+            }}
+          >
+            {eventData.categoryName}
           </span>
         )}
       </div>

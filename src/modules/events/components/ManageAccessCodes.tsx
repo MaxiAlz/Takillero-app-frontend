@@ -31,6 +31,7 @@ const ManageAccessCodes = ({ eventId }: ListAcessCodesCardsProps) => {
   const { accessCodesData, error, isLoading } =
     useAccessCodesQuery.getAccesCodesByEventId(+eventId!);
   const queryClient = useQueryClient();
+
   // usestates
   const [showAccessCodeModal, setShowAccessCodeModal] = useState(false);
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
@@ -93,9 +94,9 @@ const ManageAccessCodes = ({ eventId }: ListAcessCodesCardsProps) => {
             <Loader />
           ) : (
             accessCodesData &&
-            accessCodesData.length > 0 &&
+            accessCodesData.data.length > 0 &&
             !error &&
-            accessCodesData?.map((accessCodeData) => (
+            accessCodesData?.data.map((accessCodeData) => (
               <section key={accessCodeData.id}>
                 <div
                   key={accessCodeData.id}
@@ -162,7 +163,7 @@ const ManageAccessCodes = ({ eventId }: ListAcessCodesCardsProps) => {
             ))
           )}
 
-          {!isLoading && !accessCodesData?.length && (
+          {!isLoading && !accessCodesData?.data.length && (
             <>
               <p className="mb-2 text-warning">
                 Todavia no hay Tokens de acceso creados
@@ -228,7 +229,9 @@ const ManageAccessCodes = ({ eventId }: ListAcessCodesCardsProps) => {
         title="Generar Token de Acceso"
         subtitle="Usa este codigo para validar las E-Tickes en la entrada de tu evento, puedes crear diferentes codigos para identificar a tu Staff"
       >
-        <GenerateAccesTokenForm />
+        <GenerateAccesTokenForm
+          setShowAccessCodeModal={setShowAccessCodeModal}
+        />
       </ModalCustom>
     </>
   );

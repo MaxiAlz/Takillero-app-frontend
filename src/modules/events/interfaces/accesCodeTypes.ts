@@ -12,3 +12,8 @@ export interface AccessCode {
   start: Date | string;
   id: number;
 }
+
+export interface ResponseAccessCode {
+  message: string;
+  data: AccessCode[];
+}

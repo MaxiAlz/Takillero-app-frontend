@@ -145,3 +145,10 @@ export const formatSpanishDate = (dateString: Date | string): string => {
 
   return `${dayName} ${day}/${month}/${year}`;
 };
+
+export const formatDateForInput = (dateString?: string) => {
+  if (!dateString) return '';
+  const date = new Date(dateString);
+  // Ajusta a local y corta los segundos/ms
+  return date.toISOString().slice(0, 16);
+};

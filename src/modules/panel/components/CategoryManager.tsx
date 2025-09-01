@@ -55,7 +55,6 @@ const CategoryManager = () => {
           },
 
           onError: (error) => {
-            console.log('categoryFormData', categoryFormData);
             console.error('Error updating category:', error);
             showErrorToast('Error al actualizar la categoría');
           },

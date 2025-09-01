@@ -14,10 +14,14 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useAlert } from '../../../../context/AlertContext';
 import { useCreateAccessCodeMutation } from '../../hooks';
 
-const GenerateAccesTokenForm = () => {
+interface GenerateAcessTokenFormProps {
+  setShowAccessCodeModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const GenerateAccesTokenForm = ({
+  setShowAccessCodeModal,
+}: GenerateAcessTokenFormProps) => {
   const [tokenData, setTokenData] = useState<AccessCode | null>(null);
   const { eventId } = useParams();
-  // const initialEndDate = addDays(initialStartDate, 2);
   const createAccesCodeMutation = useCreateAccessCodeMutation();
   const queryClient = useQueryClient();
   const { showErrorToast, showSuccessToast, showInfoToast } = useAlert();
@@ -65,6 +69,7 @@ const GenerateAccesTokenForm = () => {
             });
             setTokenData(data);
             showSuccessToast(`¡Acceso "${data.name}" creado!`);
+            setShowAccessCodeModal(false);
           },
           onError(data) {
             showErrorToast(`Error al crear el Accesso "${data.name}" !`);

@@ -27,7 +27,6 @@ export const ManageTickets = () => {
     undefined,
   );
 
-  console.log('selectedTicket', selectedTicket);
 
   const { isLoading, responseTickets, isError, refetch } = eventId
     ? useGetTicketsByEvent(+eventId)
@@ -60,8 +59,6 @@ export const ManageTickets = () => {
     showDefaultToast('Tickets guardados como borrador');
     navigate(`/panel/events/create/${eventId}/tickets/publish`);
   };
-
-  console.log('responseTickets', responseTickets);
 
   return (
     <>

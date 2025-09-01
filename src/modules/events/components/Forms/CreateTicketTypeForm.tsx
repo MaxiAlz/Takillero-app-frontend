@@ -18,6 +18,7 @@ import { RoundedFilledButton } from '../../../../components';
 import { getBackendErrorMessage } from '../../../../helpers/handleApiErrors';
 import { AxiosError } from 'axios';
 import { TicketType } from '../../../home/types/homeTypes';
+import { formatDateForInput } from '../../../../helpers/formatDate';
 
 interface CreateTicketTypeFormProps {
   eventId: number;
@@ -34,15 +35,17 @@ export const CreateTicketTypeForm = ({
 }: CreateTicketTypeFormProps) => {
   const ticketMutation = useTicketMutation(ticketId);
   const { showSuccessToast, showErrorToast } = useAlert();
-  // TODO: VERIFICAR QUE TRAIGA LOS DATOS DEL TICKET CON EL TICKETID, CREO QUE ESTA TRAYENDO OTRA COSA
-  const { ticket, isLoading /* error */ } = useTicket(ticketId);
-
-  console.log('ticketId', ticketId);
-  console.log('ticket', ticket);
+  const { ticket, isLoading } = useTicket(ticketId);
 
   const createTiketFormik = useFormik<TicketType>({
     enableReinitialize: true,
-    initialValues: ticket || ticketsInitialValues,
+    initialValues: ticket
+      ? {
+          ...ticket,
+          startOfSale: formatDateForInput(ticket.startOfSale),
+          endOfSale: formatDateForInput(ticket.endOfSale),
+        }
+      : ticketsInitialValues,
     validationSchema: createTicketSchemaValidation,
     onSubmit: async (values) => {
       const payload = {
@@ -68,7 +71,6 @@ export const CreateTicketTypeForm = ({
           );
           closeModal();
           refetchTickets?.();
-          // alert(error);
         },
       });
     },
