@@ -10,6 +10,7 @@ export { CreateTicketsPage } from './Pages/PanelTicketsPage';
 export { useTicket } from './hooks/useTicket';
 export { DeleteTicket } from './components/Forms/DeleteTicket';
 export { CreateTicketTypeForm } from './components/Forms/CreateTicketTypeForm';
+export { ManageInvitationCodes } from './components/ManageInvitationCodes';
 
 // repositorios
 export * as eventActions from './repositories/eventRepository';

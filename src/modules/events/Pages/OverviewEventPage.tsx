@@ -10,8 +10,10 @@ import {
   MdAttachMoney,
   MdCardGiftcard,
   MdInfo,
+  MdOutlineAnalytics,
   // MdOutlineBackHand,
   MdOutlineEnhancedEncryption,
+  MdOutlineSettings,
   MdPeople,
   MdTrendingUp,
 } from 'react-icons/md';
@@ -23,6 +25,8 @@ import CardButton from '../../../components/Buttons/CardButton';
 import ManageAccessCodes from '../components/ManageAccessCodes';
 import { useUserRole } from '../hooks/useUserRole';
 import { UserRoles } from '../../Auth/types/authTypes';
+import { FaIdBadge } from 'react-icons/fa6';
+import { ManageInvitationCodes } from '../components/ManageInvitationCodes';
 
 const settingsItems: SettingsItem[] = [
   {
@@ -43,6 +47,16 @@ const settingsItems: SettingsItem[] = [
     drawerTtitle: 'Invitar personas a tu evento',
     drawerSubtitle:
       'Carga asistentes que quieras invitar a tu evento, se les enviara un notificacion y podran descargar sus tickets en su cuenta de Activate!',
+  },
+  {
+    key: 'referidos',
+    name: 'Referidos',
+    subtitle: 'Crea codigos de referidos',
+    bgColor: 'bg-warning',
+    icon: <FaIdBadge size={30} />,
+    drawerTtitle: 'Codigos de referidos',
+    drawerSubtitle:
+      'Los codigos de referido sirven para identificar a las personas que venden entradas dentro de tu evento, es util para RRPPs, organizadores, artistas,bandas,etc.',
   },
 ];
 
@@ -96,7 +110,10 @@ const OverviewEventPage = () => {
               />
             )}
           </div>
-          <h2 className="font-bold text-xl my-2">Estadisticas acumuladas:</h2>
+          <h2 className="font-bold text-2xl my-4 flex items-center gap-2">
+            <MdOutlineAnalytics className="text-primary" />
+            Estadisticas acumuladas:
+          </h2>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5 mt-5">
             <CardDataStats
               title="Asistentes"
@@ -135,7 +152,8 @@ const OverviewEventPage = () => {
               <MdTrendingUp size={30} />
             </CardDataStats>
           </div>
-          <h2 className="font-bold text-xl my-2">
+          <h2 className="font-bold text-2xl my-4 flex items-center gap-2">
+            <MdOutlineSettings className="text-primary" />
             Configuraciones importantes:
           </h2>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5 mt-5">
@@ -169,9 +187,12 @@ const OverviewEventPage = () => {
         {isShowDrawerOpen.settingsItem.key === 'AccessTokens' && (
           <ManageAccessCodes eventId={eventId} />
         )}
-        {isShowDrawerOpen.settingsItem.key === 'stopSales' && (
-          <div>Formulario pa borrar la cosa</div>
+        {isShowDrawerOpen.settingsItem.key === 'invites' && (
+          <ManageInvitationCodes eventId={eventId} />
         )}
+        {/* {isShowDrawerOpen.settingsItem.key === 'stopSales' && (
+            <div>Formulario pa borrar la cosa</div>
+          )} */}
       </DrawerCustom>
     </>
   );
