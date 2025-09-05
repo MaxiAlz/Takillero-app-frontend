@@ -6,8 +6,8 @@ import {
   InvitationCodesResponse,
 } from '../interfaces/invitationCodesTypes';
 
-export const invitationCodesRepository = {
-  async getInvitationCodes(eventId: number, userRole: UserRoles) {
+export const referidosCodesRepository = {
+  async getReferidosCodes(eventId: number, userRole: UserRoles) {
     const path = useGetSpecificUrl(
       `/Events/${eventId}/invitationcodes`,
       userRole,
@@ -16,7 +16,7 @@ export const invitationCodesRepository = {
     return data;
   },
 
-  async createInvitationCode(body: InvitationCodeBody) {
+  async createReferidoCode(body: InvitationCodeBody) {
     const { data } = await apiService.post('/invitationcodes', body);
     return { data };
   },

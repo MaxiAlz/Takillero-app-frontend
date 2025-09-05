@@ -26,7 +26,7 @@ import ManageAccessCodes from '../components/ManageAccessCodes';
 import { useUserRole } from '../hooks/useUserRole';
 import { UserRoles } from '../../Auth/types/authTypes';
 import { FaIdBadge } from 'react-icons/fa6';
-import { ManageInvitationCodes } from '../components/ManageInvitationCodes';
+import { ManageReferidosCodes } from '../components/ManageReferidosCodes';
 
 const settingsItems: SettingsItem[] = [
   {
@@ -73,6 +73,7 @@ interface SettingsItem {
 const OverviewEventPage = () => {
   const { eventId } = useParams();
   const getEventInfo = useGetEventById(+eventId!);
+  console.log('getEventInfo', getEventInfo);
 
   const [isShowDrawerOpen, setIsShowDrawerOpen] = useState<{
     isopen: boolean;
@@ -188,11 +189,14 @@ const OverviewEventPage = () => {
           <ManageAccessCodes eventId={eventId} />
         )}
         {isShowDrawerOpen.settingsItem.key === 'invites' && (
-          <ManageInvitationCodes eventId={eventId} />
+          <div>Formulario pa borrar la cosa</div>
         )}
-        {/* {isShowDrawerOpen.settingsItem.key === 'stopSales' && (
-            <div>Formulario pa borrar la cosa</div>
-          )} */}
+        {isShowDrawerOpen.settingsItem.key === 'referidos' && (
+          <ManageReferidosCodes
+            eventId={eventId}
+            enventName={getEventInfo.eventData?.data.name}
+          />
+        )}
       </DrawerCustom>
     </>
   );

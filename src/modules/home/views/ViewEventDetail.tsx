@@ -10,9 +10,9 @@ import { INFO_MESSAGES } from '../../../constants';
 import EventInfoBanner from '../components/EventInfoBanner';
 
 const ViewEventDetail = () => {
-  const { eventId } = useParams();
+  const { eventId, referidosCode } = useParams();
   const { eventData, isLoading, isError } = useGetPublicEventById(+eventId!);
-
+  console.log('referidosCode', referidosCode);
   return (
     <>
       <PageTitle title="Ver Evento" />

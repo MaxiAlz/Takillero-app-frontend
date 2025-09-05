@@ -1,11 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
 import { InvitationCodeBody } from '../interfaces/invitationCodesTypes';
-import { invitationCodesRepository } from '../repositories/invitationCodes';
+import { referidosCodesRepository } from '../repositories/referidosCodes';
 
-export const useCreateInvitationCode = () => {
+export const useCreateReferidosCode = () => {
   return useMutation({
     mutationFn: async (invitationCodeBody: InvitationCodeBody) => {
-      return await invitationCodesRepository.createInvitationCode(
+      return await referidosCodesRepository.createReferidoCode(
         invitationCodeBody,
       );
     },

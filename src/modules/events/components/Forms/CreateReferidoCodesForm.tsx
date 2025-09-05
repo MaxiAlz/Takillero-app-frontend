@@ -1,19 +1,19 @@
-import { MdOutlineEnhancedEncryption } from 'react-icons/md';
 import { RoundedFilledButton } from '../../../../components';
 import { useState } from 'react';
-import { useCreateInvitationCode } from '../../hooks/useInvitationCodeMutation';
 import { useParams } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAlert } from '../../../../context/AlertContext';
+import { useCreateReferidosCode } from '../../hooks/useReferidosCodeMutation';
+import { FaIdBadge } from 'react-icons/fa6';
 
 interface createInvitationProps {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const CreateInvitationCodesForm = ({ setOpenModal }: createInvitationProps) => {
+const CreateReferidoCodesForm = ({ setOpenModal }: createInvitationProps) => {
   const { eventId } = useParams();
   const queryClient = useQueryClient();
   const { showErrorToast, showSuccessToast } = useAlert();
-  const creteInvitationCodeMutation = useCreateInvitationCode();
+  const creteInvitationCodeMutation = useCreateReferidosCode();
   const [invitationCodeName, setInvitationCodeName] = useState<string>('');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -55,7 +55,7 @@ const CreateInvitationCodesForm = ({ setOpenModal }: createInvitationProps) => {
         <RoundedFilledButton
           type="submit"
           text="Crear codigo de invitacion"
-          icon={<MdOutlineEnhancedEncryption size={25} />}
+          icon={<FaIdBadge size={25} />}
           disabled={invitationCodeName.length < 3}
           className="items-end"
           isLoading={creteInvitationCodeMutation.isPending}
@@ -65,4 +65,4 @@ const CreateInvitationCodesForm = ({ setOpenModal }: createInvitationProps) => {
   );
 };
 
-export { CreateInvitationCodesForm };
+export { CreateReferidoCodesForm };

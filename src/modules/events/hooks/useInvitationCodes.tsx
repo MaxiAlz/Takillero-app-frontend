@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { useUserRole } from './useUserRole';
-import { invitationCodesRepository } from '../repositories/invitationCodes';
+import { referidosCodesRepository } from '../repositories/referidosCodes';
 
-export const useInvitationCodes = {
-  getInvitationCodesByEvent(eventId: number) {
+export const useReferidosCodes = {
+  getReferidosCodesByEvent(eventId: number) {
     const userRole = useUserRole();
     const {
       isLoading,
@@ -15,7 +15,7 @@ export const useInvitationCodes = {
     } = useQuery({
       queryKey: ['invitationCodes', eventId],
       queryFn: async () =>
-        await invitationCodesRepository.getInvitationCodes(eventId, userRole),
+        await referidosCodesRepository.getReferidosCodes(eventId, userRole),
       staleTime: 1000 * 60,
     });
     return { isLoading, error, invitationCodes, isFetching, isError, refetch };

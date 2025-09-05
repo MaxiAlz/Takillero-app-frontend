@@ -88,7 +88,7 @@ export const publicRoutes = [
   { path: '/', component: HomePage },
   // { path: '/sobre-nosotros', component: AboutUs },
   { path: '/ver-tickets', component: SearchUserTickets },
-  { path: '/:eventName/:eventId', component: ViewEventDetail },
+  { path: '/:eventName/:eventId/:referidosCode?', component: ViewEventDetail },
   {
     path: '/cart/:eventId/pourchase/' /* :invitationCode? */,
     component: EventPourchasePage,
