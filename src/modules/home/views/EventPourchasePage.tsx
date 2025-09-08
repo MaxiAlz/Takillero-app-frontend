@@ -22,8 +22,7 @@ const EventPourchasePage = () => {
     PourchaseProductItem[]
   >([]);
   const [hasPaidProducts, setHasPaidProducts] = useState<boolean>(false);
-  const { eventId } = useParams();
-
+  const { eventId, referidosCode } = useParams();
   // 4.2 Custom hooks
   const { cartsPurchase } = useCartTicketStorage();
   const { eventData } = useGetPublicEventById(+eventId!);
@@ -35,6 +34,10 @@ const EventPourchasePage = () => {
       ticketTypeId: product.ticketTypeId,
     }));
     purchaseFormik.setFieldValue('ticketItems', ticketItems);
+    purchaseFormik.setFieldValue(
+      'invitationCode',
+      referidosCode ? referidosCode : '',
+    );
   };
 
   useEffect(() => {

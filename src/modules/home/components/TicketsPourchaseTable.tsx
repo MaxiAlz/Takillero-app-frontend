@@ -4,6 +4,7 @@ import { PublicEventData, TicketType } from '../types/homeTypes';
 import {
   EventCart,
   TicketItem,
+  TicketParams,
   useCartTicketStorage,
 } from '../../../hooks/useCardTicketStorage';
 import { MdDelete } from 'react-icons/md';
@@ -13,18 +14,20 @@ interface TicketsPourchaseTablePorps {
   eventId: number;
   tickets: TicketType[];
   eventData: PublicEventData;
+  referidosCode?: string;
 }
 const TicketsPourchaseTable = ({
   eventId,
   tickets,
   eventData,
+  referidosCode,
 }: TicketsPourchaseTablePorps) => {
   const { cartsPurchase, addItem, removeItem } = useCartTicketStorage();
   const navigate = useNavigate();
 
-  const handleQuantityChange = (ticketType: TicketType, quantity: number) => {
+  const handleQuantityChange = (ticketType: TicketParams, quantity: number) => {
     if (quantity === 0) {
-      removeItem(ticketType.id);
+      removeItem(ticketType.id as number);
     } else {
       addItem(eventId, eventData.name, ticketType, quantity);
     }
@@ -32,7 +35,7 @@ const TicketsPourchaseTable = ({
 
   const clearEventCart = () => {
     tickets.forEach((ticket) => {
-      removeItem(ticket.id);
+      removeItem(ticket.id as number);
     });
   };
 
@@ -90,7 +93,7 @@ const TicketsPourchaseTable = ({
                     }
                     onChange={(e) =>
                       handleQuantityChange(
-                        ticketType,
+                        ticketType as TicketParams,
                         parseInt(e.target.value, 10),
                       )
                     }
@@ -125,7 +128,7 @@ const TicketsPourchaseTable = ({
           text="Comprar tickets"
           icon={<GiTicket size={25} />}
           onClick={() => {
-            navigate(`/cart/${eventId}/pourchase`);
+            navigate(`/cart/${eventId}/pourchase/${referidosCode}`);
           }}
         />
       </div>

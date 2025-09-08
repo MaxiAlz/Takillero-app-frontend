@@ -11,8 +11,9 @@ import EventInfoBanner from '../components/EventInfoBanner';
 
 const ViewEventDetail = () => {
   const { eventId, referidosCode } = useParams();
+
+  // TODO:implementar mandar el codigo de referido
   const { eventData, isLoading, isError } = useGetPublicEventById(+eventId!);
-  console.log('referidosCode', referidosCode);
   return (
     <>
       <PageTitle title="Ver Evento" />
@@ -50,6 +51,7 @@ const ViewEventDetail = () => {
                     eventId={+eventId!}
                     tickets={eventData.data.ticketTypes}
                     eventData={eventData.data}
+                    referidosCode={referidosCode}
                   />
                   <Card className="w-full dark:bg-boxdark">
                     <h2 className="font-bold text-xl ">Descripción General:</h2>

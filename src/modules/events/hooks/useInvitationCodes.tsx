@@ -13,7 +13,7 @@ export const useReferidosCodes = {
       refetch,
       isError,
     } = useQuery({
-      queryKey: ['invitationCodes', eventId],
+      queryKey: ['referidosCodes', eventId],
       queryFn: async () =>
         await referidosCodesRepository.getReferidosCodes(eventId, userRole),
       staleTime: 1000 * 60,

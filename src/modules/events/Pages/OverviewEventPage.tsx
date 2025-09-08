@@ -73,7 +73,6 @@ interface SettingsItem {
 const OverviewEventPage = () => {
   const { eventId } = useParams();
   const getEventInfo = useGetEventById(+eventId!);
-  console.log('getEventInfo', getEventInfo);
 
   const [isShowDrawerOpen, setIsShowDrawerOpen] = useState<{
     isopen: boolean;

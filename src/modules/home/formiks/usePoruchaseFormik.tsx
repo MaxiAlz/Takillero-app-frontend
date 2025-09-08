@@ -6,8 +6,6 @@ import { useReservationEventMutation } from '../hooks/usePourchaseEventProductsM
 import { useAlert } from '../../../context/AlertContext';
 import { useNavigate } from 'react-router-dom';
 import { PourchaseResponse } from '../types/purchaseTypes';
-import { useDispatch } from 'react-redux';
-import { setPurchaseData } from '../../../redux/slices/purchase/purchaseSlice';
 import { AxiosError } from 'axios';
 import { getBackendErrorMessage } from '../../../helpers/handleApiErrors';
 import { secureLocalStorage } from '../../../helpers/secureLocalStorage';

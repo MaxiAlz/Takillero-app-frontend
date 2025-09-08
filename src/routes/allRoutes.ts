@@ -90,7 +90,7 @@ export const publicRoutes = [
   { path: '/ver-tickets', component: SearchUserTickets },
   { path: '/:eventName/:eventId/:referidosCode?', component: ViewEventDetail },
   {
-    path: '/cart/:eventId/pourchase/' /* :invitationCode? */,
+    path: '/cart/:eventId/pourchase/:referidosCode?',
     component: EventPourchasePage,
   },
   {

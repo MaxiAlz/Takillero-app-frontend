@@ -26,7 +26,7 @@ const CreateReferidoCodesForm = ({ setOpenModal }: createInvitationProps) => {
     creteInvitationCodeMutation.mutate(invitationValues, {
       onSuccess() {
         queryClient.refetchQueries({
-          queryKey: ['invitationCodes'],
+          queryKey: ['referidosCodes'],
           exact: false,
         });
         showSuccessToast('Codigo creado con exito');
