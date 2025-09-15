@@ -26,7 +26,7 @@ const EventPourchasePage = () => {
   // 4.2 Custom hooks
   const { cartsPurchase } = useCartTicketStorage();
   const { eventData } = useGetPublicEventById(+eventId!);
-  const purchaseFormik = usePurchaseFormik(+eventId!);
+  const purchaseFormik = usePurchaseFormik(+eventId!, hasPaidProducts);
 
   const setTicketItems = () => {
     const ticketItems = selectedProductsCart.map((product) => ({

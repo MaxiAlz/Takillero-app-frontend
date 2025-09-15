@@ -12,7 +12,6 @@ import EventInfoBanner from '../components/EventInfoBanner';
 const ViewEventDetail = () => {
   const { eventId, referidosCode } = useParams();
 
-  // TODO:implementar mandar el codigo de referido
   const { eventData, isLoading, isError } = useGetPublicEventById(+eventId!);
   return (
     <>

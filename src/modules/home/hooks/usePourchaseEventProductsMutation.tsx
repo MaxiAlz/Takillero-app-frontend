@@ -23,6 +23,17 @@ export const useReservationEventMutation = (eventId: number) => {
   });
 };
 
+export const usePurchaseFreeEventMutation = (eventId: number) => {
+  return useMutation({
+    mutationFn: async (payload: PurchaseEventProductsPayload) => {
+      return await purchaseEventProductsRepository.purchaseFreeEventProducts(
+        eventId,
+        payload,
+      );
+    },
+  });
+};
+
 export const usePayPurchaseByMp = () => {
   const { showErrorToast } = useAlert();
   return useMutation<PayPurchaseMpResponse, Error, string>({
