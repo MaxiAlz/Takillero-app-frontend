@@ -52,11 +52,12 @@ export interface EventDetailsResponse {
   data: PublicEventData;
 }
 export interface TicketType {
-  id?: number;
+  id: number;
   name: string;
   description: string;
   price: number;
   endOfSale: string;
+  isActive: boolean;
   startOfSale: string;
   totalAmount: number;
   maxAmountPerUser: number;

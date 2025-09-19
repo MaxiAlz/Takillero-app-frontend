@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   Breadcrumb,
   CardDataStats,
@@ -11,7 +11,6 @@ import {
   MdCardGiftcard,
   MdInfo,
   MdOutlineAnalytics,
-  // MdOutlineBackHand,
   MdOutlineEnhancedEncryption,
   MdOutlineSettings,
   MdPeople,
@@ -60,6 +59,45 @@ const settingsItems: SettingsItem[] = [
   },
 ];
 
+// const buttonsItems = [
+//   {
+//     title: 'Asistentes',
+//     subtitle: 'Total asistentes confirmados',
+//     key: 'Total asistentes confirmados',
+//     rate: '5,25',
+//     levelUp: true,
+//     total: '1,3 K',
+//     icon: <MdPeople size={30} />,
+//   },
+//   {
+//     title: 'Tickets',
+//     subtitle: 'Total tickets generados',
+//     key: 'Total tickets generados',
+//     rate: '25,25%',
+//     levelUp: true,
+//     total: '2.600',
+//     icon: <GiTicket size={30} />,
+//   },
+//   {
+//     title: 'Ingresos',
+//     subtitle: 'Total ingresos',
+//     key: 'Total ingresos',
+//     rate: '15,25%',
+//     levelUp: true,
+//     total: '$20,000 K',
+//     icon: <MdAttachMoney size={30} />,
+//   },
+//   {
+//     subtitle: 'Tendencias a futuro',
+//     title: 'Tendencia',
+//     key: 'Tendencia',
+//     rate: '36%',
+//     levelUp: true,
+//     total: '84%',
+//     icon: <MdTrendingUp size={30} />,
+//   },
+// ];
+
 interface SettingsItem {
   key: string;
   name: string;
@@ -71,6 +109,7 @@ interface SettingsItem {
 }
 
 const OverviewEventPage = () => {
+  const navigate = useNavigate();
   const { eventId } = useParams();
   const getEventInfo = useGetEventById(+eventId!);
 
@@ -117,6 +156,7 @@ const OverviewEventPage = () => {
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5 mt-5">
             <CardDataStats
               title="Asistentes"
+              subtitle="Total asistentes confirmados"
               key={'Total asistentes confirmados'}
               rate="5,25"
               levelUp
@@ -124,17 +164,26 @@ const OverviewEventPage = () => {
             >
               <MdPeople size={30} />
             </CardDataStats>
-            <CardDataStats
-              title="Tickets Generados"
-              key={'Total tickets generados'}
-              rate="25,25%"
-              levelUp
-              total="2.600"
+            <button
+              className="hover:shadow-4 hover:shadow-primary hover:opacity-90"
+              onClick={() =>
+                navigate(`/panel/events/overview/${eventId}/tickets`)
+              }
             >
-              <GiTicket size={30} />
-            </CardDataStats>
+              <CardDataStats
+                title="Tickets"
+                subtitle="Total tickets generados"
+                key={'Total tickets generados'}
+                rate="25,25%"
+                levelUp
+                total="2.600"
+              >
+                <GiTicket size={30} />
+              </CardDataStats>
+            </button>
             <CardDataStats
-              title="Ingresos Totales"
+              title="Ingresos"
+              subtitle="Total ingresos"
               key={'Total ingresos'}
               rate="15,25%"
               levelUp
@@ -143,6 +192,7 @@ const OverviewEventPage = () => {
               <MdAttachMoney size={30} />
             </CardDataStats>
             <CardDataStats
+              subtitle="Tendencias a futuro"
               title="Tendencia"
               key={'Tendencia'}
               rate="36%"

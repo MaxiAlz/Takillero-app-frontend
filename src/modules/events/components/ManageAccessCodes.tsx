@@ -62,7 +62,6 @@ const ManageAccessCodes = ({ eventId }: ListAcessCodesCardsProps) => {
           queryKey: ['accessCodes', eventId],
         });
         queryClient.refetchQueries({ queryKey: ['accessCodes'], exact: false });
-
         showSuccessToast('Codigo de Aceeso Eliminado Correctamente');
       },
       onError: () => {

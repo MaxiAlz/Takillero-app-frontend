@@ -8,7 +8,11 @@ import {
   MdEventAvailable,
   MdEventBusy,
 } from 'react-icons/md';
-import { formatDateShortWithMonth } from '../../helpers/formatDate';
+import {
+  formatDateShortWithMonth,
+  getDaysRemaining,
+} from '../../helpers/formatDate';
+import { ticketsHelper } from '../../helpers/ticketsHelper';
 
 interface TicketTypeProps {
   setOpenModal: (open: boolean) => void;
@@ -20,41 +24,9 @@ interface TicketTypeProps {
   price: number;
   description?: string;
   maxAmountPerUser: number;
-  startOfSale: string;
-  endOfSale: string;
+  startOfSale: Date;
+  endOfSale: Date;
 }
-
-const getTicketStatus = (startDate: string, endDate: string) => {
-  const now = new Date();
-  const start = new Date(startDate);
-  const end = new Date(endDate);
-
-  if (now < start)
-    return {
-      status: 'upcoming',
-      label: 'Próximamente',
-      color: 'bg-warning text-white',
-    };
-  if (now > end)
-    return {
-      status: 'expired',
-      label: 'Expirada',
-      color: 'bg-error  text-xs',
-    };
-  return {
-    status: 'active',
-    label: 'Activa',
-    color: 'bg-success text-white text-xs',
-  };
-};
-
-const getDaysRemaining = (endDate: string) => {
-  const now = new Date();
-  const end = new Date(endDate);
-  const diffTime = end.getTime() - now.getTime();
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  return diffDays;
-};
 
 const TicketTypeList = ({
   setOpenModal,
@@ -69,7 +41,7 @@ const TicketTypeList = ({
   startOfSale,
   endOfSale,
 }: TicketTypeProps) => {
-  const ticketStatus = getTicketStatus(startOfSale, endOfSale);
+  const ticketStatus = ticketsHelper.getTicketStatus(startOfSale, endOfSale);
   const daysRemaining = getDaysRemaining(endOfSale);
 
   const getSaleMessage = () => {
@@ -116,7 +88,7 @@ const TicketTypeList = ({
               <button
                 className="text-primary hover:text-red-700"
                 onClick={(e) => {
-                  e.stopPropagation(); // 👈 evita que llegue al onClick del Card
+                  e.stopPropagation();
                   handleOpenModalConfirm(id!, name);
                 }}
               >

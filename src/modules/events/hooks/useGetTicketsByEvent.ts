@@ -13,7 +13,7 @@ export const useGetTicketsByEvent = (eventId: number) => {
     data: responseTickets,
     isFetching,
   } = useQuery<ResponseTicketTypes>({
-    queryKey: ['event', eventId, 'tickets'],
+    queryKey: ['ticket-types', eventId],
     queryFn: () => ticketsRepository.getTicketsByEvent(eventId, userRole),
     staleTime: 1000 * 60,
   });

@@ -4,6 +4,7 @@ import { BillingPanelPage } from '../modules/billing';
 import {
   CreateTicketsPage,
   OverviewEventPage,
+  PanelTicketsEventPage,
   PublishEventPage,
 } from '../modules/events';
 
@@ -76,6 +77,10 @@ export const producerRoutes: Array<RouteObject> = [
   {
     path: '/panel/events/overview/:eventId',
     component: OverviewEventPage,
+  },
+  {
+    path: '/panel/events/overview/:eventId/tickets',
+    component: PanelTicketsEventPage,
   },
 
   // user routes

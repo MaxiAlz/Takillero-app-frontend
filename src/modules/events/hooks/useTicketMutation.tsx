@@ -15,3 +15,11 @@ export const useTicketMutation = (ticketId?: number) => {
     },
   });
 };
+
+export const useDisableTicketByIdMutation = () => {
+  return useMutation({
+    mutationFn: async (ticketId: number) => {
+      return await ticketsRepository.disabledTicketsById(ticketId);
+    },
+  });
+};

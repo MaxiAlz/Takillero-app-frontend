@@ -8,6 +8,7 @@ import {
 } from '../interfaces/accesCodeTypes';
 
 export const accessCodeRepository = {
+
   async createAccessCode(
     accessCodeformData: AccessCodeFormData,
     userRole: UserRoles,

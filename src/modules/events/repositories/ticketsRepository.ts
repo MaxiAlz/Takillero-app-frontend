@@ -38,4 +38,9 @@ export const ticketsRepository = {
     );
     return response.data;
   },
+
+  async disabledTicketsById(ticketId: number): Promise<TicketType> {
+    const response = await apiService.post(`/TicketTypes/${ticketId}/disable`);
+    return response.data;
+  },
 };

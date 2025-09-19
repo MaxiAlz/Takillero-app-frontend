@@ -2,8 +2,9 @@ import React, { ReactNode } from 'react';
 
 interface CardDataStatsProps {
   title: string;
+  subtitle?: string;
   total: string;
-  rate: string;
+  rate?: string;
   levelUp?: boolean;
   levelDown?: boolean;
   children: ReactNode;
@@ -11,6 +12,7 @@ interface CardDataStatsProps {
 
 const CardDataStats: React.FC<CardDataStatsProps> = ({
   title,
+  subtitle,
   total,
   rate,
   levelUp,
@@ -19,16 +21,23 @@ const CardDataStats: React.FC<CardDataStatsProps> = ({
 }) => {
   return (
     <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
-      <div className="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
-        {children}
+      <div className="flex gap-4 items-center">
+        <div className="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+          {children}
+        </div>
+        <div>
+          <h3 className="text-xl font-bold text-black dark:text-white">
+            {title}
+          </h3>
+        </div>
       </div>
 
       <div className="mt-4 flex items-end justify-between">
         <div>
-          <h4 className="text-title-md font-bold text-black dark:text-white">
+          <h4 className="text-title-md font-bold text-black dark:text-white mb-4">
             {total}
           </h4>
-          <span className="text-sm font-medium">{title}</span>
+          <span className="text-sm font-medium ">{subtitle}</span>
         </div>
 
         <span

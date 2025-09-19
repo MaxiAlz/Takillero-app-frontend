@@ -1,4 +1,5 @@
-export *  from './Pagination/PaginationsButtons';
+export * from './Cards/CardHeaderTickets';
+export * from './Pagination/PaginationsButtons';
 export * from './Tables/UsersTable';
 export * from './Adapters/QRGeneratorAdapterComponent';
 export * from './Alerts/ToastProvider';

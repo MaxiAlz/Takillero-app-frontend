@@ -1,3 +1,4 @@
+export { PanelTicketsEventPage } from './Pages/PanelTicketsEventPage';
 export { OverviewEventPage } from './Pages/OverviewEventPage';
 export * from './hooks/useGetTicketsByEvent';
 export * from './interfaces/event';

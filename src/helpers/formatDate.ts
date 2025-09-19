@@ -152,3 +152,12 @@ export const formatDateForInput = (dateString?: string) => {
   // Ajusta a local y corta los segundos/ms
   return date.toISOString().slice(0, 16);
 };
+
+// RETORNA
+export const getDaysRemaining = (endDate: Date | string) => {
+  const now = new Date();
+  const end = new Date(endDate);
+  const diffTime = end.getTime() - now.getTime();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays;
+};
