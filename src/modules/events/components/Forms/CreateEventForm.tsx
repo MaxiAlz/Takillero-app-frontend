@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { useNavigate, useParams } from 'react-router-dom';
-import { FileInput, Label } from 'flowbite-react';
+import { Label } from 'flowbite-react';
 import {
   MdAnnouncement,
-  MdCreateNewFolder,
   MdCreditCard,
   MdOutlineCreateNewFolder,
   MdOutlineImage,
@@ -24,13 +23,14 @@ import {
 } from '../../hooks';
 import { EventLookLike } from '../../interfaces/event';
 import Loader from '../../../../components/Loader';
-import { RoundedFilledButton, StickyBanner } from '../../../../components';
+import { RoundedFilledButton } from '../../../../components';
 import { INFO_MESSAGES } from '../../../../constants';
 import { useAlert } from '../../../../context/AlertContext';
 import {
   BsFillTrainLightrailFrontFill,
   BsTicketDetailed,
 } from 'react-icons/bs';
+import { useUploadFileMutation } from '../../../uploads/Hooks/useUploadMutate';
 
 const CreateEventForm = () => {
   const { eventId } = useParams();
@@ -38,10 +38,29 @@ const CreateEventForm = () => {
   const eventCategories = useEventCategories();
   const navigate = useNavigate();
   const { showErrorToast, showDefaultToast } = useAlert();
-  // Solo ejecuta useGetEventById si existe un eventId
+
+  const uploadMutation = useUploadFileMutation();
+
+  const [squarePreview, setSquarePreview] = useState<string | null>(null);
+  const [squareFile, setSquareFile] = useState<File | null>(null);
+
+  const [verticalPreview, setVerticalPreview] = useState<string | null>(null);
+  const [verticalFile, setVerticalFile] = useState<File | null>(null);
+
   const { eventData, isLoading, isError } = eventId
     ? useGetEventById(+eventId)
     : { eventData: null, isLoading: false, isError: false };
+
+  const handlePreview = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setPreview: React.Dispatch<React.SetStateAction<string | null>>,
+    setFile: React.Dispatch<React.SetStateAction<File | null>>,
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setFile(file);
+    setPreview(URL.createObjectURL(file));
+  };
 
   const {
     errors,
@@ -52,37 +71,58 @@ const CreateEventForm = () => {
     values,
     setValues,
   } = useFormik<EventLookLike>({
-    initialValues: eventData || eventFormikInitialValues,
+    initialValues: eventFormikInitialValues,
     validationSchema: eventFormikValidationEshema,
 
     onSubmit: async (values: EventLookLike) => {
-      const formatValues = {
-        ...values,
-        date: formatDateToSendValues(values.date, values.time),
-      };
-      eventMutation.mutate(formatValues, {
-        onSuccess(data) {
-          showDefaultToast('Has creado un evento como borrador');
-          navigate(`/panel/events/create/${data.data.id}/tickets`);
-        },
-        onError(error) {
-          showErrorToast(`Error al crear evento: ${error}`);
-        },
-      });
+      try {
+        // 🚀 Subir imágenes primero
+        if (squareFile) {
+          const squareUrl = await uploadMutation.mutateAsync(squareFile);
+          values.photo = squareUrl;
+        }
+        if (verticalFile) {
+          const verticalUrl = await uploadMutation.mutateAsync(verticalFile);
+          values.verticalPhoto = verticalUrl;
+        }
+        const formatValues = {
+          ...values,
+          date: formatDateToSendValues(values.date, values.time),
+        };
+
+        eventMutation.mutate(formatValues, {
+          onSuccess(data) {
+            showDefaultToast('Has creado un evento como borrador');
+            navigate(`/panel/events/create/${data.data.id}/tickets`);
+          },
+          onError(error) {
+            showErrorToast(`Error al crear evento: ${error}`);
+          },
+        });
+      } catch (err) {
+        showErrorToast('Error al subir las imágenes ❌');
+      }
     },
   });
+
+  console.log('initialValues', eventData);
 
   useEffect(() => {
     if (eventId && eventData) {
       const { formattedDate, formattedTime } = formatEventDate(
         eventData.data.date,
       );
+
       setValues({
         ...eventFormikInitialValues,
-        ...eventData,
+        ...eventData.data,
         date: formattedDate,
         time: formattedTime,
       });
+
+      // 🔹 Seteamos los previews desde las URLs de la API
+      setSquarePreview(eventData.data.photo || null);
+      setVerticalPreview(eventData.data.verticalPhoto || null);
     }
   }, [eventId, eventData, setValues]);
 
@@ -139,8 +179,98 @@ const CreateEventForm = () => {
             puedan reconocer tu evento.
           </p>
         </div>
+
         <section className="flex flex-col lg:flex-row gap-6 mb-8 mx-10">
-          {/* Square Image Preview */}
+          {/* Imagen cuadrada */}
+          <div className="flex-shrink-0">
+            <Label
+              htmlFor="square-upload"
+              className="flex h-72 w-72 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600 overflow-hidden"
+            >
+              {squarePreview || values.photo ? (
+                <img
+                  src={squarePreview || values.photo || '/placeholder.svg'}
+                  alt="Vista previa cuadrada"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="flex flex-col items-center justify-center pb-6 pt-5">
+                  <IoMdCloudUpload size={50} />
+                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400 text-center">
+                    <span className="font-semibold">
+                      Carga una imagen cuadrada
+                    </span>
+                    <br />o arrastra aquí
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    PNG, JPG o GIF (1:1)
+                  </p>
+                </div>
+              )}
+              <input
+                id="square-upload"
+                type="file"
+                className="hidden"
+                accept="image/*"
+                onChange={(e) =>
+                  handlePreview(e, setSquarePreview, setSquareFile)
+                }
+              />
+            </Label>
+          </div>
+          {errors.photo && touched.photo ? (
+            <div className="text-error">{errors.photo}</div>
+          ) : null}
+
+          {/* Imagen horizontal */}
+          <div className="flex-1">
+            <Label
+              htmlFor="horizontal-upload"
+              className="flex h-72 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600 overflow-hidden"
+            >
+              {verticalPreview || values.verticalPhoto ? (
+                <img
+                  src={
+                    verticalPreview ||
+                    values.verticalPhoto ||
+                    '/placeholder.svg'
+                  }
+                  alt="Vista previa horizontal"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="flex flex-col items-center justify-center pb-6 pt-5">
+                  <IoMdCloudUpload size={50} />
+                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400 text-center">
+                    <span className="font-semibold">
+                      Carga una imagen horizontal
+                    </span>
+                    <br />o arrastra aquí
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    PNG, JPG o GIF (16:9)
+                  </p>
+                </div>
+              )}
+
+              <input
+                id="horizontal-upload"
+                type="file"
+                className="hidden"
+                accept="image/*"
+                onChange={(e) =>
+                  handlePreview(e, setVerticalPreview, setVerticalFile)
+                }
+              />
+            </Label>
+          </div>
+          {errors.verticalPhoto && touched.verticalPhoto ? (
+            <div className="text-error">{errors.verticalPhoto}</div>
+          ) : null}
+        </section>
+
+        {/* <section className="flex flex-col lg:flex-row gap-6 mb-8 mx-10">
+         
           <div className="flex-shrink-0">
             <Label
               htmlFor="square-upload"
@@ -175,9 +305,14 @@ const CreateEventForm = () => {
                 accept="image/*"
               />
             </Label>
+            <button
+              onClick={() => uploadFiles(file)}
+              className="mt-2 w-full rounded bg-primary px-4 py-2 text-white hover:bg-primary-dark"
+            >
+              Subir imagenes pa
+            </button>
           </div>
 
-          {/* Horizontal Image Preview */}
           <div className="flex-1">
             <Label
               htmlFor="horizontal-upload"
@@ -213,9 +348,10 @@ const CreateEventForm = () => {
               />
             </Label>
           </div>
-        </section>
+        </section> */}
+
         <form onSubmit={handleSubmit} className="mx-10 ">
-          <section className=" gap-4 grid grid-cols-2 mt-5">
+          {/* <section className=" gap-4 grid grid-cols-2 mt-5">
             <div className="w-full ">
               <label className="mb-3 block text-black dark:text-white text-3xl">
                 Foto cuadrada
@@ -252,7 +388,7 @@ const CreateEventForm = () => {
                 <div className="text-error">{errors.verticalPhoto}</div>
               ) : null}
             </div>
-          </section>
+          </section> */}
           <div className="my-4 p-4 border-b border-gray-200 ">
             <div className="flex">
               <BsTicketDetailed className="text-primary mx-2" size={30} />

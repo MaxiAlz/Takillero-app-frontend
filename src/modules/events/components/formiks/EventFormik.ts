@@ -21,8 +21,6 @@ export const eventFormikInitialValues = {
 
 export const eventFormikValidationEshema = Yup.object({
   name: Yup.string().required(VALIDATION_MESSAGES.required),
-  verticalPhoto: Yup.string() /* .required(VALIDATION_MESSAGES.required) */,
-  photo: Yup.string().required(VALIDATION_MESSAGES.required),
   subtitle: Yup.string().required(VALIDATION_MESSAGES.required),
   date: Yup.string().required(VALIDATION_MESSAGES.required),
   time: Yup.string().required(VALIDATION_MESSAGES.required),
