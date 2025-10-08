@@ -20,10 +20,6 @@ const SignUp: React.FC = () => {
                   <img className="hidden dark:block" src={Logo} alt="Logo" />
                   <img className="dark:hidden" src={LogoDark} alt="Logo" />
                 </Link>
-                <p className="2xl:px-20">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                  suspendisse.
-                </p>
 
                 <span className="mt-15 inline-block">
                   <svg

@@ -11,7 +11,7 @@ interface ProtectecRouterProps {
 const ProtectedRoutes = ({ children }: ProtectecRouterProps) => {
   const { status, user } = useSelector((state: RootState) => state.auth);
 
-  if (!(user?.id && status === AuthStatus.AUTHENTICATED)) {
+  if (!(user?.data.role && status === AuthStatus.AUTHENTICATED)) {
     return <Navigate to={'/auth/login'} />;
   } else return children;
 };

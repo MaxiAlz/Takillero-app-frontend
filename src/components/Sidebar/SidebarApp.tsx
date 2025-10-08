@@ -9,7 +9,7 @@ import {
   HiUser,
 } from 'react-icons/hi';
 import { Link, useLocation } from 'react-router-dom';
-import { APP_TEXT } from '../../common/text';
+import { APP_TEXT } from '../../constants/text';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -40,7 +40,7 @@ const SidebarApp = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   return (
     <aside
       ref={sidebar}
-      className={`absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${
+      className={`absolute left-0 top-0 z-99 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${
         sidebarOpen ? 'translate-x-0 ' : '-translate-x-full hidden'
       }`}
     >

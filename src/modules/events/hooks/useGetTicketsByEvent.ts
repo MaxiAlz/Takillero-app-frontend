@@ -1,18 +1,21 @@
 import { useQuery } from '@tanstack/react-query';
-import { getTicketsByEvent } from '../services/actions';
+import { ticketsRepository } from '../repositories/ticketsRepository';
+import { useUserRole } from './useUserRole';
+import { ResponseTicketTypes } from '../interfaces/event';
 
 export const useGetTicketsByEvent = (eventId: number) => {
+  const userRole = useUserRole();
   const {
     isLoading,
     error,
     isError,
     refetch,
-    data: ticketsEvent = [],
+    data: responseTickets,
     isFetching,
-  } = useQuery({
-    queryKey: ['event', eventId, 'tickets'],
-    queryFn: () => getTicketsByEvent(eventId),
+  } = useQuery<ResponseTicketTypes>({
+    queryKey: ['ticket-types', eventId],
+    queryFn: () => ticketsRepository.getTicketsByEvent(eventId, userRole),
     staleTime: 1000 * 60,
   });
-  return { isLoading, error, ticketsEvent, isFetching, isError, refetch };
+  return { isLoading, error, responseTickets, isFetching, isError, refetch };
 };

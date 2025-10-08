@@ -1,6 +1,7 @@
 import { ReactNode, useState } from 'react';
 import Navbar from '../components/Navbar/Navbar';
 import { SidebarApp } from '../components/Sidebar/SidebarApp';
+import FooterCustom from '../components/Navbar/Footer';
 
 const HomeLayaut: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
@@ -24,12 +25,13 @@ const HomeLayaut: React.FC<{ children: ReactNode }> = ({ children }) => {
           {/* <!-- ===== Header End ===== --> */}
 
           {/* <!-- ===== Main Content Start ===== --> */}
-          <main>
-            <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+          <main className="flex-grow">
+            <div className="mx-auto max-w-screen-2xl w-full">
               {children}
             </div>
           </main>
           {/* <!-- ===== Main Content End ===== --> */}
+          <FooterCustom />
         </div>
         {/* <!-- ===== Content Area End ===== --> */}
       </div>

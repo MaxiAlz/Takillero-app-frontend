@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { checkUserSession } from './redux/slices/auth/authThunk';
 import { AppDispatch, RootState } from './redux/store';
 import RouteIndex from './routes/RouterIndex';
-import Loader from './common/Loader';
+import Loader from './components/Loader';
 import { AuthStatus } from './modules/Auth/types/authTypes';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const { pathname } = useLocation();
@@ -24,7 +25,13 @@ function App() {
     verifySession();
   }, [dispatch]);
 
-  return status === AuthStatus.CHECKING ? <Loader /> : <RouteIndex />;
+  return status === AuthStatus.CHECKING ? (
+    <Loader />
+  ) : (
+    <>
+      <RouteIndex />
+    </>
+  );
 }
 
 export default App;

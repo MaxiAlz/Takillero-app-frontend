@@ -19,7 +19,7 @@ export const authSlice = createSlice({
       state.user = action.payload;
       state.status = AuthStatus.AUTHENTICATED;
     },
-    logoutUser(state: LoginState) {
+    setLogoutUser(state: LoginState) {
       state.user = null;
       state.status = AuthStatus['NOT-AUTHENTICATED'];
     },
@@ -30,7 +30,8 @@ export const authSlice = createSlice({
 });
 
 // Exporta las acciones para usarlas en los componentes
-export const { setUserAuthenticated, logoutUser, setError } = authSlice.actions;
+export const { setUserAuthenticated, setLogoutUser, setError } =
+  authSlice.actions;
 
 // Exporta el reducer para incluirlo en el store
 export default authSlice.reducer;

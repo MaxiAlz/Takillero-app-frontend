@@ -1,7 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { getTicketsById } from '../services/actions';
+import { ticketsRepository } from '../repositories/ticketsRepository';
+// import { useUserRole } from './useUserRole';
 
 export const useTicket = (ticketId?: number) => {
+  // const userRole = useUserRole();
   const {
     isLoading,
     error,
@@ -11,9 +13,8 @@ export const useTicket = (ticketId?: number) => {
     isFetching,
   } = useQuery({
     queryKey: ['manageTicket', 'ticket', ticketId],
-    queryFn: () => getTicketsById(ticketId!), // Ajusta ! para manejar `ticketId` undefined si es necesario
-    staleTime: 1000 * 60 * 10,
-    enabled: !!ticketId, // Solo ejecuta la query si `ticketId` está definido
+    queryFn: () => ticketsRepository.getTicketsById(ticketId! /* userRole */),
+    enabled: !!ticketId,
   });
   return { isLoading, error, ticket, isFetching, isError, refetch };
 };

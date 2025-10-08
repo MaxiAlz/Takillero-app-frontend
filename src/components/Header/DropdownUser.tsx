@@ -1,15 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-
-import UserOne from '../../images/user/user-01.png';
-import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { dropdown_user_links } from '../../constants/panel/dropdownUser_items-';
+import { logoutUser } from '../../redux/slices/auth/authThunk';
+import { useQueryClient } from '@tanstack/react-query';
+import { setUserRoleTag } from '../../helpers/userRolesHelper';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { user /* status */ } = useSelector((state: RootState) => state.auth);
-
+  const dispatch = useDispatch<any>();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { user } = useSelector((state: RootState) => state.auth);
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
 
@@ -39,6 +42,24 @@ const DropdownUser = () => {
     return () => document.removeEventListener('keydown', keyHandler);
   });
 
+  const handleLogout = async () => {
+    await dispatch(logoutUser());
+    navigate('/auth/login');
+    queryClient.invalidateQueries();
+  };
+
+  const getInitials = (name: string): string => {
+    if (!name) return '';
+    const words = name.trim().split(' ').filter(Boolean);
+
+    // Tomamos las dos primeras letras significativas
+    const initials = words
+      .slice(0, 2)
+      .map((w) => w[0].toUpperCase())
+      .join('');
+    return initials;
+  };
+
   return (
     <div className="relative">
       <Link
@@ -49,16 +70,25 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {user?.name.toUpperCase()}
+            {user?.data.name.toUpperCase()}
           </span>
           <span className="block text-xs">
-            {user?.userName} |{' '}
-            {user?.role == 0 ? 'Organizador' : 'Cuenta comun'}
+            {setUserRoleTag(user?.data.role)}
           </span>
         </span>
 
-        <span className="h-12 w-12 rounded-full">
-          <img src={UserOne} alt="User" />
+        <span className="relative h-12 w-12 rounded-full overflow-hidden">
+          {user?.data?.profileImage ? (
+            <img
+              src={user.data.profileImage}
+              alt={user.data.name}
+              className="h-full w-full object-cover rounded-full"
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center rounded-full bg-primary text-white font-semibold">
+              {getInitials(user?.data?.name || '')}
+            </div>
+          )}
         </span>
 
         <svg
@@ -100,7 +130,10 @@ const DropdownUser = () => {
             </li>
           ))}
         </ul>
-        <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+        <button
+          className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+          onClick={handleLogout}
+        >
           <svg
             className="fill-current"
             width="22"

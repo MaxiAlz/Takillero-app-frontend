@@ -1,22 +1,33 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import DropdownUser from '../Header/DropdownUser';
 import DarkModeSwitcher from '../Header/DarkModeSwitcher';
-import { APP_TEXT } from '../../common/text';
+import { APP_TEXT } from '../../constants/text';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { AuthStatus } from '../../modules/Auth/types/authTypes';
+import { DropdownShoppingCart } from '../Header/DropdownShoppingCart';
+import { RoundedOutlineButton } from '../Buttons';
+import { GiTicket } from 'react-icons/gi';
 
 interface NavbarPorps {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
 }
 
+const navbarItems = [
+  // { href: '/eventos', label: 'Eventos' },
+  // { href: '/contacto', label: 'Contacto' },
+  { href: '/sobre-nosotros', label: 'Sobre Nosotros' },
+  { href: '/ver-tickets', label: 'Ver Tickets' },
+];
+
 const Navbar = (props: NavbarPorps) => {
   const { user, status } = useSelector((state: RootState) => state.auth);
+  const navigate = useNavigate();
 
   return (
     <>
-      <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
+      <header className="sticky top-0 z-99 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
         <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
           <div className="flex items-center gap-2 sm:gap-4 md:hidden">
             <button
@@ -25,7 +36,7 @@ const Navbar = (props: NavbarPorps) => {
                 e.stopPropagation();
                 props.setSidebarOpen(!props.sidebarOpen);
               }}
-              className="z-99999 block rounded-sm border border-stroke bg-white p-1.5 shadow-sm dark:border-strokedark dark:bg-boxdark lg:hidden"
+              className="z-99 block rounded-sm border border-stroke bg-white p-1.5 shadow-sm dark:border-strokedark dark:bg-boxdark lg:hidden"
             >
               <span className="relative block h-5.5 w-5.5 cursor-pointer">
                 <span className="du-block absolute right-0 h-full w-full">
@@ -73,34 +84,23 @@ const Navbar = (props: NavbarPorps) => {
                   to={'/'}
                   className="text-primary font-semibold uppercase mx-2"
                 >
-                  {APP_TEXT.app_name}
+                  <div className="flex font-bold uppercase text-primary text-2xl text-center">
+                    <GiTicket />
+                    <h1 className="">{APP_TEXT.app_name}</h1>
+                  </div>
                 </Link>
-                <ul className="flex space-x-6">
-                  <li>
-                    <a
-                      href="/eventos"
-                      className="text-gray-800 hover:text-primary"
-                    >
-                      Eventos
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/contacto"
-                      className="text-gray-800 hover:text-primary"
-                    >
-                      Contacto
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/sobre-nosotros"
-                      className="text-gray-800 hover:text-primary"
-                    >
-                      Sobre Nosotros
-                    </a>
-                  </li>
-                </ul>
+                {navbarItems.map((item, index) => (
+                  <ul className="flex" key={item.href + index}>
+                    <li key={item.href} className="mx-2">
+                      <a
+                        href={item.href}
+                        className="text-gray-800 hover:text-primary"
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  </ul>
+                ))}
               </div>
             </div>
           </div>
@@ -108,12 +108,21 @@ const Navbar = (props: NavbarPorps) => {
           <div className="flex items-center gap-3 2xsm:gap-7">
             <ul className="flex items-center gap-2 2xsm:gap-4">
               {/* <!-- Dark Mode Toggler --> */}
+              {/* <DropdownMessage /> */}
+              {/* <DropdownNotification /> */}
+              <DropdownShoppingCart />
               <DarkModeSwitcher />
               {/* <!-- Dark Mode Toggler --> */}
             </ul>
 
             {/* <!-- User Area --> */}
             {!!user && status === AuthStatus.AUTHENTICATED && <DropdownUser />}
+            {!user && (
+              <RoundedOutlineButton
+                text="Ingresar"
+                onClick={() => navigate('/auth/login')}
+              />
+            )}
             {/* <!-- User Area --> */}
           </div>
         </div>

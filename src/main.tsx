@@ -10,13 +10,18 @@ import './css/style.css';
 import './css/satoshi.css';
 import 'jsvectormap/dist/css/jsvectormap.css';
 import 'flatpickr/dist/flatpickr.min.css';
+import { AlertProvider } from './context/AlertContext';
+import ToastProvider from './components/Alerts/ToastProvider';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
       <TanStackProvider>
         <Router>
-          <App />
+          <AlertProvider>
+            <ToastProvider />
+            <App />
+          </AlertProvider>
         </Router>
       </TanStackProvider>
     </Provider>

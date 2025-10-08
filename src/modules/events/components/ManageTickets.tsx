@@ -1,19 +1,22 @@
 import { useState } from 'react';
-import { MdDeleteForever, MdSave } from 'react-icons/md';
-import { Card, Tooltip } from 'flowbite-react';
-import { CreateTicketTypeForm } from '../Forms/CreateTicketTypeForm';
+import { MdSave } from 'react-icons/md';
+import { Card } from 'flowbite-react';
 import {
   ModalCustom,
   RoundedFilledButton,
-  RoundedOutlineButton,
+  TicketTypeList,
 } from '../../../components';
 import { useGetTicketsByEvent } from '../hooks/useGetTicketsByEvent';
 import { useNavigate, useParams } from 'react-router-dom';
-import { DeleteTicket } from '../Forms/DeleteTicket';
+import { CreateTicketTypeForm } from './Forms/CreateTicketTypeForm';
+import { DeleteTicket } from './Forms/DeleteTicket';
+import { useAlert } from '../../../context/AlertContext';
+import Loader from '../../../components/Loader';
 
 export const ManageTickets = () => {
   const { eventId } = useParams();
   const navigate = useNavigate();
+  const { showDefaultToast } = useAlert();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openConfirmModal, setOpenConfirmModal] = useState<boolean>(false);
   const [ticketToDelete, setTicketToDelete] = useState({
@@ -24,9 +27,15 @@ export const ManageTickets = () => {
     undefined,
   );
 
-  const { isLoading, ticketsEvent, isError, refetch } = eventId
+
+  const { isLoading, responseTickets, isError, refetch } = eventId
     ? useGetTicketsByEvent(+eventId)
-    : { isLoading: false, ticketsEvent: [] };
+    : {
+        isLoading: false,
+        responseTickets: null,
+        isError: false,
+        refetch: () => {},
+      };
 
   const closeModal = () => {
     setOpenModal(false);
@@ -47,6 +56,7 @@ export const ManageTickets = () => {
     return <p>Error: ID del evento no encontrado.</p>;
   }
   const handleClickContinue = () => {
+    showDefaultToast('Tickets guardados como borrador');
     navigate(`/panel/events/create/${eventId}/tickets/publish`);
   };
 
@@ -78,62 +88,33 @@ export const ManageTickets = () => {
       </ModalCustom>
 
       <h3 className="font-bold my-2 mb-5 opacity-85 text-black dark:text-white text-3xl">
-        Aqui podras crear y administrar las entradas de tu eventos
+        Crea los tipos de entradas que tendrá tu evento{' '}
       </h3>
 
-      {isLoading ? <p>Cargando entradas....</p> : null}
+      {isLoading ? <Loader /> : null}
 
-      {ticketsEvent.length === 0 && !isError && !isLoading && (
-        <div className="w-full text-center my-5">
-          <h5 className="text-xl  tracking-tight text-gray-900 dark:text-white">
-            No hay entradas creadas todavia :(
-          </h5>
-        </div>
-      )}
-
-      {ticketsEvent.length > 0 &&
-        ticketsEvent.map((ticketType) => (
-          <div
-            key={ticketType.id}
-            className="flex items-center justify-between my-3"
-          >
-            <Tooltip content="Eliminar" className="bg-primary">
-              <RoundedOutlineButton
-                icon={MdDeleteForever}
-                onClick={() =>
-                  handleOpenModalConfirm(ticketType.id!, ticketType.name)
-                }
-              />
-            </Tooltip>
-            <Card
-              className="dark:bg-black w-full ml-2 hover:cursor-pointer hover:shadow-primary"
-              onClick={() => {
-                setOpenModal(true);
-                setSelectetTicket(ticketType.id!);
-              }}
-            >
-              <section className="flex items-center justify-between">
-                <div>
-                  <h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    {ticketType.name}
-                  </h5>
-                </div>
-                <div className="flex justify-between">
-                  <p className="font-normal text-gray-700 dark:text-gray-400">
-                    Cantidad total:{' '}
-                    <span className="font-bold">{ticketType.totalAmount}</span>
-                  </p>
-                  <p className="font-normal text-gray-700 dark:text-gray-400 mx-5">
-                    Precio:{' '}
-                    <span className="font-bold">
-                      {ticketType.price == 0 ? 'Gratuito' : ticketType.price}
-                    </span>
-                  </p>
-                </div>
-              </section>
-            </Card>
+      {responseTickets &&
+        responseTickets.data.length === 0 &&
+        !isError &&
+        !isLoading && (
+          <div className="w-full text-center my-5">
+            <h5 className="text-xl  tracking-tight text-gray-900 dark:text-white">
+              No hay entradas creadas todavia :(
+            </h5>
           </div>
+        )}
+      {responseTickets &&
+        responseTickets?.data.length > 0 &&
+        responseTickets?.data.map((ticketType) => (
+          <TicketTypeList
+            key={ticketType.id + ticketType.name}
+            {...ticketType}
+            setOpenModal={setOpenModal}
+            setSelectetTicket={setSelectetTicket}
+            handleOpenModalConfirm={handleOpenModalConfirm}
+          />
         ))}
+
       {!isError && !isLoading && (
         <>
           <button className="w-full hover:shadow-primary hover:shadow-4">

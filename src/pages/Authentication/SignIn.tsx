@@ -5,7 +5,6 @@ import Logo from '../../images/logo/logo.svg';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { Breadcrumb, PageTitle } from '../../components';
 
-
 const SignIn: React.FC = () => {
   return (
     <>
@@ -21,11 +20,6 @@ const SignIn: React.FC = () => {
                   <img className="hidden dark:block" src={Logo} alt="Logo" />
                   <img className="dark:hidden" src={LogoDark} alt="Logo" />
                 </Link>
-
-                <p className="2xl:px-20">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                  suspendisse.
-                </p>
 
                 <span className="mt-15 inline-block">
                   <svg

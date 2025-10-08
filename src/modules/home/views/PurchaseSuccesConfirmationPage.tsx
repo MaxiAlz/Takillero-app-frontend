@@ -1,0 +1,253 @@
+import HomeLayaut from '../../../layout/HomeLayaut';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+
+import { RoundedFilledButton, RoundedOutlineButton } from '../../../components';
+import {
+  MdHome,
+  MdInfoOutline,
+  MdOutlineDescription,
+  MdOutlineEmail,
+  MdSearch,
+} from 'react-icons/md';
+import { IoCheckmarkCircle } from 'react-icons/io5';
+import { useGetTransactionDataByExternalReference } from '../hooks/useTransactions';
+import Loader from '../../../components/Loader';
+import { BsTicketDetailed } from 'react-icons/bs';
+
+const PurchaseSuccesConfirmationPage = () => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
+
+  const collectionId = searchParams.get('collection_id');
+  const paymentId = searchParams.get('payment_id');
+  const merchantOrderId = searchParams.get('merchant_order_id');
+  const externalReference = searchParams.get('externalReference');
+
+  const purchaseData = externalReference
+    ? useGetTransactionDataByExternalReference(externalReference)
+    : null;
+
+  if (!externalReference || !location.state.eventData) {
+    return navigate('/');
+  }
+
+  return (
+    <HomeLayaut>
+      {purchaseData?.isLoading ? (
+        <Loader />
+      ) : (
+        <section className="lg:mx-40 px-4  min-h-screen">
+          <div className="text-center mb-8">
+            <IoCheckmarkCircle
+              color="green"
+              size={64}
+              className="mx-auto mb-4"
+            />
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-white">
+              ¡Compra realizada con éxito!
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300">
+              Tu pago ha sido procesado correctamente
+            </p>
+          </div>
+
+          <div className=" dark:bg-graydark border border-primary rounded-xl p-6 mb-8">
+            <div className="flex items-center justify-center mb-4">
+              <MdOutlineEmail className="text-primary" size={25} />
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                Tickets enviados por email
+              </h2>
+            </div>
+
+            <p className="text-gray-700 dark:text-gray-300 mb-2 text-center">
+              Tus tickets han sido enviados a la casilla de correo electrónico
+              con la que relizaste la compra.
+            </p>
+            <p className="text-gray-700 dark:text-gray-300 mb-2 text-center">
+              Revisa tu bandeja de entrada y carpeta de spam.
+            </p>
+          </div>
+
+          {(collectionId || paymentId || merchantOrderId) && (
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 mb-8 px-20 border">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                Detalles de la transacción
+              </h3>
+              <div className="space-y-2 text-sm">
+                {merchantOrderId && (
+                  <div className="flex my-2">
+                    <span className="text-gray-600 dark:text-gray-400">
+                      ID de orden:
+                    </span>
+                    <span className="font-mono text-gray-900 dark:text-white">
+                      {merchantOrderId}
+                    </span>
+                  </div>
+                )}
+                {paymentId && (
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">
+                      ID de pago:
+                    </span>
+                    <span className="font-mono text-gray-900 dark:text-white">
+                      {paymentId}
+                    </span>
+                  </div>
+                )}
+                {collectionId && (
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">
+                      ID de colección:
+                    </span>
+                    <span className="font-mono text-gray-900 dark:text-white">
+                      {collectionId}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {purchaseData?.eventData?.data && (
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 mb-8 px-6 border">
+              <div className="flex gap-2 items-center mb-4">
+                <MdOutlineDescription size={25} className="text-primary" />
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white ">
+                  Detalles de la compra
+                </h3>
+              </div>
+
+              <div className="space-y-2 text-lg">
+                <div className="flex gap-x-2">
+                  <span className="text-gray-600 dark:text-gray-400">
+                    Evento:
+                  </span>
+                  <span className="font-mono text-gray-900 dark:text-white">
+                    {purchaseData.eventData.data.eventName}
+                  </span>
+                </div>
+                <div className="flex gap-x-2">
+                  <span className="text-gray-600 dark:text-gray-400">
+                    Comprador:
+                  </span>
+                  <span className="font-mono text-gray-900 dark:text-white">
+                    {purchaseData.eventData.data.personName}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex gap-2 items-center my-5">
+                <BsTicketDetailed size={25} className="text-primary" />
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white ">
+                  Tickets adquiridos
+                </h3>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="min-w-full border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                  <thead className="bg-gray-100 dark:bg-gray-700">
+                    <tr>
+                      <th className="px-4 py-2 text-left   text-gray-700 dark:text-gray-300">
+                        Tipo
+                      </th>
+                      <th className="px-4 py-2 text-center   text-gray-700 dark:text-gray-300">
+                        Cantidad
+                      </th>
+                      <th className="px-4 py-2 text-right   text-gray-700 dark:text-gray-300">
+                        Precio
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {purchaseData.eventData.data.tickets.map(
+                      (ticket, index) => (
+                        <tr
+                          key={index}
+                          className="border-t border-gray-200 dark:border-gray-600"
+                        >
+                          <td className="px-4 py-2  text-gray-900 dark:text-white">
+                            {ticket.ticketTypeName}
+                          </td>
+                          <td className="px-4 py-2 text-center  text-gray-900 dark:text-white">
+                            {ticket.quantity}
+                          </td>
+                          <td className="px-4 py-2 text-end  text-primary font-bold ">
+                            {ticket.price == 0
+                              ? 'Gratuito'
+                              : `$ ${ticket.price}`}
+                          </td>
+                        </tr>
+                      ),
+                    )}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="flex justify-end my-3 border-t border-gray-200 dark:border-gray-600 ">
+                <span className=" mr-2 font-bold text-xl mt-4">
+                  Total de la compra:
+                </span>
+                <span className=" font-bold text-xl text-primary mt-4">
+                  {purchaseData.eventData.data.totalPrice == 0
+                    ? 'Gratuito'
+                    : `$ ${purchaseData.eventData.data.totalPrice}`}
+                </span>
+              </div>
+            </div>
+          )}
+
+          <div className="rounded-xl p-6 mb-8 border brodergray-200 dark:border-gray-700 flex flex-col items-center">
+            <div className="flex items-center justify-center mb-3">
+              <MdInfoOutline className="text-primary" size={25} />
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                ¿No recibiste tus tickets?
+              </h3>
+            </div>
+            <p className="text-gray-700 dark:text-gray-300 mb-4">
+              Si necesitas que se reenvíen tus tickets, puedes usar nuestro
+              buscador con el email y DNI que ingresaste en la compra.
+            </p>
+            <RoundedFilledButton
+              text="Buscar mis tickets"
+              icon={<MdSearch size={25} />}
+              onClick={() => {}}
+            />
+          </div>
+
+          <div className=" w-full flex justify-center gap-2 my-5">
+            <RoundedOutlineButton
+              text="Volver al inicio"
+              icon={MdHome}
+              onClick={() => {
+                navigate('/', {
+                  replace: true, // Reemplaza la entrada actual en el historial
+                  state: {}, // Limpia el estado
+                });
+              }}
+            />
+          </div>
+
+          <div className="flex lg:flex-row  flex-col items-center justify-center gap-4 my-10">
+            <h3 className="text-xl font-semibold ">¿Necesitas ayuda?</h3>
+            <a
+              href="mailto:contacto@eventos.com"
+              className="text-primary hover:underline flex items-center gap-2"
+            >
+              contacto@eventos.com
+            </a>
+
+            <a
+              href="https://wa.me/50683333333"
+              className="text-primary hover:underline flex items-center gap-2"
+            >
+              +506 83333333
+            </a>
+          </div>
+        </section>
+      )}
+    </HomeLayaut>
+  );
+};
+
+export { PurchaseSuccesConfirmationPage };

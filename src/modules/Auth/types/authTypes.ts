@@ -3,12 +3,23 @@ export interface UserLoginData {
   password: string;
 }
 
-export interface UserProfile {
+export interface UserData {
   name: string;
-  role: number;
-  id: number;
-  userName: string;
+  profileImage: string | null;
+  role: UserRoles;
   email: string;
+}
+
+export interface UserProfile {
+  message: string;
+  data: UserData;
+}
+
+export enum UserRoles {
+  PRODUCTOR = 'SELLER',
+  ADMINISTRADOR = 'ADMIN',
+  USUARIO = 'USUARIO',
+  COMPRADOR = 'BUYER',
 }
 
 export enum AuthStatus {
@@ -22,4 +33,3 @@ export interface LoginState {
   status: AuthStatus;
   error: string;
 }
-

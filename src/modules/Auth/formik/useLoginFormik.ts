@@ -22,13 +22,10 @@ const useLoginFormik = () => {
     }),
     onSubmit: async (
       values: UserLoginData,
-      // { setSubmitting }
       formikHelpers: FormikHelpers<UserLoginData>,
     ) => {
-      console.log('values', values);
       formikHelpers.setSubmitting(true);
       const thunkResponse = await dispatch(loginUser(values));
-      console.log('thunkresponse', thunkResponse);
       if (thunkResponse.status == 200) navigate('/');
       formikHelpers.setSubmitting(false);
     },
