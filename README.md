@@ -1,4 +1,5 @@
-# 🚀ACTIVATE! - Tu agenda de eventos digitales para todo Powered 
+
+# 🚀ACTIVATE! - Tu agenda de eventos digitales para todo
 
 **🚀ACTIVATE!** es una plataforma digital innovadora diseñada para transformar la manera en que las personas descubren, acceden y disfrutan de eventos en su zona. Nuestro objetivo es centralizar toda la información sobre los eventos disponibles, permitiendo a los usuarios no solo comprar entradas de forma rápida y sencilla, sino también acceder a beneficios exclusivos como descuentos, promociones especiales y experiencias personalizadas.
 
