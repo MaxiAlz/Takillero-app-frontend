@@ -1,5 +1,4 @@
 import { MdAttachMoney, MdDoDisturbAlt } from 'react-icons/md';
-import { TicketType } from '../../modules/home/types/homeTypes';
 import { IoTicketSharp } from 'react-icons/io5';
 import { FaUsers } from 'react-icons/fa6';
 import { FiAlertTriangle } from 'react-icons/fi';
@@ -14,24 +13,30 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { ModalCustom } from '../Modal/ModalCustom';
 import { RoundedFilledButton, RoundedOutlineButton } from '../Buttons';
+import { EventDashboardData, TicketType } from '../../modules/events';
 
 interface TicketsTableProps {
   tableItems: TicketType[];
+  ticketsInfo: EventDashboardData;
 }
 
 interface SelectedTicket {
   id: number;
   name: string;
 }
-const TicketsTable = ({ tableItems }: TicketsTableProps) => {
+
+const TicketsTable = ({ tableItems, ticketsInfo }: TicketsTableProps) => {
+  console.log('tableItems', ticketsInfo);
+  console.log('tableItems', tableItems);
+
   const disableTicketMutation = useDisableTicketByIdMutation();
   const queryClient = useQueryClient();
   const { showErrorToast, showSuccessToast } = useAlert();
 
-  const [selectedTicket, setSelectedTicket] = useState<SelectedTicket | null>();
+  const [selectedTicket, setSelectedTicket] = useState<SelectedTicket | null>(
+    null,
+  );
   const [openModal, setOpenModal] = useState(false);
-
-  console.log('selectedTicket', selectedTicket);
 
   const handleOpenModal = (ticket: SelectedTicket) => {
     setSelectedTicket(ticket);
@@ -43,7 +48,8 @@ const TicketsTable = ({ tableItems }: TicketsTableProps) => {
   };
 
   const handleDisable = () => {
-    disableTicketMutation.mutate(selectedTicket!.id, {
+    if (!selectedTicket) return;
+    disableTicketMutation.mutate(selectedTicket.id, {
       onSuccess: (data) => {
         queryClient.invalidateQueries({
           queryKey: ['ticket-types'],
@@ -113,6 +119,7 @@ const TicketsTable = ({ tableItems }: TicketsTableProps) => {
               <tr className="bg-gray-100 text-left dark:bg-meta-4">
                 <th className="py-3 px-4">Tipo de ticket</th>
                 <th className="py-3 px-4">Total Ventas</th>
+                <th className="py-3 px-4">Ingresos</th>
                 <th className="py-3 px-4">Estado</th>
                 <th className="py-3 px-4">Periodo</th>
                 <th className="py-3 px-4">Acciones</th>
@@ -129,8 +136,8 @@ const TicketsTable = ({ tableItems }: TicketsTableProps) => {
                 const saleMessage = getSaleMessage(
                   ticketStatus,
                   daysRemaining,
-                  item.startOfSale,
-                  item.endOfSale,
+                  item.startOfSale as string,
+                  item.endOfSale as string,
                 );
 
                 return (
@@ -174,12 +181,48 @@ const TicketsTable = ({ tableItems }: TicketsTableProps) => {
 
                     {/* Columna ventas */}
                     <td className="border-b py-5 px-4">
-                      <span className="font-medium">
-                        {item.id + 15} / {item.totalAmount}
-                      </span>
-                      {item.id > item.totalAmount * 0.7 && (
-                        <FiAlertTriangle className="inline ml-2 text-yellow-500" />
-                      )}
+                      {(() => {
+                        // Encontramos el ticket correspondiente en ticketsInfo
+                        const ticketSoldInfo = ticketsInfo.ticketsByType.find(
+                          (t) => t.ticketTypeId === item.id,
+                        );
+
+                        const soldCount = ticketSoldInfo?.soldCount || 0;
+                        const total = item.totalAmount;
+                        const percentage =
+                          total > 0 ? (soldCount / total) * 100 : 0;
+
+                        return (
+                          <div className="flex flex-col">
+                            <span className="font-medium">
+                              {soldCount} / {total}
+                            </span>
+                            <span className="text-gray-500 text-sm mt-1">
+                              {percentage.toFixed(1)}% vendido
+                            </span>
+                            {percentage > 70 && (
+                              <FiAlertTriangle className="inline ml-2 text-yellow-500" />
+                            )}
+                          </div>
+                        );
+                      })()}
+                    </td>
+
+                    <td className="border-b py-5 px-4">
+                      {(() => {
+                        const ticketSoldInfo = ticketsInfo.ticketsByType.find(
+                          (t) => t.ticketTypeId === item.id,
+                        );
+
+                        const soldCount = ticketSoldInfo?.soldCount || 0;
+                        const revenue = soldCount * item.price;
+
+                        return (
+                          <div className="flex flex-col">
+                            <span className=" mt-1">${revenue}</span>
+                          </div>
+                        );
+                      })()}
                     </td>
 
                     {/* Columna estado */}
@@ -215,12 +258,16 @@ const TicketsTable = ({ tableItems }: TicketsTableProps) => {
                           }  rounded-full flex items-center gap-2 p-1  `}
                           disabled={!item.isActive}
                           onClick={() =>
-                            handleOpenModal({ id: item.id, name: item.name })
+                            handleOpenModal({ id: +item.id!, name: item.name })
                           }
                         >
                           <MdDoDisturbAlt size={20} className="text-white" />
 
-                          <p className="text-white text-sm">
+                          <p
+                            className={`text-sm ${
+                              item.isActive ? 'text-white' : 'text-error'
+                            }`}
+                          >
                             Desactivar ventas
                           </p>
                         </button>

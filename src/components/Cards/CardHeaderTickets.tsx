@@ -8,6 +8,7 @@ import {
   MdSell,
 } from 'react-icons/md';
 import { CardDataStats } from './CardDataStats';
+import { EventDashboardData } from '../../modules/events';
 
 interface CardHeaderTicketsProps {
   photo: string;
@@ -15,6 +16,7 @@ interface CardHeaderTicketsProps {
   subtitle: string;
   date: Date | string;
   location: string;
+  ticketsInfo: EventDashboardData;
 }
 const CardHeaderTickets = ({
   photo,
@@ -22,6 +24,7 @@ const CardHeaderTickets = ({
   subtitle,
   date,
   location,
+  ticketsInfo,
 }: CardHeaderTicketsProps) => {
   return (
     <Card className="dark:bg-black w-full">
@@ -63,7 +66,7 @@ const CardHeaderTickets = ({
           <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-4 ">
             <CardDataStats
               title="Total"
-              total="327"
+              total={`${ticketsInfo.totalTicketsSold}`}
               subtitle="Total tickes ventidos"
             >
               <MdSell />

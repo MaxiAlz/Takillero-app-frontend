@@ -1,5 +1,6 @@
 import { apiService } from '../../../services/apiService';
 import {
+  EventDashboardResponse,
   EventLookLike,
   EventResponse,
   EventResponsePaginated,
@@ -44,6 +45,16 @@ export const eventRepository = {
   async publishEvent(eventId: number, userRole: UserRoles) {
     const path = useGetSpecificUrl(`/Events/${eventId}/publish`, userRole);
     const { data } = await apiService.post<EventResponse>(path);
+    return data;
+  },
+
+  // Obtiene analiticas de los tickets del evento
+  async getEventDashboard(
+    eventId: number,
+    userRole: UserRoles,
+  ): Promise<EventDashboardResponse> {
+    const path = useGetSpecificUrl(`/Events/${eventId}/dashboard`, userRole);
+    const { data } = await apiService.get<EventDashboardResponse>(path);
     return data;
   },
 };

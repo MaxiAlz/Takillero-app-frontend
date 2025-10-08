@@ -1,4 +1,3 @@
-
 export type EventStatus = 'DRAFT' | 'PUBLISHED' | 'FINISHED';
 
 export interface EventLookLike {
@@ -16,13 +15,14 @@ export interface EventLookLike {
   isFree: boolean;
 }
 
-interface TicketType {
+export interface TicketType {
   id?: number;
   name: string;
   description: string;
   price: number;
-  endOfSale: Date;
-  startOfSale: Date;
+  endOfSale: Date | string;
+  startOfSale: Date | string;
+  isActive: boolean;
   totalAmount: number;
   maxAmountPerUser: number;
   eventId?: number;
@@ -64,6 +64,20 @@ export interface EventCreator {
   name: string;
 }
 
+export interface EventDashboardData {
+  eventId: number;
+  eventName: string;
+  totalTicketsSold: number;
+  totalRevenue: number;
+  ticketsByType: TicketsByType[];
+}
+
+export interface TicketsByType {
+  ticketTypeId: number;
+  ticketTypeName: string;
+  soldCount: number;
+}
+
 // responses
 export interface EventResponsePaginated {
   message: string;
@@ -76,4 +90,9 @@ export interface EventResponse {
 export interface ResponseTicketTypes {
   message: string;
   data: TicketType[];
+}
+
+export interface EventDashboardResponse {
+  message: string;
+  data: EventDashboardData;
 }

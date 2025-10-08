@@ -5,6 +5,7 @@ export interface UserLoginData {
 
 export interface UserData {
   name: string;
+  profileImage: string | null;
   role: UserRoles;
   email: string;
 }
