@@ -24,8 +24,8 @@ interface TicketTypeProps {
   price: number;
   description?: string;
   maxAmountPerUser: number;
-  startOfSale: Date;
-  endOfSale: Date;
+  startOfSale: string | Date;
+  endOfSale: string | Date;
 }
 
 const TicketTypeList = ({

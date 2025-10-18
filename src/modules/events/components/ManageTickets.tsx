@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { MdSave } from 'react-icons/md';
 import { Card } from 'flowbite-react';
 import {
+  DrawerCustom,
   ModalCustom,
   RoundedFilledButton,
   TicketTypeList,
@@ -12,6 +13,7 @@ import { CreateTicketTypeForm } from './Forms/CreateTicketTypeForm';
 import { DeleteTicket } from './Forms/DeleteTicket';
 import { useAlert } from '../../../context/AlertContext';
 import Loader from '../../../components/Loader';
+import { GiTicket } from 'react-icons/gi';
 
 export const ManageTickets = () => {
   const { eventId } = useParams();
@@ -26,7 +28,6 @@ export const ManageTickets = () => {
   const [selectedTicket, setSelectetTicket] = useState<number | undefined>(
     undefined,
   );
-
 
   const { isLoading, responseTickets, isError, refetch } = eventId
     ? useGetTicketsByEvent(+eventId)
@@ -62,10 +63,13 @@ export const ManageTickets = () => {
 
   return (
     <>
-      <ModalCustom
+      <DrawerCustom
+        title={selectedTicket ? 'Editar ticket' : 'Crear nuevo ticket'}
+        subtitle="Completa la informacion necesaria para crear tickets para tu evento"
         openModal={openModal}
         setOpenModal={setOpenModal}
-        title={selectedTicket ? 'Editar ticket' : 'Crear nuevo ticket'}
+        titleIcon={GiTicket}
+        size="md"
       >
         <CreateTicketTypeForm
           ticketId={selectedTicket}
@@ -73,7 +77,7 @@ export const ManageTickets = () => {
           refetchTickets={refetch}
           closeModal={closeModal}
         />
-      </ModalCustom>
+      </DrawerCustom>
 
       <ModalCustom
         title="¿Seguro que sea eliminar?"

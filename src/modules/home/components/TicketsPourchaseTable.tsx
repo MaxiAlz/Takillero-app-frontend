@@ -25,6 +25,7 @@ const TicketsPourchaseTable = ({
   const { cartsPurchase, addItem, removeItem } = useCartTicketStorage();
   const navigate = useNavigate();
 
+  console.log('tickets', tickets);
   const handleQuantityChange = (ticketType: TicketParams, quantity: number) => {
     if (quantity === 0) {
       removeItem(ticketType.id as number);
@@ -62,76 +63,94 @@ const TicketsPourchaseTable = ({
               </th>
             </tr>
           </thead>
-          <tbody>
-            {tickets.map((ticketType, key) => (
-              <tr key={key}>
-                <td className="border-b border-[#eee] py-1 px-4 dark:border-strokedark xl:pl-11">
-                  <h5 className="font-medium text-black dark:text-white">
-                    {ticketType.name}
-                  </h5>
-                  <p className="text-sm truncate hidden sm:block">
-                    {ticketType.description}
-                  </p>
-                </td>
-                <td className="border-b border-[#eee] py-1 px-4 dark:border-strokedark">
-                  <p className="text-black dark:text-white">
-                    {ticketType.price === 0
-                      ? 'Gratuito'
-                      : `$ ${ticketType.price}`}
-                  </p>
-                </td>
-                <td className="border-b border-[#eee] py-1 px-4 dark:border-strokedark">
-                  <select
-                    name="categoryId"
-                    id="categories"
-                    value={
-                      cartsPurchase
-                        .find((cart) => cart.eventId === eventId)
-                        ?.ticketItems.find(
-                          (item) => item.ticketTypeId === ticketType.id,
-                        )?.quantity || 0
-                    }
-                    onChange={(e) =>
-                      handleQuantityChange(
-                        ticketType as TicketParams,
-                        parseInt(e.target.value, 10),
-                      )
-                    }
-                    className="border rounded-lg block lg:w-1/2 w-full py-2.5 dark:bg-black focus:border-primary my-2"
-                  >
-                    <option key={-1} value={0}>
-                      0
-                    </option>
-                    {Array.from({ length: ticketType.maxAmountPerUser }).map(
-                      (_, index) => (
-                        <option key={index} value={index + 1}>
-                          {index + 1}
-                        </option>
-                      ),
-                    )}
-                  </select>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+
+          {tickets.length > 0 && (
+            <tbody>
+              {tickets.map((ticketType, key) => (
+                <tr key={key}>
+                  <td className="border-b border-[#eee] py-1 px-4 dark:border-strokedark xl:pl-11">
+                    <h5 className="font-medium text-black dark:text-white">
+                      {ticketType.name}
+                    </h5>
+                    <p className="text-sm truncate hidden sm:block">
+                      {ticketType.description}
+                    </p>
+                  </td>
+                  <td className="border-b border-[#eee] py-1 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white">
+                      {ticketType.price === 0
+                        ? 'Gratuito'
+                        : `$ ${ticketType.price}`}
+                    </p>
+                  </td>
+                  <td className="border-b border-[#eee] py-1 px-4 dark:border-strokedark">
+                    <select
+                      name="categoryId"
+                      id="categories"
+                      value={
+                        cartsPurchase
+                          .find((cart) => cart.eventId === eventId)
+                          ?.ticketItems.find(
+                            (item) => item.ticketTypeId === ticketType.id,
+                          )?.quantity || 0
+                      }
+                      onChange={(e) =>
+                        handleQuantityChange(
+                          ticketType as TicketParams,
+                          parseInt(e.target.value, 10),
+                        )
+                      }
+                      className="border rounded-lg block lg:w-1/2 w-full py-2.5 dark:bg-black focus:border-primary my-2"
+                    >
+                      <option key={-1} value={0}>
+                        0
+                      </option>
+                      {Array.from({ length: ticketType.maxAmountPerUser }).map(
+                        (_, index) => (
+                          <option key={index} value={index + 1}>
+                            {index + 1}
+                          </option>
+                        ),
+                      )}
+                    </select>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          )}
         </table>
+        {tickets.length == 0 && (
+          <tbody>
+            <div className="w-full mx-2 my-6 ">
+              <p className="font-bold">
+                No hay tickets a la venta disponibles a la venta :(
+              </p>
+              <p className="text-sm">
+                Si crees que se trata de un error ponte en contacto con el
+                soporte de Takillero!
+              </p>
+            </div>
+          </tbody>
+        )}
       </div>
-      <div className="flex justify-between gap-2 my-5">
-        <RoundedOutlineButton
-          text="Limpiar"
-          icon={MdDelete}
-          disabled={!hasTicketsInCart(cartsPurchase, eventId)}
-          onClick={clearEventCart}
-        />
-        <RoundedFilledButton
-          disabled={!hasTicketsInCart(cartsPurchase, eventId)}
-          text="Comprar tickets"
-          icon={<GiTicket size={25} />}
-          onClick={() => {
-            navigate(`/cart/${eventId}/pourchase/${referidosCode}`);
-          }}
-        />
-      </div>
+      {tickets.length > 0 && (
+        <div className="flex justify-between gap-2 my-5">
+          <RoundedOutlineButton
+            text="Limpiar"
+            icon={MdDelete}
+            disabled={!hasTicketsInCart(cartsPurchase, eventId)}
+            onClick={clearEventCart}
+          />
+          <RoundedFilledButton
+            disabled={!hasTicketsInCart(cartsPurchase, eventId)}
+            text="Comprar tickets"
+            icon={<GiTicket size={25} />}
+            onClick={() => {
+              navigate(`/cart/${eventId}/pourchase/${referidosCode}`);
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };

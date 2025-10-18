@@ -2,9 +2,9 @@ import { Card } from 'flowbite-react';
 import { formatDateShortWithMonth } from '../../helpers/formatDate';
 import {
   MdDateRange,
-  MdEventAvailable,
+  // MdEventAvailable,
   MdLocationOn,
-  MdOutlineMotionPhotosPaused,
+  // MdOutlineMotionPhotosPaused,
   MdSell,
 } from 'react-icons/md';
 import { CardDataStats } from './CardDataStats';
@@ -67,26 +67,26 @@ const CardHeaderTickets = ({
             <CardDataStats
               title="Total"
               total={`${ticketsInfo.totalTicketsSold}`}
-              subtitle="Total tickes ventidos"
+              subtitle="Total tickes vendidos"
             >
               <MdSell />
             </CardDataStats>
 
-            <CardDataStats
+            {/* <CardDataStats
               title="Activos"
-              total="5"
+              total="s/n"
               subtitle="Tipos de tickets en venta"
             >
               <MdEventAvailable />
-            </CardDataStats>
+            </CardDataStats> */}
 
-            <CardDataStats
+            {/* <CardDataStats
               title="Inactivas"
-              total="2"
+              total="no data"
               subtitle="Tipos de tickes pausados/vencidos"
             >
               <MdOutlineMotionPhotosPaused />
-            </CardDataStats>
+            </CardDataStats> */}
           </div>
         </div>
       </section>

@@ -1,4 +1,4 @@
-import { MdAttachMoney, MdDoDisturbAlt } from 'react-icons/md';
+import { MdAttachMoney, MdDoDisturbAlt, MdEdit } from 'react-icons/md';
 import { IoTicketSharp } from 'react-icons/io5';
 import { FaUsers } from 'react-icons/fa6';
 import { FiAlertTriangle } from 'react-icons/fi';
@@ -13,7 +13,15 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { ModalCustom } from '../Modal/ModalCustom';
 import { RoundedFilledButton, RoundedOutlineButton } from '../Buttons';
-import { EventDashboardData, TicketType } from '../../modules/events';
+import {
+  CreateTicketTypeForm,
+  EventDashboardData,
+  TicketType,
+  useGetTicketsByEvent,
+} from '../../modules/events';
+import { useParams } from 'react-router-dom';
+import { DrawerCustom } from '../Drawers/DrawerCustom';
+import { GiTicket } from 'react-icons/gi';
 
 interface TicketsTableProps {
   tableItems: TicketType[];
@@ -26,10 +34,9 @@ interface SelectedTicket {
 }
 
 const TicketsTable = ({ tableItems, ticketsInfo }: TicketsTableProps) => {
-  console.log('tableItems', ticketsInfo);
-  console.log('tableItems', tableItems);
-
+  const { eventId } = useParams();
   const disableTicketMutation = useDisableTicketByIdMutation();
+  const { refetch } = useGetTicketsByEvent(+eventId!);
   const queryClient = useQueryClient();
   const { showErrorToast, showSuccessToast } = useAlert();
 
@@ -37,6 +44,7 @@ const TicketsTable = ({ tableItems, ticketsInfo }: TicketsTableProps) => {
     null,
   );
   const [openModal, setOpenModal] = useState(false);
+  const [openTicketModal, setOpenTicketModal] = useState(false);
 
   const handleOpenModal = (ticket: SelectedTicket) => {
     setSelectedTicket(ticket);
@@ -108,9 +116,30 @@ const TicketsTable = ({ tableItems, ticketsInfo }: TicketsTableProps) => {
           </div>
         </div>
       </ModalCustom>
+
+      <DrawerCustom
+        openModal={openTicketModal}
+        setOpenModal={setOpenTicketModal}
+        titleIcon={GiTicket}
+        size='md'
+        title="Crear nuevo ticket"
+        subtitle="Usa este creador de tickets si es de maxima urgencia, recuerda que tu evento esta piblico y cualquier accion sera visto por tus compradores"
+      >
+        <CreateTicketTypeForm
+          eventId={+eventId!}
+          refetchTickets={refetch}
+          closeModal={() => setOpenTicketModal(false)}
+        />
+      </DrawerCustom>
+
       <div className="rounded-sm border my-4 border-stroke bg-white px-5 pt-6 pb-2.5 shadow-md dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <section className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-bold">Visualizador de entradas</h2>
+          <RoundedFilledButton
+            text="Cargar nuevos tickets"
+            icon={<MdEdit />}
+            onClick={() => setOpenTicketModal(true)}
+          />
         </section>
 
         <div className="overflow-x-auto">

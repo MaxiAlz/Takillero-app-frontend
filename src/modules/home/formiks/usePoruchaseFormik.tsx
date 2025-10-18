@@ -42,15 +42,15 @@ const usePurchaseFormik = (eventId: number, hasPaidProducts: boolean) => {
       if (!hasPaidProducts) {
         await purchaseFreeEventMutation.mutate(submitValues, {
           onSuccess: (valuePoruchaseResponse: PourchaseFreeEventResponse) => {
-            console.log('valuePoruchaseResponse', valuePoruchaseResponse);
-
             showSuccessToast('¡Sus tickets han sido generado con Exito!');
             navigate(
               `/pourchase/payment/success?externalReference=${valuePoruchaseResponse.data.externalReference}`,
               {
                 state: { eventData: valuePoruchaseResponse.data },
+                replace: true,
               },
             );
+            formikHelpers.setSubmitting(false);
           },
           onError: (error: any) => {
             const err = error as AxiosError<{ message: string }>;
@@ -58,6 +58,7 @@ const usePurchaseFormik = (eventId: number, hasPaidProducts: boolean) => {
               err.response?.data.message,
             );
             showErrorToast(errorMessage);
+            formikHelpers.setSubmitting(false);
           },
         });
       }
@@ -73,8 +74,9 @@ const usePurchaseFormik = (eventId: number, hasPaidProducts: boolean) => {
             showDefaultToast('¡Exelente! Continua con el pago de tu compra');
             navigate(`/cart/${eventId}/pourchase/payment`, {
               state: { reserveData: dataToSave },
+              replace: true,
             });
-            // formikHelpers.resetForm();
+            formikHelpers.setSubmitting(false);
           },
           onError: (error: any) => {
             const err = error as AxiosError<{ message: string }>;
@@ -82,11 +84,12 @@ const usePurchaseFormik = (eventId: number, hasPaidProducts: boolean) => {
               err.response?.data.message,
             );
             showErrorToast(errorMessage);
+            formikHelpers.setSubmitting(false);
           },
         });
       }
 
-      formikHelpers.setSubmitting(false);
+      // formikHelpers.setSubmitting(false);
     },
   });
 };
