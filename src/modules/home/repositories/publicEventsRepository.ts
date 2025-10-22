@@ -2,8 +2,10 @@ import { apiService } from '../../../services/apiService';
 import { EventDatailLookLike, EventDetailsResponse } from '../types/homeTypes';
 
 export const publicEventRepository = {
-  async getpublicEvent() {
-    const { data } = await apiService.get<EventDatailLookLike>('/PublicEvents');
+  async getpublicEvent(page = 1) {
+    const { data } = await apiService.get<EventDatailLookLike>(
+      `/PublicEvents?pageIndex=${page}`,
+    );
     return data;
   },
 
@@ -14,20 +16,3 @@ export const publicEventRepository = {
     return data;
   },
 };
-// async createEvent(formData: EventLookLike) {
-//   const { data } = await apiService.post<Event>('/Events', formData);
-//   return data;
-// },
-
-// async updateEvent(eventId: number, payEvent: EventLookLike) {
-//   const { data } = await apiService.put<Event>(
-//     `/Events/${eventId}`,
-//     payEvent,
-//   );
-//   return data;
-// },
-
-// async publishEvent(eventId: number) {
-//   const { data } = await apiService.post<Event>(`/Events/${eventId}/publish`);
-//   return data;
-// },

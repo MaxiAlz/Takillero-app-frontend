@@ -11,7 +11,6 @@ import {
   user_dashboard_items,
 } from '../../constants';
 import { RootState } from '../../redux/store';
-import { APP_TEXT } from '../../constants/text';
 
 interface DesktopSidebarProps {}
 
