@@ -4,7 +4,7 @@ import { usePublicEvents } from '../hooks/usePublicEvents';
 
 const AvailableEvents = () => {
   const availablePublicEvents = usePublicEvents();
-
+  // TODO: implementar paginacion con scroll infinito
   return (
     <>
       <div className="mx-auto mt-5">

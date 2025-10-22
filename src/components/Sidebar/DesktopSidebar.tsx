@@ -1,8 +1,8 @@
-import { GiTicket } from 'react-icons/gi';
 import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-
+import logoFaviconApp from '../../images/logo/TK-FAVICON-NARANJA.svg';
+import logoApp from '../../images/logo/LOGO-TAKILLERO-NARANJA.svg';
 import SidebarLinkGroup from './SidebarLinkGroup';
 import { UserRoles } from '../../modules/Auth/types/authTypes';
 import {
@@ -56,17 +56,26 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = () => {
     >
       {/* HEADER */}
       <NavLink to={'/'}>
-        <div className="flex items-center justify-center lg:justify-start px-4 py-5 overflow-hidden">
-          <GiTicket className="text-primary text-2xl" />
-          <h1
-            className={`text-xl font-bold text-primary transition-all duration-300 overflow-hidden ${
+        <div className="flex items-center justify-center lg:justify-start px-4 py-2 overflow-hidden">
+          {!sidebarExpanded && (
+            <img
+              src={logoFaviconApp}
+              alt="Takillero!-logo"
+              className={`transition-all  duration-400 overflow-hidden h-15 w-20 ${
+                !sidebarExpanded ? 'opacity-100 ml-2' : 'opacity-0  ml-0'
+              }`}
+            />
+          )}
+
+          <img
+            className={` transition-all h-12 duration-300 overflow-hidden ${
               sidebarExpanded
                 ? 'opacity-100 max-w-xs ml-2'
                 : 'opacity-0 max-w-0 ml-0'
             }`}
-          >
-            {APP_TEXT.app_name}
-          </h1>
+            src={logoApp}
+            alt="Takillero!-logo"
+          />
         </div>
       </NavLink>
 

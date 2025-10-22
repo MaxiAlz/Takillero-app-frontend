@@ -5,7 +5,6 @@ import {
   noAuthRoutes,
   producerRoutes,
   publicRoutes,
-  templateRoutes,
 } from './allRoutes';
 
 import NoRoutesForAuthenticated from './NoRoutesForAuthenticated';
@@ -48,11 +47,6 @@ const RouteIndex = () => {
         ))}
         {/* rutas publicas */}
         {publicRoutes.map((route: any, idx: number) => (
-          <Route path={route.path} key={idx} element={<route.component />} />
-        ))}
-
-        {/* Rutas del template */}
-        {templateRoutes.map((route: any, idx: number) => (
           <Route path={route.path} key={idx} element={<route.component />} />
         ))}
 
