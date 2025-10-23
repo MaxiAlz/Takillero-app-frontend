@@ -26,7 +26,9 @@ function App() {
   }, [dispatch]);
 
   return status === AuthStatus.CHECKING ? (
-    <Loader />
+    <div className="w-screen h-screen flex items-center justify-center dark:bg-boxdark-2">
+      <Loader />
+    </div>
   ) : (
     <>
       <RouteIndex />
