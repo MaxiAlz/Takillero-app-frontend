@@ -754,6 +754,7 @@ const CreateEventForm = () => {
                 eventId ? <MdOutlineRefresh size={25} /> : <MdSave size={25} />
               }
               type="submit"
+              disabled={eventMutation.isPending}
               isLoading={eventMutation.isPending}
             />
           </div>
