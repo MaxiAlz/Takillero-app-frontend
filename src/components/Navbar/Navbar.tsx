@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import DropdownUser from '../Header/DropdownUser';
 import DarkModeSwitcher from '../Header/DarkModeSwitcher';
-import logoApp from '../../images/logo/LOGO-TAKILLERO-NARANJA.svg';
+import logoApp from '../../images/logo/LG-TAKILLERO-NARANJA.svg';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { AuthStatus } from '../../modules/Auth/types/authTypes';

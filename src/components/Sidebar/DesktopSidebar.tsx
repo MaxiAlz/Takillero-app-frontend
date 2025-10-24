@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import logoFaviconApp from '../../images/logo/TK-FAVICON-NARANJA.svg';
-import logoApp from '../../images/logo/LOGO-TAKILLERO-NARANJA.svg';
+import logoFaviconApp from '../../images/logo/FAVICON-TK-NARANJA.svg';
+import logoApp from '../../images/logo/LG-TAKILLERO-NARANJA.svg';
 import SidebarLinkGroup from './SidebarLinkGroup';
 import { UserRoles } from '../../modules/Auth/types/authTypes';
 import {

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import  logoApp  from '../../images/logo/LOGO-TAKILLERO-NARANJA.svg';
+import  logoApp  from '../../images/logo/LG-TAKILLERO-NARANJA.svg';
 
 const FooterCustom = () => {
   return (

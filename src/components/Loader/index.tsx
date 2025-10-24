@@ -1,4 +1,4 @@
-import logoApp from '../../images/logo/LOGO-TAKILLERO-NARANJA.svg';
+import logoApp from '../../images/logo/LG-TAKILLERO-NARANJA.svg';
 interface LoaderProps {
   title?: string;
   subtitle?: string;

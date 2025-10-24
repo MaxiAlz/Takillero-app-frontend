@@ -1,5 +1,5 @@
 // import CoverOne from '../images/cover/cover-01.png';
-import userSix from '../../..//images/logo/LOGO-TAKILLERO-NARANJA.svg';
+import userSix from '../../..//images/logo/LG-TAKILLERO-NARANJA.svg';
 
 const CardUserInfo = () => {
   return (

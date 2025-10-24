@@ -14,7 +14,7 @@ const RegisterPage: React.FC = () => {
       <div className="flex items-center justify-center w-screen h-screen dark:bg-boxdark">
         <AuthWidget />
 
-        <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
+        <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2 flex items-center justify-center">
           <div className="w-full max-w-xl p-10 text-center border border-stroke dark:border-strokedark rounded-2xl shadow-lg bg-gray-50 dark:bg-gray-800">
             <h2 className="text-3xl font-bold text-black dark:text-white mb-4">
               Registro de organizadores
