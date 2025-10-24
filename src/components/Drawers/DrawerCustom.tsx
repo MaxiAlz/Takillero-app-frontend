@@ -7,8 +7,9 @@ interface DrawerCustomProps {
   children: ReactNode;
   title: string;
   subtitle?: string;
-  position?: 'left' | 'top' | 'right' | 'bottom' | undefined;
+  position?: 'left' | 'top' | 'right' | 'bottom';
   titleIcon?: React.FC<React.SVGProps<SVGSVGElement>>;
+  size?: 'sm' | 'md' | 'lg';
 }
 
 const DrawerCustom = ({
@@ -19,7 +20,15 @@ const DrawerCustom = ({
   titleIcon,
   subtitle,
   position = 'left',
+  size = 'sm', // valor por defecto
 }: DrawerCustomProps) => {
+  // Mapeo de tamaños
+  const sizeClasses = {
+    sm: 'w-1/3',
+    md: 'w-1/2',
+    lg: 'w-2/3',
+  };
+
   return (
     <>
       {openModal && (
@@ -34,7 +43,7 @@ const DrawerCustom = ({
         edge
         onClose={() => setOpenModal(false)}
         position={position}
-        className="dark:shadow-1 z-99999 shadow-8 dark:bg-boxdark w-1/3 "
+        className={`dark:shadow-1 z-99999 shadow-8 dark:bg-boxdark ${sizeClasses[size]}`}
       >
         <Drawer.Header
           className="dark:bg-boxdark dark:text-white"
@@ -42,7 +51,7 @@ const DrawerCustom = ({
           titleIcon={titleIcon}
         />
         <Drawer.Items className="dark:bg-boxdark">
-          <p>{subtitle}</p>
+          {subtitle && <p>{subtitle}</p>}
           {children}
         </Drawer.Items>
       </Drawer>

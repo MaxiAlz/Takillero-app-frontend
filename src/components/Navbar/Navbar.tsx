@@ -1,36 +1,35 @@
 import { Link, useNavigate } from 'react-router-dom';
 import DropdownUser from '../Header/DropdownUser';
 import DarkModeSwitcher from '../Header/DarkModeSwitcher';
-import { APP_TEXT } from '../../constants/text';
+import logoApp from '../../images/logo/LG-TAKILLERO-NARANJA.svg';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { AuthStatus } from '../../modules/Auth/types/authTypes';
 import { DropdownShoppingCart } from '../Header/DropdownShoppingCart';
 import { RoundedOutlineButton } from '../Buttons';
-import { GiTicket } from 'react-icons/gi';
 
-interface NavbarPorps {
-  sidebarOpen: string | boolean | undefined;
-  setSidebarOpen: (arg0: boolean) => void;
-}
+// interface NavbarPorps {
+//   sidebarOpen: string | boolean | undefined;
+//   setSidebarOpen: (arg0: boolean) => void;
+// }
 
-const navbarItems = [
-  // { href: '/eventos', label: 'Eventos' },
-  // { href: '/contacto', label: 'Contacto' },
-  { href: '/sobre-nosotros', label: 'Sobre Nosotros' },
-  { href: '/ver-tickets', label: 'Ver Tickets' },
-];
+// const navbarItems = [
+//   // { href: '/eventos', label: 'Eventos' },
+//   // { href: '/contacto', label: 'Contacto' },
+//   { href: '/sobre-nosotros', label: 'Sobre Nosotros' },
+//   { href: '/ver-tickets', label: 'Ver Tickets' },
+// ];
 
-const Navbar = (props: NavbarPorps) => {
+const Navbar = (/* props: NavbarPorps */) => {
   const { user, status } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
 
   return (
     <>
       <header className="sticky top-0 z-99 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
-        <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
+        <div className="flex flex-grow items-center justify-between px-4 py-2 shadow-2 md:px-6 2xl:px-11">
           <div className="flex items-center gap-2 sm:gap-4 md:hidden">
-            <button
+            {/* <button
               aria-controls="sidebar"
               onClick={(e) => {
                 e.stopPropagation();
@@ -69,38 +68,25 @@ const Navbar = (props: NavbarPorps) => {
                   ></span>
                 </span>
               </span>
-            </button>
+            </button> */}
             {/* <!-- Hamburger Toggle BTN --> */}
 
             <Link to={'/'} className="text-primary font-semibold uppercase ">
-              {APP_TEXT.app_name}
+              <img src={logoApp} alt="Takillero!-logo" className="h-10" />
             </Link>
           </div>
 
           <div className="hidden md:block">
             <div className="relative flex">
-              <div className="flex">
+              <div className="flex items-center">
                 <Link
                   to={'/'}
                   className="text-primary font-semibold uppercase mx-2"
                 >
                   <div className="flex font-bold uppercase text-primary text-2xl text-center">
-                    <GiTicket />
-                    <h1 className="">{APP_TEXT.app_name}</h1>
+                    <img src={logoApp} alt="Takillero!-logo" className="h-12" />
                   </div>
                 </Link>
-                {navbarItems.map((item, index) => (
-                  <ul className="flex" key={item.href + index}>
-                    <li key={item.href} className="mx-2">
-                      <a
-                        href={item.href}
-                        className="text-gray-800 hover:text-primary"
-                      >
-                        {item.label}
-                      </a>
-                    </li>
-                  </ul>
-                ))}
               </div>
             </div>
           </div>

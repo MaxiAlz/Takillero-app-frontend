@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import { APP_TEXT } from '../../constants/text';
-import { GiTicket } from 'react-icons/gi';
+import  logoApp  from '../../images/logo/LG-TAKILLERO-NARANJA.svg';
 
 const FooterCustom = () => {
   return (
@@ -9,8 +8,7 @@ const FooterCustom = () => {
         <div className="grid lg:grid-cols-3 grid-cols-1 gap-4 space-x-4 w-full">
           {/* logo */}
           <div className=" mx-auto my-auto flex font-bold uppercase text-primary text-xl text-center">
-            <GiTicket />
-            <h1 className="">{APP_TEXT.app_name}</h1>
+            <img src={logoApp} alt="Takillero!-logo" className='w-60 '/>
           </div>
           <div className="flex flex-col">
             <h6 className={'hover:text-white hover:cursor-pointer'}>

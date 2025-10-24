@@ -1,15 +1,68 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AuthWidget, PageTitle } from '../../../components';
+import {
+  AuthWidget,
+  PageTitle,
+  RoundedFilledButton,
+} from '../../../components';
+import { MdOutlineMail, MdOutlineWhatsapp } from 'react-icons/md';
 
 const RegisterPage: React.FC = () => {
   return (
     <>
       <PageTitle title="Registro" />
-      <div className="flex items-center justify-center w-screen h-screen ">
+      <div className="flex items-center justify-center w-screen h-screen dark:bg-boxdark">
         <AuthWidget />
 
-        <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
+        <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2 flex items-center justify-center">
+          <div className="w-full max-w-xl p-10 text-center border border-stroke dark:border-strokedark rounded-2xl shadow-lg bg-gray-50 dark:bg-gray-800">
+            <h2 className="text-3xl font-bold text-black dark:text-white mb-4">
+              Registro de organizadores
+            </h2>
+            <p className="dark:text-gray-3 mb-6">
+              El registro de nuevos usuarios{' '}
+              <span className="font-bold text-primary">
+                no está habilitado de forma automática.
+              </span>
+              <br />
+              Para solicitar una cuenta como organizador, por favor contactá a
+              nuestro equipo de soporte solicitando la documentación
+              correspondiente al{' '}
+              <span className="font-bold text-primary">
+                alta de organizadores.
+              </span>
+            </p>
+
+            <div className="flex w-full justify-evenly">
+              <RoundedFilledButton
+                text=" Contactar soporte"
+                icon={<MdOutlineMail size={25} />}
+                onClick={() =>
+                  (window.location.href = 'mailto:soporte@tusitio.com')
+                }
+              />
+              <RoundedFilledButton
+                text="Chatear con soporte"
+                icon={<MdOutlineWhatsapp size={25} />}
+                onClick={() =>
+                  (window.location.href = 'mailto:soporte@tusitio.com')
+                }
+              />
+            </div>
+
+            <p className="mt-6 text-sm text-gray-600 dark:text-gray-400">
+              ¿Ya tenés una cuenta?{' '}
+              <Link
+                to="/auth/login"
+                className="text-primary font-medium hover:underline"
+              >
+                Ingresar
+              </Link>
+            </p>
+          </div>
+        </div>
+
+        {/* <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
           <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
             <span className="mb-1.5 block font-medium">
               Tus eventos al alcance de tu mano
@@ -210,7 +263,7 @@ const RegisterPage: React.FC = () => {
               </div>
             </form>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

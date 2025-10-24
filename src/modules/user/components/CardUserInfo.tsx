@@ -1,5 +1,5 @@
 // import CoverOne from '../images/cover/cover-01.png';
-import userSix from '../../..//images/user/user-04.png';
+import userSix from '../../..//images/logo/FAVICON-TK-NARANJA.svg';
 
 const CardUserInfo = () => {
   return (

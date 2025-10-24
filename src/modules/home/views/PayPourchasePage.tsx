@@ -102,11 +102,9 @@ const PayPourchaseEventPage = () => {
         break;
 
       case PaymentMethod.BANCO_NACION:
-        console.log('Procesar lógica para Banco Nación');
         break;
 
       case PaymentMethod.DEBITO_CREDITO:
-        console.log('Procesar lógica para tarjetas/débito');
         break;
 
       default:

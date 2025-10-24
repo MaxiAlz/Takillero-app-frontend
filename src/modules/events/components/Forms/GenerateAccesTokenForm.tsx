@@ -32,12 +32,6 @@ const GenerateAccesTokenForm = ({
     // Aquí podrías mostrar un toast de confirmación
   };
 
-  // const shareToken = () => {
-  //   const shareUrl = `${window.location.origin}/validate-token/${token}`;
-  //   navigator.clipboard.writeText(shareUrl);
-  //   // Aquí podrías mostrar un toast de confirmación
-  // };
-
   const accessCodeInitialValues = {
     name: '',
     start: new Date(),

@@ -96,9 +96,12 @@ const EventPourchasePage = () => {
                   <div className="order-2">
                     <RoundedFilledButton
                       className="w-full"
-                      disabled={!purchaseFormik.isValid}
+                      disabled={
+                        !purchaseFormik.isValid || purchaseFormik.isSubmitting
+                      }
                       type="submit"
                       onClick={() => purchaseFormik.handleSubmit()}
+                      isLoading={purchaseFormik.isSubmitting}
                       text={
                         purchaseFormik.isSubmitting
                           ? 'Cargando...'

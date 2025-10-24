@@ -6,6 +6,7 @@ import {
   RoundedFilledButton,
 } from '../../../components';
 import { useLoginFormik } from '../formik/useLoginFormik';
+import logoApp from '../../../images/logo/LG-TAKILLERO-NARANJA.svg';
 
 const LoginPage: React.FC = () => {
   const loginFormik = useLoginFormik();
@@ -18,8 +19,15 @@ const LoginPage: React.FC = () => {
 
         <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
           <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
+            <div className="flex justify-center mb-12 lg:hidden flex-col w-full items-center">
+              <img src={logoApp} alt="logo" className="w-65 drop-shadow-md" />
+              <p className="font-medium text-primary opacity-80">
+                Entrá a la experiencia
+              </p>
+            </div>
+
             <span className="mb-1.5 block font-medium">
-              ¿En que te ayudamos hoy?
+              ¿Que experiencia crearás hoy?
             </span>
             <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
               Ingresar a tu cuenta
@@ -34,7 +42,7 @@ const LoginPage: React.FC = () => {
                   <input
                     type="email"
                     name="email"
-                    placeholder="Enter your email"
+                    placeholder="Ingrese su Email"
                     className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     onChange={loginFormik.handleChange}
                     onBlur={loginFormik.handleBlur}
@@ -125,7 +133,7 @@ const LoginPage: React.FC = () => {
                 <p>
                   ¿No tiene una cuenta todavia?{' '}
                   <Link to="/auth/register" className="text-primary">
-                    Registrarse aqui
+                    Solicita tu cuenta aquí
                   </Link>
                 </p>
               </div>

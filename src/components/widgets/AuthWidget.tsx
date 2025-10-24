@@ -1,19 +1,38 @@
 import { Link } from 'react-router-dom';
-import { APP_TEXT } from '../../constants/text';
-import { GiTicket } from 'react-icons/gi';
-
+import logoApp from '../../images/logo/LG-TAKILLERO-NARANJA.svg';
+import bgImageLogin from '../../images/placeholders/BG-LOGIN.jpg';
 const AuthWidget = () => {
   return (
-    <div className="hidden w-full lg:block lg:w-1/2">
-      <div className="py-17.5 px-26 text-center">
-        <Link to={'/'}>
-          <div className="flex font-bold uppercase text-primary text-2xl text-center">
-            <GiTicket className="text-primary text-2xl" />
-            <h1 className="">{APP_TEXT.app_name}</h1>
-          </div>
-        </Link>
+    <div className="hidden lg:flex lg:w-1/2 h-screen relative overflow-hidden">
+      {/* Fondo con imagen */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${bgImageLogin})`,
+        }}
+      ></div>
 
-        <span className="mt-15 inline-block">
+      {/* Capa oscura encima del fondo */}
+      <div className="absolute inset-0 bg-black/80"></div>
+
+      {/* Contenido encima del overlay */}
+      <div className="relative z-10 flex flex-col items-center justify-center w-full text-center">
+        <Link to="/">
+          <img
+            src={logoApp}
+            alt="logo"
+            className="w-90 max-w-full drop-shadow-lg"
+          />
+          <p className="font-medium text-primary opacity-80">Entrá a la experiencia</p>
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+export { AuthWidget };
+{
+  /* <span className="mt-15 inline-block">
           <svg
             width="350"
             height="350"
@@ -134,10 +153,5 @@ const AuthWidget = () => {
               fill="#1C2434"
             />
           </svg>
-        </span>
-      </div>
-    </div>
-  );
-};
-
-export { AuthWidget };
+        </span> */
+}

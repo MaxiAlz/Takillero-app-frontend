@@ -8,14 +8,9 @@ import {
 } from '../interfaces/accesCodeTypes';
 
 export const accessCodeRepository = {
-
-  async createAccessCode(
-    accessCodeformData: AccessCodeFormData,
-    userRole: UserRoles,
-  ) {
-    const path = useGetSpecificUrl(`/AccessCodes`, userRole);
+  async createAccessCode(accessCodeformData: AccessCodeFormData) {
     const { data } = await apiService.post<AccessCode>(
-      path,
+      `/AccessCodes`,
       accessCodeformData,
     );
     return data;
@@ -27,9 +22,8 @@ export const accessCodeRepository = {
     return data;
   },
 
-  async deleteAccessCodes(acessCodeId: number, userRole: UserRoles) {
-    const path = useGetSpecificUrl(`/AccessCodes/${acessCodeId}`, userRole);
-    const { data } = await apiService.delete(path);
+  async deleteAccessCodes(acessCodeId: number) {
+    const { data } = await apiService.delete(`/AccessCodes/${acessCodeId}`);
     return data;
   },
 };

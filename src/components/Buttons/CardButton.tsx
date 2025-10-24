@@ -31,12 +31,8 @@ const CardButton: React.FC<CardButtonProps> = ({
       </div>
       <div className="mt-4 flex items-end justify-center">
         <div>
-          <h4 className="text-title-md font-bold dark:text-white text-black">
-            {title}
-          </h4>
-          <span className="text-sm font-medium dark:text-whiten ">
-            {subtitle}
-          </span>
+          <h4 className="text-title-md font-bold  text-white">{title}</h4>
+          <span className="text-sm font-medium  text-white ">{subtitle}</span>
         </div>
       </div>
     </button>

@@ -1,10 +1,12 @@
 import * as Yup from 'yup';
 
 export const ticketsInitialValues = {
+  // id: 0, // o null si tu backend lo ignora
   name: '',
   description: '',
   price: 0,
   endOfSale: '',
+  // isActive: false,
   startOfSale: '',
   totalAmount: 0,
   maxAmountPerUser: 0,
@@ -19,6 +21,7 @@ export const createTicketSchemaValidation = Yup.object({
     .max(500, 'La descripción no puede exceder los 500 caracteres'),
   price: Yup.number()
     .required('El precio es obligatorio')
+    .integer('Debe ser un número entero')
     .min(0, 'El precio no puede ser negativo'),
   startOfSale: Yup.date()
     .required('La fecha de inicio de venta es obligatoria')
@@ -32,9 +35,11 @@ export const createTicketSchemaValidation = Yup.object({
     ),
   totalAmount: Yup.number()
     .required('La cantidad total es obligatoria')
+    .integer('Debe ser un número entero')
     .min(1, 'Debe haber al menos un ticket disponible'),
   maxAmountPerUser: Yup.number()
     .required('La cantidad máxima por usuario es obligatoria')
+    .integer('Debe ser un número entero')
     .min(1, 'Debe haber al menos un ticket por usuario')
     .max(Yup.ref('totalAmount'), 'No puede ser mayor que la cantidad total'),
 });

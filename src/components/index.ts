@@ -17,7 +17,7 @@ export * from './Cards/EventHorizontalCard';
 export * from './Charts/ChartOne';
 export * from './Charts/ChartThree';
 export * from './Charts/ChartTwo';
-export * from './Chat/ChatCard';
+// export * from './Chat/ChatCard';
 export * from './Checkboxes/CheckboxFive';
 export * from './Checkboxes/CheckboxFour';
 export * from './Checkboxes/CheckboxOne';

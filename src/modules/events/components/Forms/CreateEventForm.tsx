@@ -92,11 +92,30 @@ const CreateEventForm = () => {
 
         eventMutation.mutate(formatValues, {
           onSuccess(data) {
-            showDefaultToast('Has creado un evento como borrador');
-            navigate(`/panel/events/create/${data.data.id}/tickets`);
+            showDefaultToast(
+              eventId
+                ? 'Evento Actualizado'
+                : 'Has creado un evento como borrador',
+            );
+
+            if (eventId) {
+              // Estamos editando, usamos el eventId de params
+              navigate(`/panel/events/create/${eventId}/tickets/publish`);
+            } else {
+              // Estamos creando, usamos el ID devuelto por la API
+              const newEventId = data?.data?.id;
+              if (newEventId) {
+                navigate(`/panel/events/create/${newEventId}/tickets`);
+              }
+            }
           },
-          onError(error) {
-            showErrorToast(`Error al crear evento: ${error}`);
+          onError(error: any) {
+            const message =
+              error?.response?.data?.message || // Axios style
+              error?.message || // JS Error
+              'Ocurrió un error desconocido';
+
+            showErrorToast(`Error al crear evento: ${message}`);
           },
         });
       } catch (err) {
@@ -104,8 +123,6 @@ const CreateEventForm = () => {
       }
     },
   });
-
-  console.log('initialValues', eventData);
 
   useEffect(() => {
     if (eventId && eventData) {
@@ -118,9 +135,9 @@ const CreateEventForm = () => {
         ...eventData.data,
         date: formattedDate,
         time: formattedTime,
+        isFree: Boolean(eventData.data.isFree),
       });
 
-      // 🔹 Seteamos los previews desde las URLs de la API
       setSquarePreview(eventData.data.photo || null);
       setVerticalPreview(eventData.data.verticalPhoto || null);
     }
@@ -153,7 +170,7 @@ const CreateEventForm = () => {
           <div className="flex">
             <MdOutlineCreateNewFolder className="text-primary mx-2" size={30} />
             <h1 className="text-3xl font-bold text-gray-900 mb-2 ">
-              Crear Nuevo Evento
+              {eventId ? 'Editar Evento' : 'Crear Nuevo Evento'}
             </h1>
           </div>
           <p className="text-gray-600">
@@ -737,6 +754,7 @@ const CreateEventForm = () => {
                 eventId ? <MdOutlineRefresh size={25} /> : <MdSave size={25} />
               }
               type="submit"
+              disabled={eventMutation.isPending}
               isLoading={eventMutation.isPending}
             />
           </div>
